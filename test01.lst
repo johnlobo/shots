@@ -1,0 +1,206 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.4.0 #8981 (Apr  5 2014) (MINGW32)
+                              4 ; This file was generated Fri Mar 20 19:33:18 2015
+                              5 ;--------------------------------------------------------
+                              6 	.module test01
+                              7 	.optsdcc -mz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _main
+                             13 	.globl _setColours
+                             14 	.globl _pause
+                             15 	.globl _cpc_SetColour
+                             16 	.globl _cpc_SetMode
+                             17 	.globl _cpc_DisableFirmware
+                             18 	.globl _cpc_EnableFirmware
+                             19 	.globl _drawSprite_clipping_m0
+                             20 	.globl _tintas
+                             21 	.globl _heart
+                             22 ;--------------------------------------------------------
+                             23 ; special function registers
+                             24 ;--------------------------------------------------------
+                             25 ;--------------------------------------------------------
+                             26 ; ram data
+                             27 ;--------------------------------------------------------
+                             28 	.area _DATA
+                             29 ;--------------------------------------------------------
+                             30 ; ram data
+                             31 ;--------------------------------------------------------
+                             32 	.area _INITIALIZED
+   0000                      33 _heart::
+   0000                      34 	.ds 17
+   0011                      35 _tintas::
+   0011                      36 	.ds 17
+                             37 ;--------------------------------------------------------
+                             38 ; absolute external ram data
+                             39 ;--------------------------------------------------------
+                             40 	.area _DABS (ABS)
+                             41 ;--------------------------------------------------------
+                             42 ; global & static initialisations
+                             43 ;--------------------------------------------------------
+                             44 	.area _HOME
+                             45 	.area _GSINIT
+                             46 	.area _GSFINAL
+                             47 	.area _GSINIT
+                             48 ;--------------------------------------------------------
+                             49 ; Home
+                             50 ;--------------------------------------------------------
+                             51 	.area _HOME
+                             52 	.area _HOME
+                             53 ;--------------------------------------------------------
+                             54 ; code
+                             55 ;--------------------------------------------------------
+                             56 	.area _CODE
+                             57 ;test01.c:20: void pause(unsigned int p){
+                             58 ;	---------------------------------
+                             59 ; Function pause
+                             60 ; ---------------------------------
+   0000                      61 _pause_start::
+   0000                      62 _pause:
+                             63 ;test01.c:22: for (i=0; i < p; i++) {
+   0000 11 00 00      [10]   64 	ld	de,#0x0000
+   0003                      65 00103$:
+   0003 21 02 00      [10]   66 	ld	hl,#2
+   0006 39            [11]   67 	add	hl,sp
+   0007 7B            [ 4]   68 	ld	a,e
+   0008 96            [ 7]   69 	sub	a, (hl)
+   0009 7A            [ 4]   70 	ld	a,d
+   000A 23            [ 6]   71 	inc	hl
+   000B 9E            [ 7]   72 	sbc	a, (hl)
+   000C D0            [11]   73 	ret	NC
+                             74 ;test01.c:25: __endasm;
+   000D 76            [ 4]   75 	halt
+                             76 ;test01.c:22: for (i=0; i < p; i++) {
+   000E 13            [ 6]   77 	inc	de
+   000F 18 F2         [12]   78 	jr	00103$
+   0011 C9            [10]   79 	ret
+   0012                      80 _pause_end::
+                             81 ;test01.c:33: void setColours()
+                             82 ;	---------------------------------
+                             83 ; Function setColours
+                             84 ; ---------------------------------
+   0012                      85 _setColours_start::
+   0012                      86 _setColours:
+                             87 ;test01.c:36: for (x=0; x<17; x++)
+   0012 1E 00         [ 7]   88 	ld	e,#0x00
+   0014                      89 00102$:
+                             90 ;test01.c:38: cpc_SetColour(x,tintas[x]);
+   0014 21r11r00      [10]   91 	ld	hl,#_tintas
+   0017 16 00         [ 7]   92 	ld	d,#0x00
+   0019 19            [11]   93 	add	hl, de
+   001A 66            [ 7]   94 	ld	h,(hl)
+   001B D5            [11]   95 	push	de
+   001C E5            [11]   96 	push	hl
+   001D 33            [ 6]   97 	inc	sp
+   001E 7B            [ 4]   98 	ld	a,e
+   001F F5            [11]   99 	push	af
+   0020 33            [ 6]  100 	inc	sp
+   0021 CDr00r00      [17]  101 	call	_cpc_SetColour
+   0024 F1            [10]  102 	pop	af
+   0025 D1            [10]  103 	pop	de
+                            104 ;test01.c:36: for (x=0; x<17; x++)
+   0026 1C            [ 4]  105 	inc	e
+   0027 7B            [ 4]  106 	ld	a,e
+   0028 D6 11         [ 7]  107 	sub	a, #0x11
+   002A 38 E8         [12]  108 	jr	C,00102$
+   002C C9            [10]  109 	ret
+   002D                     110 _setColours_end::
+                            111 ;test01.c:42: void main(){
+                            112 ;	---------------------------------
+                            113 ; Function main
+                            114 ; ---------------------------------
+   002D                     115 _main_start::
+   002D                     116 _main:
+                            117 ;test01.c:46: cpc_DisableFirmware();
+   002D CDr00r00      [17]  118 	call	_cpc_DisableFirmware
+                            119 ;test01.c:48: cpc_SetMode(0);
+   0030 AF            [ 4]  120 	xor	a, a
+   0031 F5            [11]  121 	push	af
+   0032 33            [ 6]  122 	inc	sp
+   0033 CDr00r00      [17]  123 	call	_cpc_SetMode
+   0036 33            [ 6]  124 	inc	sp
+                            125 ;test01.c:50: setColours();
+   0037 CDr12r00      [17]  126 	call	_setColours
+                            127 ;test01.c:52: cpc_SetColour(17,3);
+   003A 21 11 03      [10]  128 	ld	hl,#0x0311
+   003D E5            [11]  129 	push	hl
+   003E CDr00r00      [17]  130 	call	_cpc_SetColour
+   0041 F1            [10]  131 	pop	af
+                            132 ;test01.c:54: for (i=0;i<200;i=i+5){
+   0042 16 00         [ 7]  133 	ld	d,#0x00
+                            134 ;test01.c:55: for (j=0;j<79;j=j+3){
+   0044                     135 00109$:
+   0044 1E 00         [ 7]  136 	ld	e,#0x00
+   0046                     137 00103$:
+                            138 ;test01.c:57: drawSprite_clipping_m0(heart,j,i);
+   0046 01r00r00      [10]  139 	ld	bc,#_heart
+   0049 D5            [11]  140 	push	de
+   004A D5            [11]  141 	push	de
+   004B C5            [11]  142 	push	bc
+   004C CDr00r00      [17]  143 	call	_drawSprite_clipping_m0
+   004F F1            [10]  144 	pop	af
+   0050 F1            [10]  145 	pop	af
+   0051 D1            [10]  146 	pop	de
+                            147 ;test01.c:55: for (j=0;j<79;j=j+3){
+   0052 1C            [ 4]  148 	inc	e
+   0053 1C            [ 4]  149 	inc	e
+   0054 1C            [ 4]  150 	inc	e
+   0055 7B            [ 4]  151 	ld	a,e
+   0056 D6 4F         [ 7]  152 	sub	a, #0x4F
+   0058 38 EC         [12]  153 	jr	C,00103$
+                            154 ;test01.c:54: for (i=0;i<200;i=i+5){
+   005A 7A            [ 4]  155 	ld	a,d
+   005B C6 05         [ 7]  156 	add	a, #0x05
+   005D 57            [ 4]  157 	ld	d,a
+   005E D6 C8         [ 7]  158 	sub	a, #0xC8
+   0060 38 E2         [12]  159 	jr	C,00109$
+                            160 ;test01.c:61: pause(1000);
+   0062 21 E8 03      [10]  161 	ld	hl,#0x03E8
+   0065 E5            [11]  162 	push	hl
+   0066 CDr00r00      [17]  163 	call	_pause
+   0069 F1            [10]  164 	pop	af
+                            165 ;test01.c:62: cpc_EnableFirmware();
+   006A C3r00r00      [10]  166 	jp	_cpc_EnableFirmware
+   006D                     167 _main_end::
+                            168 	.area _CODE
+                            169 	.area _INITIALIZER
+   0000                     170 __xinit__heart:
+   0000 03                  171 	.db #0x03	; 3
+   0001 05                  172 	.db #0x05	; 5
+   0002 50                  173 	.db #0x50	; 80	'P'
+   0003 14                  174 	.db #0x14	; 20
+   0004 00                  175 	.db #0x00	; 0
+   0005 B4                  176 	.db #0xB4	; 180
+   0006 3C                  177 	.db #0x3C	; 60
+   0007 28                  178 	.db #0x28	; 40
+   0008 B4                  179 	.db #0xB4	; 180
+   0009 3C                  180 	.db #0x3C	; 60
+   000A 28                  181 	.db #0x28	; 40
+   000B 14                  182 	.db #0x14	; 20
+   000C 3C                  183 	.db #0x3C	; 60
+   000D 00                  184 	.db #0x00	; 0
+   000E 00                  185 	.db #0x00	; 0
+   000F 28                  186 	.db #0x28	; 40
+   0010 00                  187 	.db #0x00	; 0
+   0011                     188 __xinit__tintas:
+   0011 14                  189 	.db #0x14	; 20
+   0012 01                  190 	.db #0x01	; 1
+   0013 0B                  191 	.db #0x0B	; 11
+   0014 09                  192 	.db #0x09	; 9
+   0015 0A                  193 	.db #0x0A	; 10
+   0016 0E                  194 	.db #0x0E	; 14
+   0017 0C                  195 	.db #0x0C	; 12
+   0018 1C                  196 	.db #0x1C	; 28
+   0019 1A                  197 	.db #0x1A	; 26
+   001A 16                  198 	.db #0x16	; 22
+   001B 1E                  199 	.db #0x1E	; 30
+   001C 13                  200 	.db #0x13	; 19
+   001D 1F                  201 	.db #0x1F	; 31
+   001E 17                  202 	.db #0x17	; 23
+   001F 15                  203 	.db #0x15	; 21
+   0020 10                  204 	.db #0x10	; 16
+   0021 14                  205 	.db #0x14	; 20
+                            206 	.area _CABS (ABS)

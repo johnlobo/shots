@@ -1,0 +1,3795 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.4.0 #8981 (Apr  5 2014) (MINGW32)
+                              4 ; This file was generated Mon Mar 09 14:15:22 2015
+                              5 ;--------------------------------------------------------
+                              6 	.module shots
+                              7 	.optsdcc -mz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _main
+                             13 	.globl _game
+                             14 	.globl _inicializarNivel
+                             15 	.globl _Inicializacion
+                             16 	.globl _redefinirTeclas
+                             17 	.globl _inicializarTeclado
+                             18 	.globl _gameOver
+                             19 	.globl _pintarBanderasNivel
+                             20 	.globl _mostrarVidasProta
+                             21 	.globl _pintarProta
+                             22 	.globl _borrarProta
+                             23 	.globl _moverProta
+                             24 	.globl _inicializarProta
+                             25 	.globl _win
+                             26 	.globl _protaDead
+                             27 	.globl _levelUp
+                             28 	.globl _menu
+                             29 	.globl _letrasColorRojo
+                             30 	.globl _letrasColorAzul
+                             31 	.globl _pause
+                             32 	.globl _set_colours
+                             33 	.globl _getTime
+                             34 	.globl _timerOff
+                             35 	.globl _timerOn
+                             36 	.globl _sprites
+                             37 	.globl _asm_data_quezesto
+                             38 	.globl _getScreenAddress
+                             39 	.globl _printSpriteXOR
+                             40 	.globl _cpct_drawSprite
+                             41 	.globl _cpc_WyzInitPlayer
+                             42 	.globl _cpc_WyzSetPlayerOff
+                             43 	.globl _cpc_WyzSetPlayerOn
+                             44 	.globl _cpc_WyzStartEffect
+                             45 	.globl _cpc_WyzLoadSong
+                             46 	.globl _cpc_SetInkGphStr
+                             47 	.globl _cpc_PrintGphStrXY2X
+                             48 	.globl _cpc_PrintGphStrXY
+                             49 	.globl _cpc_PrintGphStr
+                             50 	.globl _cpc_RedefineKey
+                             51 	.globl _cpc_TestKey
+                             52 	.globl _cpc_AssignKey
+                             53 	.globl _cpc_ScanKeyboard
+                             54 	.globl _cpc_AnyKeyPressed
+                             55 	.globl _cpc_ClrScr
+                             56 	.globl _cpc_SetColour
+                             57 	.globl _cpc_SetMode
+                             58 	.globl _cpc_DisableFirmware
+                             59 	.globl _sprintf
+                             60 	.globl _cambio_score
+                             61 	.globl _score
+                             62 	.globl _nTimeLast
+                             63 	.globl _timer1
+                             64 	.globl _timer0
+                             65 	.globl _redFlag
+                             66 	.globl _trayectoria1
+                             67 	.globl _aux_txt
+                             68 	.globl _hostilidad
+                             69 	.globl _nivel
+                             70 	.globl _state
+                             71 	.globl _addon_sprite
+                             72 	.globl _addones_activos
+                             73 	.globl _addones
+                             74 	.globl _max_ataques_activos
+                             75 	.globl _ataques_activos
+                             76 	.globl _ataques
+                             77 	.globl _formMoved
+                             78 	.globl _stepCount
+                             79 	.globl _velYForm
+                             80 	.globl _velXForm
+                             81 	.globl _previous_state
+                             82 	.globl _fin_explosion_prota
+                             83 	.globl _explosion_prota_activada
+                             84 	.globl _fase_explosion_prota
+                             85 	.globl _explosion_prota_lastUpdated
+                             86 	.globl _explosiones_prota
+                             87 	.globl _explosiones_lastUpdated
+                             88 	.globl _explosion_sprite
+                             89 	.globl _explosiones_activas
+                             90 	.globl _explosiones
+                             91 	.globl _malos_activos
+                             92 	.globl _animMotorSprite
+                             93 	.globl _malos
+                             94 	.globl _prota
+                             95 	.globl _max_disparos_MALOS
+                             96 	.globl _disparos_malos_activos
+                             97 	.globl _disparosMalos
+                             98 	.globl _disparos_activos
+                             99 	.globl _disparos
+                            100 	.globl _SONG_0
+                            101 ;--------------------------------------------------------
+                            102 ; special function registers
+                            103 ;--------------------------------------------------------
+                            104 ;--------------------------------------------------------
+                            105 ; ram data
+                            106 ;--------------------------------------------------------
+                            107 	.area _DATA
+   0000                     108 _disparos::
+   0000                     109 	.ds 75
+   004B                     110 _disparos_activos::
+   004B                     111 	.ds 1
+   004C                     112 _disparosMalos::
+   004C                     113 	.ds 60
+   0088                     114 _disparos_malos_activos::
+   0088                     115 	.ds 1
+   0089                     116 _max_disparos_MALOS::
+   0089                     117 	.ds 1
+   008A                     118 _prota::
+   008A                     119 	.ds 28
+   00A6                     120 _malos::
+   00A6                     121 	.ds 348
+   0202                     122 _animMotorSprite::
+   0202                     123 	.ds 8
+   020A                     124 _malos_activos::
+   020A                     125 	.ds 1
+   020B                     126 _explosiones::
+   020B                     127 	.ds 192
+   02CB                     128 _explosiones_activas::
+   02CB                     129 	.ds 1
+   02CC                     130 _explosion_sprite::
+   02CC                     131 	.ds 16
+   02DC                     132 _explosiones_lastUpdated::
+   02DC                     133 	.ds 4
+   02E0                     134 _explosiones_prota::
+   02E0                     135 	.ds 30
+   02FE                     136 _explosion_prota_lastUpdated::
+   02FE                     137 	.ds 4
+   0302                     138 _fase_explosion_prota::
+   0302                     139 	.ds 1
+   0303                     140 _explosion_prota_activada::
+   0303                     141 	.ds 1
+   0304                     142 _fin_explosion_prota::
+   0304                     143 	.ds 1
+   0305                     144 _previous_state::
+   0305                     145 	.ds 1
+   0306                     146 _velXForm::
+   0306                     147 	.ds 1
+   0307                     148 _velYForm::
+   0307                     149 	.ds 1
+   0308                     150 _stepCount::
+   0308                     151 	.ds 1
+   0309                     152 _formMoved::
+   0309                     153 	.ds 1
+   030A                     154 _ataques::
+   030A                     155 	.ds 12
+   0316                     156 _ataques_activos::
+   0316                     157 	.ds 1
+   0317                     158 _max_ataques_activos::
+   0317                     159 	.ds 1
+   0318                     160 _addones::
+   0318                     161 	.ds 12
+   0324                     162 _addones_activos::
+   0324                     163 	.ds 1
+   0325                     164 _addon_sprite::
+   0325                     165 	.ds 8
+   032D                     166 _state::
+   032D                     167 	.ds 1
+   032E                     168 _nivel::
+   032E                     169 	.ds 1
+   032F                     170 _hostilidad::
+   032F                     171 	.ds 1
+   0330                     172 _aux_txt::
+   0330                     173 	.ds 6
+                            174 ;--------------------------------------------------------
+                            175 ; ram data
+                            176 ;--------------------------------------------------------
+                            177 	.area _INITIALIZED
+   0000                     178 _trayectoria1::
+   0000                     179 	.ds 20
+   0014                     180 _redFlag::
+   0014                     181 	.ds 14
+   0022                     182 _timer0::
+   0022                     183 	.ds 2
+   0024                     184 _timer1::
+   0024                     185 	.ds 2
+   0026                     186 _nTimeLast::
+   0026                     187 	.ds 4
+   002A                     188 _score::
+   002A                     189 	.ds 2
+   002C                     190 _cambio_score::
+   002C                     191 	.ds 1
+                            192 ;--------------------------------------------------------
+                            193 ; absolute external ram data
+                            194 ;--------------------------------------------------------
+                            195 	.area _DABS (ABS)
+                            196 ;--------------------------------------------------------
+                            197 ; global & static initialisations
+                            198 ;--------------------------------------------------------
+                            199 	.area _HOME
+                            200 	.area _GSINIT
+                            201 	.area _GSFINAL
+                            202 	.area _GSINIT
+                            203 ;--------------------------------------------------------
+                            204 ; Home
+                            205 ;--------------------------------------------------------
+                            206 	.area _HOME
+                            207 	.area _HOME
+                            208 ;--------------------------------------------------------
+                            209 ; code
+                            210 ;--------------------------------------------------------
+                            211 	.area _CODE
+                            212 ;datos.h:11: void asm_data_quezesto(void) {
+                            213 ;	---------------------------------
+                            214 ; Function asm_data_quezesto
+                            215 ; ---------------------------------
+   0000                     216 _asm_data_quezesto_start::
+   0000                     217 _asm_data_quezesto:
+                            218 ;datos.h:127: __endasm;
+   0000                     219 	_SONG_TABLE_0:
+   0000rF2r01               220 	.dw _SONG_0
+   0002                     221 	_RULE_TABLE_0:
+   0002r10r00r19r00r2Er00   222 	.dw PAUTA_0,PAUTA_1,PAUTA_2,PAUTA_3,PAUTA_4,PAUTA_5,PAUTA_6
+       r3Dr00r4Er00r6Dr00
+       r7Ar00
+   0010                     223 	PAUTA_0:
+   0010 2E 00 0C 00 0A 00   224 	.DB #46,#0,#12,#0,#10,#0,#9,#0,#129
+        09 00 81
+   0019                     225 	PAUTA_1:
+   0019 2E 00 0D 00 0C 00   226 	.DB #46,#0,#13,#0,#12,#0,#10,#0,#10,#0,#9,#0,#8,#0,#12,#0,#10,#0,#9,#0,#129
+        0A 00 0A 00 09 00
+        08 00 0C 00 0A 00
+        09 00 81
+   002E                     227 	PAUTA_2:
+   002E 07 00 08 00 09 00   228 	.DB #7,#0,#8,#0,#9,#0,#9,#0,#8,#0,#7,#0,#6,#0,#129
+        09 00 08 00 07 00
+        06 00 81
+   003D                     229 	PAUTA_3:
+   003D 2D 00 0C 00 0C 00   230 	.DB #45,#0,#12,#0,#12,#0,#11,#0,#11,#0,#10,#0,#10,#0,#9,#0,#129
+        0B 00 0B 00 0A 00
+        0A 00 09 00 81
+   004E                     231 	PAUTA_4:
+   004E 07 00 08 00 08 00   232 	.DB #7,#0,#8,#0,#8,#0,#8,#0,#7,#0,#6,#0,#6,#0,#6,#0,#6,#0,#6,#0,#5,#0,#5,#0,#5,#0,#5,#0,#5,#0,#138
+        08 00 07 00 06 00
+        06 00 06 00 06 00
+        06 00 05 00 05 00
+        05 00 05 00 05 00
+        8A
+   006D                     233 	PAUTA_5:
+   006D 07 00 08 00 09 00   234 	.DB #7,#0,#8,#0,#9,#0,#8,#0,#7,#0,#6,#0,#129
+        08 00 07 00 06 00
+        81
+   007A                     235 	PAUTA_6:
+   007A 4D 00 0C 00 0B 00   236 	.DB #77,#0,#12,#0,#11,#0,#10,#0,#9,#0,#8,#0,#7,#0,#9,#0,#8,#0,#7,#0,#129
+        0A 00 09 00 08 00
+        07 00 09 00 08 00
+        07 00 81
+   008F                     237 	_SOUND_TABLE_0:
+   008Fr9Cr00               238 	.dw SONIDO1
+   0091rA3r00               239 	.dw SONIDO2
+   0093rA7r00               240 	.dw SONIDO3
+   0095                     241 	SONIDO0:
+   0095 17 3F 00 74 6E 00   242 	.DB #23,#63,#0,#116,#110,#0,#255
+        FF
+   009C                     243 	SONIDO1:
+   009C A2 2F 00 17 5D 09   244 	.DB #162,#47,#0,#23,#93,#9,#255
+        FF
+   00A3                     245 	SONIDO2:
+   00A3 00 0A 05 FF         246 	.DB #0,#10,#5,#255
+   00A7                     247 	SONIDO3:
+   00A7 BA 3A 00 00 66 00   248 	.DB #186,#58,#0,#0,#102,#0,#162,#131,#0,#255
+        A2 83 00 FF
+   00B1                     249 	_EFFECT_TABLE:
+   00B1rB9r00               250 	.dw _EFECTO0
+   00B3rCAr00               251 	.dw _EFECTO1
+   00B5rE7r00               252 	.dw _EFECTO2
+   00B7r1Er01               253 	.dw _EFECTO3
+   00B9                     254 	_EFECTO0:
+   00B9 58 0D               255 	.db #0x58,#0x0D
+   00BB 50 0B               256 	.db #0x50,#0x0B
+   00BD 47 0A               257 	.db #0x47,#0x0A
+   00BF 3E 06               258 	.db #0x3E,#0x06
+   00C1 35 03               259 	.db #0x35,#0x03
+   00C3 50 09               260 	.db #0x50,#0x09
+   00C5 47 0A               261 	.db #0x47,#0x0A
+   00C7 3E 07               262 	.db #0x3E,#0x07
+   00C9 FF                  263 	.db #0xFF
+   00CA                     264 	_EFECTO1:
+   00CA 58 0C               265 	.db #0x58,#0x0C
+   00CC 5D 0D               266 	.db #0x5D,#0x0D
+   00CE 61 0E               267 	.db #0x61,#0x0E
+   00D0 66 0F               268 	.db #0x66,#0x0F
+   00D2 6A 0E               269 	.db #0x6A,#0x0E
+   00D4 6F 0D               270 	.db #0x6F,#0x0D
+   00D6 7A 0C               271 	.db #0x7A,#0x0C
+   00D8 78 0B               272 	.db #0x78,#0x0B
+   00DA 7C 0A               273 	.db #0x7C,#0x0A
+   00DC 85 09               274 	.db #0x85,#0x09
+   00DE 8E 08               275 	.db #0x8E,#0x08
+   00E0 97 07               276 	.db #0x97,#0x07
+   00E2 A0 06               277 	.db #0xA0,#0x06
+   00E4 A9 05               278 	.db #0xA9,#0x05
+   00E6 FF                  279 	.db #0xFF
+   00E7                     280 	_EFECTO2:
+   00E7 1F 0B               281 	.db #0x1F,#0x0B
+   00E9 1A 0C               282 	.db #0x1A,#0x0C
+   00EB 1F 0D               283 	.db #0x1F,#0x0D
+   00ED 16 0E               284 	.db #0x16,#0x0E
+   00EF 1F 0E               285 	.db #0x1F,#0x0E
+   00F1 0D 0D               286 	.db #0x0D,#0x0D
+   00F3 1F 0C               287 	.db #0x1F,#0x0C
+   00F5 0D 0B               288 	.db #0x0D,#0x0B
+   00F7 00 00               289 	.db #0x00,#0x00
+   00F9 00 00               290 	.db #0x00,#0x00
+   00FB 1F 08               291 	.db #0x1F,#0x08
+   00FD 1A 09               292 	.db #0x1A,#0x09
+   00FF 1F 0A               293 	.db #0x1F,#0x0A
+   0101 16 0B               294 	.db #0x16,#0x0B
+   0103 1F 0B               295 	.db #0x1F,#0x0B
+   0105 0D 0A               296 	.db #0x0D,#0x0A
+   0107 1F 09               297 	.db #0x1F,#0x09
+   0109 0D 07               298 	.db #0x0D,#0x07
+   010B 00 00               299 	.db #0x00,#0x00
+   010D 00 00               300 	.db #0x00,#0x00
+   010F 1F 06               301 	.db #0x1F,#0x06
+   0111 1A 07               302 	.db #0x1A,#0x07
+   0113 1F 08               303 	.db #0x1F,#0x08
+   0115 16 08               304 	.db #0x16,#0x08
+   0117 1F 07               305 	.db #0x1F,#0x07
+   0119 0D 06               306 	.db #0x0D,#0x06
+   011B 1F 05               307 	.db #0x1F,#0x05
+   011D FF                  308 	.db #0xFF
+   011E                     309 	_EFECTO3:
+   011E 1A 0E               310 	.db #0x1A,#0x0E
+   0120 1A 0E               311 	.db #0x1A,#0x0E
+   0122 00 00               312 	.db #0x00,#0x00
+   0124 1A 0A               313 	.db #0x1A,#0x0A
+   0126 1A 0A               314 	.db #0x1A,#0x0A
+   0128 00 00               315 	.db #0x00,#0x00
+   012A 1A 0C               316 	.db #0x1A,#0x0C
+   012C 1A 0C               317 	.db #0x1A,#0x0C
+   012E 00 00               318 	.db #0x00,#0x00
+   0130 1A 08               319 	.db #0x1A,#0x08
+   0132 1A 08               320 	.db #0x1A,#0x08
+   0134 FF                  321 	.db #0xFF
+   0135 C9            [10]  322 	ret
+   0136                     323 _asm_data_quezesto_end::
+                            324 ;sprites.h:21: void sprites(void){
+                            325 ;	---------------------------------
+                            326 ; Function sprites
+                            327 ; ---------------------------------
+   0136                     328 _sprites_start::
+   0136                     329 _sprites:
+                            330 ;sprites.h:94: __endasm;
+   0136                     331 	ship01:
+   0136 06 10               332 	.db 0x06, 0x10 ; Width x Height
+                            333 ; pixels
+   0138 00 00 00 00 00 00   334 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+   013E 00 00 44 88 00 00   335 	.db 0x00, 0x00, 0x44, 0x88, 0x00, 0x00
+   0144 00 00 04 08 00 00   336 	.db 0x00, 0x00, 0x04, 0x08, 0x00, 0x00
+   014A 00 00 0C 0C 00 00   337 	.db 0x00, 0x00, 0x0C, 0x0C, 0x00, 0x00
+   0150 00 00 18 24 00 00   338 	.db 0x00, 0x00, 0x18, 0x24, 0x00, 0x00
+   0156 00 00 18 24 00 00   339 	.db 0x00, 0x00, 0x18, 0x24, 0x00, 0x00
+   015C 00 00 4C 8C 00 00   340 	.db 0x00, 0x00, 0x4C, 0x8C, 0x00, 0x00
+   0162 00 88 0C 0C 44 00   341 	.db 0x00, 0x88, 0x0C, 0x0C, 0x44, 0x00
+   0168 00 88 0C 0C 44 00   342 	.db 0x00, 0x88, 0x0C, 0x0C, 0x44, 0x00
+   016E 00 8C 0C 0C 4C 00   343 	.db 0x00, 0x8C, 0x0C, 0x0C, 0x4C, 0x00
+   0174 00 8C CC 64 4C 00   344 	.db 0x00, 0x8C, 0xCC, 0x64, 0x4C, 0x00
+   017A 00 4C 98 64 8C 00   345 	.db 0x00, 0x4C, 0x98, 0x64, 0x8C, 0x00
+   0180 00 4C 0C 0C 8C 00   346 	.db 0x00, 0x4C, 0x0C, 0x0C, 0x8C, 0x00
+   0186 00 04 0C 0C 08 00   347 	.db 0x00, 0x04, 0x0C, 0x0C, 0x08, 0x00
+   018C 00 00 A9 A9 00 00   348 	.db 0x00, 0x00, 0xA9, 0xA9, 0x00, 0x00
+   0192 00 00 00 00 00 00   349 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+   0198                     350 	_bullet01:
+   0198 00 00               351 	.db 0x00,0x00
+   019A 14 28               352 	.db 0x14,0x28
+   019C 14 02               353 	.db 0x14,0x02
+   019E 01 02               354 	.db 0x01,0x02
+   01A0 01 02               355 	.db 0x01,0x02
+   01A2 01 02               356 	.db 0x01,0x02
+   01A4 00 00               357 	.db 0x00,0x00
+   01A6                     358 	_bullet02:
+   01A6 00 00               359 	.db 0x00,0x00
+   01A8 11 22               360 	.db 0x11,0x22
+   01AA 11 8A               361 	.db 0x11,0x8A
+   01AC 45 8A               362 	.db 0x45,0x8A
+   01AE 00 00               363 	.db 0x00,0x00
+   01B0                     364 	heart:
+   01B0 03 05               365 	.db 0x03, 0x05 ; Width x Height
+                            366 ; pixels
+   01B2 01 54 00            367 	.db 0x01, 0x54, 0x00
+   01B5 56 FC A8            368 	.db 0x56, 0xFC, 0xA8
+   01B8 56 FC A8            369 	.db 0x56, 0xFC, 0xA8
+   01BB 54 FC 00            370 	.db 0x54, 0xFC, 0x00
+   01BE 00 A8 00            371 	.db 0x00, 0xA8, 0x00
+   01C1                     372 	_plane:
+   01C1 03 06               373 	.db 0x03, 0x06 ; Width x Height
+                            374 ; pixels
+   01C3 00 8C 00            375 	.db 0x00, 0x8C, 0x00
+   01C6 00 8C 00            376 	.db 0x00, 0x8C, 0x00
+   01C9 23 FF 00            377 	.db 0x23, 0xFF, 0x00
+   01CC BF FF CC            378 	.db 0xBF, 0xFF, 0xCC
+   01CF 00 CC 00            379 	.db 0x00, 0xCC, 0x00
+   01D2 00 00 00            380 	.db 0x00, 0x00, 0x00
+   01D5                     381 	_greenFlag:
+   01D5 03 06               382 	.db 0x03, 0x06 ; Width x Height
+                            383 ; pixels
+   01D7 00 85 00            384 	.db 0x00, 0x85, 0x00
+   01DA 21 85 00            385 	.db 0x21, 0x85, 0x00
+   01DD A5 85 00            386 	.db 0xA5, 0x85, 0x00
+   01E0 A5 85 00            387 	.db 0xA5, 0x85, 0x00
+   01E3 00 01 00            388 	.db 0x00, 0x01, 0x00
+   01E6 00 01 00            389 	.db 0x00, 0x01, 0x00
+   01E9                     390 	_tintas:
+   01E9 14 10 02 16 06 17   391 	.db 20,16,2,22,6,23,26,27
+        1A 1B
+q  01F1                     392 	.db
+   01F1 C9            [10]  393 	ret
+   01F2                     394 _sprites_end::
+   01F2                     395 _SONG_0:
+   01F2 05                  396 	.db #0x05	; 5
+   01F3 07                  397 	.db #0x07	; 7
+   01F4 00                  398 	.db #0x00	; 0
+   01F5 00                  399 	.db #0x00	; 0
+   01F6 3F                  400 	.db #0x3F	; 63
+   01F7 00                  401 	.db #0x00	; 0
+   01F8 52                  402 	.db #0x52	; 82	'R'
+   01F9 12                  403 	.db #0x12	; 18
+   01FA 12                  404 	.db #0x12	; 18
+   01FB 52                  405 	.db #0x52	; 82	'R'
+   01FC 52                  406 	.db #0x52	; 82	'R'
+   01FD 12                  407 	.db #0x12	; 18
+   01FE 12                  408 	.db #0x12	; 18
+   01FF 52                  409 	.db #0x52	; 82	'R'
+   0200 52                  410 	.db #0x52	; 82	'R'
+   0201 12                  411 	.db #0x12	; 18
+   0202 12                  412 	.db #0x12	; 18
+   0203 50                  413 	.db #0x50	; 80	'P'
+   0204 10                  414 	.db #0x10	; 16
+   0205 10                  415 	.db #0x10	; 16
+   0206 50                  416 	.db #0x50	; 80	'P'
+   0207 50                  417 	.db #0x50	; 80	'P'
+   0208 10                  418 	.db #0x10	; 16
+   0209 10                  419 	.db #0x10	; 16
+   020A 50                  420 	.db #0x50	; 80	'P'
+   020B 50                  421 	.db #0x50	; 80	'P'
+   020C 10                  422 	.db #0x10	; 16
+   020D 10                  423 	.db #0x10	; 16
+   020E 4E                  424 	.db #0x4E	; 78	'N'
+   020F 0E                  425 	.db #0x0E	; 14
+   0210 0E                  426 	.db #0x0E	; 14
+   0211 4E                  427 	.db #0x4E	; 78	'N'
+   0212 4E                  428 	.db #0x4E	; 78	'N'
+   0213 0E                  429 	.db #0x0E	; 14
+   0214 0E                  430 	.db #0x0E	; 14
+   0215 4E                  431 	.db #0x4E	; 78	'N'
+   0216 4E                  432 	.db #0x4E	; 78	'N'
+   0217 0E                  433 	.db #0x0E	; 14
+   0218 0E                  434 	.db #0x0E	; 14
+   0219 4D                  435 	.db #0x4D	; 77	'M'
+   021A 0D                  436 	.db #0x0D	; 13
+   021B 0D                  437 	.db #0x0D	; 13
+   021C 4D                  438 	.db #0x4D	; 77	'M'
+   021D 4D                  439 	.db #0x4D	; 77	'M'
+   021E 0D                  440 	.db #0x0D	; 13
+   021F 0D                  441 	.db #0x0D	; 13
+   0220 4D                  442 	.db #0x4D	; 77	'M'
+   0221 4D                  443 	.db #0x4D	; 77	'M'
+   0222 0D                  444 	.db #0x0D	; 13
+   0223 0D                  445 	.db #0x0D	; 13
+   0224 52                  446 	.db #0x52	; 82	'R'
+   0225 52                  447 	.db #0x52	; 82	'R'
+   0226 52                  448 	.db #0x52	; 82	'R'
+   0227 12                  449 	.db #0x12	; 18
+   0228 12                  450 	.db #0x12	; 18
+   0229 52                  451 	.db #0x52	; 82	'R'
+   022A 52                  452 	.db #0x52	; 82	'R'
+   022B 52                  453 	.db #0x52	; 82	'R'
+   022C 12                  454 	.db #0x12	; 18
+   022D 12                  455 	.db #0x12	; 18
+   022E 55                  456 	.db #0x55	; 85	'U'
+   022F 55                  457 	.db #0x55	; 85	'U'
+   0230 55                  458 	.db #0x55	; 85	'U'
+   0231 15                  459 	.db #0x15	; 21
+   0232 15                  460 	.db #0x15	; 21
+   0233 55                  461 	.db #0x55	; 85	'U'
+   0234 55                  462 	.db #0x55	; 85	'U'
+   0235 55                  463 	.db #0x55	; 85	'U'
+   0236 15                  464 	.db #0x15	; 21
+   0237 15                  465 	.db #0x15	; 21
+   0238 57                  466 	.db #0x57	; 87	'W'
+   0239 57                  467 	.db #0x57	; 87	'W'
+   023A 57                  468 	.db #0x57	; 87	'W'
+   023B 17                  469 	.db #0x17	; 23
+   023C 17                  470 	.db #0x17	; 23
+   023D 57                  471 	.db #0x57	; 87	'W'
+   023E 57                  472 	.db #0x57	; 87	'W'
+   023F 57                  473 	.db #0x57	; 87	'W'
+   0240 17                  474 	.db #0x17	; 23
+   0241 17                  475 	.db #0x17	; 23
+   0242 5A                  476 	.db #0x5A	; 90	'Z'
+   0243 5A                  477 	.db #0x5A	; 90	'Z'
+   0244 5A                  478 	.db #0x5A	; 90	'Z'
+   0245 1A                  479 	.db #0x1A	; 26
+   0246 1A                  480 	.db #0x1A	; 26
+   0247 5A                  481 	.db #0x5A	; 90	'Z'
+   0248 5A                  482 	.db #0x5A	; 90	'Z'
+   0249 5C                  483 	.db #0x5C	; 92
+   024A 1C                  484 	.db #0x1C	; 28
+   024B 1C                  485 	.db #0x1C	; 28
+   024C 52                  486 	.db #0x52	; 82	'R'
+   024D 52                  487 	.db #0x52	; 82	'R'
+   024E 52                  488 	.db #0x52	; 82	'R'
+   024F 12                  489 	.db #0x12	; 18
+   0250 12                  490 	.db #0x12	; 18
+   0251 52                  491 	.db #0x52	; 82	'R'
+   0252 52                  492 	.db #0x52	; 82	'R'
+   0253 52                  493 	.db #0x52	; 82	'R'
+   0254 12                  494 	.db #0x12	; 18
+   0255 12                  495 	.db #0x12	; 18
+   0256 55                  496 	.db #0x55	; 85	'U'
+   0257 55                  497 	.db #0x55	; 85	'U'
+   0258 55                  498 	.db #0x55	; 85	'U'
+   0259 15                  499 	.db #0x15	; 21
+   025A 15                  500 	.db #0x15	; 21
+   025B 55                  501 	.db #0x55	; 85	'U'
+   025C 55                  502 	.db #0x55	; 85	'U'
+   025D 55                  503 	.db #0x55	; 85	'U'
+   025E 15                  504 	.db #0x15	; 21
+   025F 15                  505 	.db #0x15	; 21
+   0260 57                  506 	.db #0x57	; 87	'W'
+   0261 57                  507 	.db #0x57	; 87	'W'
+   0262 57                  508 	.db #0x57	; 87	'W'
+   0263 17                  509 	.db #0x17	; 23
+   0264 17                  510 	.db #0x17	; 23
+   0265 57                  511 	.db #0x57	; 87	'W'
+   0266 57                  512 	.db #0x57	; 87	'W'
+   0267 57                  513 	.db #0x57	; 87	'W'
+   0268 17                  514 	.db #0x17	; 23
+   0269 17                  515 	.db #0x17	; 23
+   026A 59                  516 	.db #0x59	; 89	'Y'
+   026B 59                  517 	.db #0x59	; 89	'Y'
+   026C 59                  518 	.db #0x59	; 89	'Y'
+   026D 19                  519 	.db #0x19	; 25
+   026E 19                  520 	.db #0x19	; 25
+   026F 57                  521 	.db #0x57	; 87	'W'
+   0270 55                  522 	.db #0x55	; 85	'U'
+   0271 54                  523 	.db #0x54	; 84	'T'
+   0272 51                  524 	.db #0x51	; 81	'Q'
+   0273 52                  525 	.db #0x52	; 82	'R'
+   0274 52                  526 	.db #0x52	; 82	'R'
+   0275 52                  527 	.db #0x52	; 82	'R'
+   0276 12                  528 	.db #0x12	; 18
+   0277 12                  529 	.db #0x12	; 18
+   0278 52                  530 	.db #0x52	; 82	'R'
+   0279 52                  531 	.db #0x52	; 82	'R'
+   027A 52                  532 	.db #0x52	; 82	'R'
+   027B 12                  533 	.db #0x12	; 18
+   027C 12                  534 	.db #0x12	; 18
+   027D 55                  535 	.db #0x55	; 85	'U'
+   027E 55                  536 	.db #0x55	; 85	'U'
+   027F 55                  537 	.db #0x55	; 85	'U'
+   0280 15                  538 	.db #0x15	; 21
+   0281 15                  539 	.db #0x15	; 21
+   0282 55                  540 	.db #0x55	; 85	'U'
+   0283 55                  541 	.db #0x55	; 85	'U'
+   0284 55                  542 	.db #0x55	; 85	'U'
+   0285 15                  543 	.db #0x15	; 21
+   0286 15                  544 	.db #0x15	; 21
+   0287 57                  545 	.db #0x57	; 87	'W'
+   0288 57                  546 	.db #0x57	; 87	'W'
+   0289 57                  547 	.db #0x57	; 87	'W'
+   028A 17                  548 	.db #0x17	; 23
+   028B 17                  549 	.db #0x17	; 23
+   028C 57                  550 	.db #0x57	; 87	'W'
+   028D 57                  551 	.db #0x57	; 87	'W'
+   028E 57                  552 	.db #0x57	; 87	'W'
+   028F 17                  553 	.db #0x17	; 23
+   0290 17                  554 	.db #0x17	; 23
+   0291 5A                  555 	.db #0x5A	; 90	'Z'
+   0292 5A                  556 	.db #0x5A	; 90	'Z'
+   0293 5A                  557 	.db #0x5A	; 90	'Z'
+   0294 1A                  558 	.db #0x1A	; 26
+   0295 1A                  559 	.db #0x1A	; 26
+   0296 5A                  560 	.db #0x5A	; 90	'Z'
+   0297 5A                  561 	.db #0x5A	; 90	'Z'
+   0298 5C                  562 	.db #0x5C	; 92
+   0299 1C                  563 	.db #0x1C	; 28
+   029A 1C                  564 	.db #0x1C	; 28
+   029B 52                  565 	.db #0x52	; 82	'R'
+   029C 52                  566 	.db #0x52	; 82	'R'
+   029D 52                  567 	.db #0x52	; 82	'R'
+   029E 12                  568 	.db #0x12	; 18
+   029F 12                  569 	.db #0x12	; 18
+   02A0 52                  570 	.db #0x52	; 82	'R'
+   02A1 52                  571 	.db #0x52	; 82	'R'
+   02A2 52                  572 	.db #0x52	; 82	'R'
+   02A3 12                  573 	.db #0x12	; 18
+   02A4 12                  574 	.db #0x12	; 18
+   02A5 50                  575 	.db #0x50	; 80	'P'
+   02A6 50                  576 	.db #0x50	; 80	'P'
+   02A7 50                  577 	.db #0x50	; 80	'P'
+   02A8 10                  578 	.db #0x10	; 16
+   02A9 10                  579 	.db #0x10	; 16
+   02AA 50                  580 	.db #0x50	; 80	'P'
+   02AB 50                  581 	.db #0x50	; 80	'P'
+   02AC 50                  582 	.db #0x50	; 80	'P'
+   02AD 10                  583 	.db #0x10	; 16
+   02AE 10                  584 	.db #0x10	; 16
+   02AF 4E                  585 	.db #0x4E	; 78	'N'
+   02B0 4E                  586 	.db #0x4E	; 78	'N'
+   02B1 4E                  587 	.db #0x4E	; 78	'N'
+   02B2 0E                  588 	.db #0x0E	; 14
+   02B3 0E                  589 	.db #0x0E	; 14
+   02B4 4E                  590 	.db #0x4E	; 78	'N'
+   02B5 4E                  591 	.db #0x4E	; 78	'N'
+   02B6 4E                  592 	.db #0x4E	; 78	'N'
+   02B7 0E                  593 	.db #0x0E	; 14
+   02B8 0E                  594 	.db #0x0E	; 14
+   02B9 50                  595 	.db #0x50	; 80	'P'
+   02BA 50                  596 	.db #0x50	; 80	'P'
+   02BB 50                  597 	.db #0x50	; 80	'P'
+   02BC 10                  598 	.db #0x10	; 16
+   02BD 10                  599 	.db #0x10	; 16
+   02BE 50                  600 	.db #0x50	; 80	'P'
+   02BF 50                  601 	.db #0x50	; 80	'P'
+   02C0 10                  602 	.db #0x10	; 16
+   02C1 14                  603 	.db #0x14	; 20
+   02C2 17                  604 	.db #0x17	; 23
+   02C3 14                  605 	.db #0x14	; 20
+   02C4 19                  606 	.db #0x19	; 25
+   02C5 19                  607 	.db #0x19	; 25
+   02C6 52                  608 	.db #0x52	; 82	'R'
+   02C7 52                  609 	.db #0x52	; 82	'R'
+   02C8 12                  610 	.db #0x12	; 18
+   02C9 12                  611 	.db #0x12	; 18
+   02CA 50                  612 	.db #0x50	; 80	'P'
+   02CB 50                  613 	.db #0x50	; 80	'P'
+   02CC 50                  614 	.db #0x50	; 80	'P'
+   02CD 10                  615 	.db #0x10	; 16
+   02CE 10                  616 	.db #0x10	; 16
+   02CF 4E                  617 	.db #0x4E	; 78	'N'
+   02D0 4E                  618 	.db #0x4E	; 78	'N'
+   02D1 4E                  619 	.db #0x4E	; 78	'N'
+   02D2 0E                  620 	.db #0x0E	; 14
+   02D3 0E                  621 	.db #0x0E	; 14
+   02D4 50                  622 	.db #0x50	; 80	'P'
+   02D5 50                  623 	.db #0x50	; 80	'P'
+   02D6 50                  624 	.db #0x50	; 80	'P'
+   02D7 10                  625 	.db #0x10	; 16
+   02D8 10                  626 	.db #0x10	; 16
+   02D9 19                  627 	.db #0x19	; 25
+   02DA 19                  628 	.db #0x19	; 25
+   02DB 52                  629 	.db #0x52	; 82	'R'
+   02DC 12                  630 	.db #0x12	; 18
+   02DD 12                  631 	.db #0x12	; 18
+   02DE 52                  632 	.db #0x52	; 82	'R'
+   02DF 50                  633 	.db #0x50	; 80	'P'
+   02E0 50                  634 	.db #0x50	; 80	'P'
+   02E1 10                  635 	.db #0x10	; 16
+   02E2 10                  636 	.db #0x10	; 16
+   02E3 50                  637 	.db #0x50	; 80	'P'
+   02E4 55                  638 	.db #0x55	; 85	'U'
+   02E5 55                  639 	.db #0x55	; 85	'U'
+   02E6 15                  640 	.db #0x15	; 21
+   02E7 15                  641 	.db #0x15	; 21
+   02E8 55                  642 	.db #0x55	; 85	'U'
+   02E9 57                  643 	.db #0x57	; 87	'W'
+   02EA 57                  644 	.db #0x57	; 87	'W'
+   02EB 17                  645 	.db #0x17	; 23
+   02EC 17                  646 	.db #0x17	; 23
+   02ED 57                  647 	.db #0x57	; 87	'W'
+   02EE 19                  648 	.db #0x19	; 25
+   02EF 19                  649 	.db #0x19	; 25
+   02F0 52                  650 	.db #0x52	; 82	'R'
+   02F1 52                  651 	.db #0x52	; 82	'R'
+   02F2 12                  652 	.db #0x12	; 18
+   02F3 12                  653 	.db #0x12	; 18
+   02F4 50                  654 	.db #0x50	; 80	'P'
+   02F5 50                  655 	.db #0x50	; 80	'P'
+   02F6 50                  656 	.db #0x50	; 80	'P'
+   02F7 10                  657 	.db #0x10	; 16
+   02F8 10                  658 	.db #0x10	; 16
+   02F9 4E                  659 	.db #0x4E	; 78	'N'
+   02FA 4E                  660 	.db #0x4E	; 78	'N'
+   02FB 4E                  661 	.db #0x4E	; 78	'N'
+   02FC 0E                  662 	.db #0x0E	; 14
+   02FD 0E                  663 	.db #0x0E	; 14
+   02FE 50                  664 	.db #0x50	; 80	'P'
+   02FF 50                  665 	.db #0x50	; 80	'P'
+   0300 50                  666 	.db #0x50	; 80	'P'
+   0301 10                  667 	.db #0x10	; 16
+   0302 10                  668 	.db #0x10	; 16
+   0303 19                  669 	.db #0x19	; 25
+   0304 19                  670 	.db #0x19	; 25
+   0305 52                  671 	.db #0x52	; 82	'R'
+   0306 12                  672 	.db #0x12	; 18
+   0307 12                  673 	.db #0x12	; 18
+   0308 52                  674 	.db #0x52	; 82	'R'
+   0309 50                  675 	.db #0x50	; 80	'P'
+   030A 50                  676 	.db #0x50	; 80	'P'
+   030B 10                  677 	.db #0x10	; 16
+   030C 10                  678 	.db #0x10	; 16
+   030D 50                  679 	.db #0x50	; 80	'P'
+   030E 19                  680 	.db #0x19	; 25
+   030F 19                  681 	.db #0x19	; 25
+   0310 59                  682 	.db #0x59	; 89	'Y'
+   0311 19                  683 	.db #0x19	; 25
+   0312 19                  684 	.db #0x19	; 25
+   0313 59                  685 	.db #0x59	; 89	'Y'
+   0314 59                  686 	.db #0x59	; 89	'Y'
+   0315 59                  687 	.db #0x59	; 89	'Y'
+   0316 19                  688 	.db #0x19	; 25
+   0317 19                  689 	.db #0x19	; 25
+   0318 59                  690 	.db #0x59	; 89	'Y'
+   0319 17                  691 	.db #0x17	; 23
+   031A 19                  692 	.db #0x19	; 25
+   031B 59                  693 	.db #0x59	; 89	'Y'
+   031C 59                  694 	.db #0x59	; 89	'Y'
+   031D 59                  695 	.db #0x59	; 89	'Y'
+   031E 57                  696 	.db #0x57	; 87	'W'
+   031F 57                  697 	.db #0x57	; 87	'W'
+   0320 15                  698 	.db #0x15	; 21
+   0321 15                  699 	.db #0x15	; 21
+   0322 14                  700 	.db #0x14	; 20
+   0323 14                  701 	.db #0x14	; 20
+   0324 00                  702 	.db #0x00	; 0
+   0325 3F                  703 	.db #0x3F	; 63
+   0326 03                  704 	.db #0x03	; 3
+   0327 71                  705 	.db #0x71	; 113	'q'
+   0328 81                  706 	.db #0x81	; 129
+   0329 6F                  707 	.db #0x6F	; 111	'o'
+   032A 81                  708 	.db #0x81	; 129
+   032B 71                  709 	.db #0x71	; 113	'q'
+   032C 72                  710 	.db #0x72	; 114	'r'
+   032D 71                  711 	.db #0x71	; 113	'q'
+   032E 81                  712 	.db #0x81	; 129
+   032F 6F                  713 	.db #0x6F	; 111	'o'
+   0330 81                  714 	.db #0x81	; 129
+   0331 6C                  715 	.db #0x6C	; 108	'l'
+   0332 6D                  716 	.db #0x6D	; 109	'm'
+   0333 71                  717 	.db #0x71	; 113	'q'
+   0334 81                  718 	.db #0x81	; 129
+   0335 6F                  719 	.db #0x6F	; 111	'o'
+   0336 81                  720 	.db #0x81	; 129
+   0337 71                  721 	.db #0x71	; 113	'q'
+   0338 72                  722 	.db #0x72	; 114	'r'
+   0339 71                  723 	.db #0x71	; 113	'q'
+   033A 81                  724 	.db #0x81	; 129
+   033B 72                  725 	.db #0x72	; 114	'r'
+   033C 81                  726 	.db #0x81	; 129
+   033D B4                  727 	.db #0xB4	; 180
+   033E A1                  728 	.db #0xA1	; 161
+   033F AA                  729 	.db #0xAA	; 170
+   0340 AD                  730 	.db #0xAD	; 173
+   0341 2C                  731 	.db #0x2C	; 44
+   0342 01                  732 	.db #0x01	; 1
+   0343 28                  733 	.db #0x28	; 40
+   0344 01                  734 	.db #0x01	; 1
+   0345 AA                  735 	.db #0xAA	; 170
+   0346 BE                  736 	.db #0xBE	; 190
+   0347 AD                  737 	.db #0xAD	; 173
+   0348 BE                  738 	.db #0xBE	; 190
+   0349 B1                  739 	.db #0xB1	; 177
+   034A 2F                  740 	.db #0x2F	; 47
+   034B 01                  741 	.db #0x01	; 1
+   034C EA                  742 	.db #0xEA	; 234
+   034D FE                  743 	.db #0xFE	; 254
+   034E 41                  744 	.db #0x41	; 65	'A'
+   034F 21                  745 	.db #0x21	; 33
+   0350 21                  746 	.db #0x21	; 33
+   0351 61                  747 	.db #0x61	; 97	'a'
+   0352 21                  748 	.db #0x21	; 33
+   0353 21                  749 	.db #0x21	; 33
+   0354 61                  750 	.db #0x61	; 97	'a'
+   0355 61                  751 	.db #0x61	; 97	'a'
+   0356 61                  752 	.db #0x61	; 97	'a'
+   0357 20                  753 	.db #0x20	; 32
+   0358 23                  754 	.db #0x23	; 35
+   0359 68                  755 	.db #0x68	; 104	'h'
+   035A A5                  756 	.db #0xA5	; 165
+   035B AA                  757 	.db #0xAA	; 170
+   035C 6D                  758 	.db #0x6D	; 109	'm'
+   035D 28                  759 	.db #0x28	; 40
+   035E 01                  760 	.db #0x01	; 1
+   035F 2A                  761 	.db #0x2A	; 42
+   0360 01                  762 	.db #0x01	; 1
+   0361 2C                  763 	.db #0x2C	; 44
+   0362 01                  764 	.db #0x01	; 1
+   0363 AD                  765 	.db #0xAD	; 173
+   0364 BE                  766 	.db #0xBE	; 190
+   0365 A8                  767 	.db #0xA8	; 168
+   0366 BE                  768 	.db #0xBE	; 190
+   0367 B4                  769 	.db #0xB4	; 180
+   0368 F3                  770 	.db #0xF3	; 243
+   0369 FE                  771 	.db #0xFE	; 254
+   036A FE                  772 	.db #0xFE	; 254
+   036B 68                  773 	.db #0x68	; 104	'h'
+   036C 28                  774 	.db #0x28	; 40
+   036D 27                  775 	.db #0x27	; 39
+   036E 28                  776 	.db #0x28	; 40
+   036F 27                  777 	.db #0x27	; 39
+   0370 28                  778 	.db #0x28	; 40
+   0371 2A                  779 	.db #0x2A	; 42
+   0372 6C                  780 	.db #0x6C	; 108	'l'
+   0373 2C                  781 	.db #0x2C	; 44
+   0374 2A                  782 	.db #0x2A	; 42
+   0375 2C                  783 	.db #0x2C	; 44
+   0376 2A                  784 	.db #0x2A	; 42
+   0377 2C                  785 	.db #0x2C	; 44
+   0378 31                  786 	.db #0x31	; 49	'1'
+   0379 A1                  787 	.db #0xA1	; 161
+   037A AA                  788 	.db #0xAA	; 170
+   037B AD                  789 	.db #0xAD	; 173
+   037C 2C                  790 	.db #0x2C	; 44
+   037D 01                  791 	.db #0x01	; 1
+   037E 28                  792 	.db #0x28	; 40
+   037F 01                  793 	.db #0x01	; 1
+   0380 AA                  794 	.db #0xAA	; 170
+   0381 BE                  795 	.db #0xBE	; 190
+   0382 AD                  796 	.db #0xAD	; 173
+   0383 BE                  797 	.db #0xBE	; 190
+   0384 B1                  798 	.db #0xB1	; 177
+   0385 2F                  799 	.db #0x2F	; 47
+   0386 01                  800 	.db #0x01	; 1
+   0387 EA                  801 	.db #0xEA	; 234
+   0388 FE                  802 	.db #0xFE	; 254
+   0389 41                  803 	.db #0x41	; 65	'A'
+   038A 21                  804 	.db #0x21	; 33
+   038B 21                  805 	.db #0x21	; 33
+   038C 61                  806 	.db #0x61	; 97	'a'
+   038D 21                  807 	.db #0x21	; 33
+   038E 21                  808 	.db #0x21	; 33
+   038F 61                  809 	.db #0x61	; 97	'a'
+   0390 61                  810 	.db #0x61	; 97	'a'
+   0391 61                  811 	.db #0x61	; 97	'a'
+   0392 20                  812 	.db #0x20	; 32
+   0393 23                  813 	.db #0x23	; 35
+   0394 68                  814 	.db #0x68	; 104	'h'
+   0395 A5                  815 	.db #0xA5	; 165
+   0396 AA                  816 	.db #0xAA	; 170
+   0397 6D                  817 	.db #0x6D	; 109	'm'
+   0398 7E                  818 	.db #0x7E	; 126
+   0399 2A                  819 	.db #0x2A	; 42
+   039A 6C                  820 	.db #0x6C	; 108	'l'
+   039B 2F                  821 	.db #0x2F	; 47
+   039C 01                  822 	.db #0x01	; 1
+   039D B1                  823 	.db #0xB1	; 177
+   039E BE                  824 	.db #0xBE	; 190
+   039F 2F                  825 	.db #0x2F	; 47
+   03A0 01                  826 	.db #0x01	; 1
+   03A1 AD                  827 	.db #0xAD	; 173
+   03A2 AF                  828 	.db #0xAF	; 175
+   03A3 AD                  829 	.db #0xAD	; 173
+   03A4 BE                  830 	.db #0xBE	; 190
+   03A5 2C                  831 	.db #0x2C	; 44
+   03A6 2A                  832 	.db #0x2A	; 42
+   03A7 ED                  833 	.db #0xED	; 237
+   03A8 AF                  834 	.db #0xAF	; 175
+   03A9 BE                  835 	.db #0xBE	; 190
+   03AA 2D                  836 	.db #0x2D	; 45
+   03AB 2C                  837 	.db #0x2C	; 44
+   03AC AA                  838 	.db #0xAA	; 170
+   03AD AC                  839 	.db #0xAC	; 172
+   03AE 41                  840 	.db #0x41	; 65	'A'
+   03AF 3F                  841 	.db #0x3F	; 63
+   03B0 01                  842 	.db #0x01	; 1
+   03B1 2D                  843 	.db #0x2D	; 45
+   03B2 41                  844 	.db #0x41	; 65	'A'
+   03B3 2D                  845 	.db #0x2D	; 45
+   03B4 01                  846 	.db #0x01	; 1
+   03B5 2D                  847 	.db #0x2D	; 45
+   03B6 6F                  848 	.db #0x6F	; 111	'o'
+   03B7 AC                  849 	.db #0xAC	; 172
+   03B8 68                  850 	.db #0x68	; 104	'h'
+   03B9 2D                  851 	.db #0x2D	; 45
+   03BA 01                  852 	.db #0x01	; 1
+   03BB 2D                  853 	.db #0x2D	; 45
+   03BC 01                  854 	.db #0x01	; 1
+   03BD 2A                  855 	.db #0x2A	; 42
+   03BE 2D                  856 	.db #0x2D	; 45
+   03BF 72                  857 	.db #0x72	; 114	'r'
+   03C0 2F                  858 	.db #0x2F	; 47
+   03C1 01                  859 	.db #0x01	; 1
+   03C2 2F                  860 	.db #0x2F	; 47
+   03C3 01                  861 	.db #0x01	; 1
+   03C4 2C                  862 	.db #0x2C	; 44
+   03C5 2F                  863 	.db #0x2F	; 47
+   03C6 74                  864 	.db #0x74	; 116	't'
+   03C7 41                  865 	.db #0x41	; 65	'A'
+   03C8 2D                  866 	.db #0x2D	; 45
+   03C9 41                  867 	.db #0x41	; 65	'A'
+   03CA 2D                  868 	.db #0x2D	; 45
+   03CB 01                  869 	.db #0x01	; 1
+   03CC 2D                  870 	.db #0x2D	; 45
+   03CD 6F                  871 	.db #0x6F	; 111	'o'
+   03CE AC                  872 	.db #0xAC	; 172
+   03CF 68                  873 	.db #0x68	; 104	'h'
+   03D0 6D                  874 	.db #0x6D	; 109	'm'
+   03D1 7E                  875 	.db #0x7E	; 126
+   03D2 2D                  876 	.db #0x2D	; 45
+   03D3 B4                  877 	.db #0xB4	; 180
+   03D4 73                  878 	.db #0x73	; 115	's'
+   03D5 7E                  879 	.db #0x7E	; 126
+   03D6 33                  880 	.db #0x33	; 51	'3'
+   03D7 B6                  881 	.db #0xB6	; 182
+   03D8 41                  882 	.db #0x41	; 65	'A'
+   03D9 2D                  883 	.db #0x2D	; 45
+   03DA 41                  884 	.db #0x41	; 65	'A'
+   03DB 2D                  885 	.db #0x2D	; 45
+   03DC 01                  886 	.db #0x01	; 1
+   03DD 2D                  887 	.db #0x2D	; 45
+   03DE 6F                  888 	.db #0x6F	; 111	'o'
+   03DF AC                  889 	.db #0xAC	; 172
+   03E0 68                  890 	.db #0x68	; 104	'h'
+   03E1 2D                  891 	.db #0x2D	; 45
+   03E2 01                  892 	.db #0x01	; 1
+   03E3 2D                  893 	.db #0x2D	; 45
+   03E4 01                  894 	.db #0x01	; 1
+   03E5 2A                  895 	.db #0x2A	; 42
+   03E6 2D                  896 	.db #0x2D	; 45
+   03E7 72                  897 	.db #0x72	; 114	'r'
+   03E8 2F                  898 	.db #0x2F	; 47
+   03E9 01                  899 	.db #0x01	; 1
+   03EA 2F                  900 	.db #0x2F	; 47
+   03EB 01                  901 	.db #0x01	; 1
+   03EC 2C                  902 	.db #0x2C	; 44
+   03ED 2F                  903 	.db #0x2F	; 47
+   03EE 74                  904 	.db #0x74	; 116	't'
+   03EF 41                  905 	.db #0x41	; 65	'A'
+   03F0 2D                  906 	.db #0x2D	; 45
+   03F1 41                  907 	.db #0x41	; 65	'A'
+   03F2 2D                  908 	.db #0x2D	; 45
+   03F3 01                  909 	.db #0x01	; 1
+   03F4 2D                  910 	.db #0x2D	; 45
+   03F5 6F                  911 	.db #0x6F	; 111	'o'
+   03F6 3F                  912 	.db #0x3F	; 63
+   03F7 03                  913 	.db #0x03	; 3
+   03F8 6D                  914 	.db #0x6D	; 109	'm'
+   03F9 6C                  915 	.db #0x6C	; 108	'l'
+   03FA 68                  916 	.db #0x68	; 104	'h'
+   03FB 3F                  917 	.db #0x3F	; 63
+   03FC 04                  918 	.db #0x04	; 4
+   03FD 2A                  919 	.db #0x2A	; 42
+   03FE 2C                  920 	.db #0x2C	; 44
+   03FF 2D                  921 	.db #0x2D	; 45
+   0400 2F                  922 	.db #0x2F	; 47
+   0401 31                  923 	.db #0x31	; 49	'1'
+   0402 2F                  924 	.db #0x2F	; 47
+   0403 2D                  925 	.db #0x2D	; 45
+   0404 2C                  926 	.db #0x2C	; 44
+   0405 2A                  927 	.db #0x2A	; 42
+   0406 2C                  928 	.db #0x2C	; 44
+   0407 2D                  929 	.db #0x2D	; 45
+   0408 2F                  930 	.db #0x2F	; 47
+   0409 31                  931 	.db #0x31	; 49	'1'
+   040A 2F                  932 	.db #0x2F	; 47
+   040B 2D                  933 	.db #0x2D	; 45
+   040C 2A                  934 	.db #0x2A	; 42
+   040D 3F                  935 	.db #0x3F	; 63
+   040E 03                  936 	.db #0x03	; 3
+   040F AF                  937 	.db #0xAF	; 175
+   0410 AD                  938 	.db #0xAD	; 173
+   0411 AC                  939 	.db #0xAC	; 172
+   0412 A9                  940 	.db #0xA9	; 169
+   0413 00                  941 	.db #0x00	; 0
+   0414 3F                  942 	.db #0x3F	; 63
+   0415 03                  943 	.db #0x03	; 3
+   0416 2D                  944 	.db #0x2D	; 45
+   0417 01                  945 	.db #0x01	; 1
+   0418 2A                  946 	.db #0x2A	; 42
+   0419 2A                  947 	.db #0x2A	; 42
+   041A 6A                  948 	.db #0x6A	; 106	'j'
+   041B 2C                  949 	.db #0x2C	; 44
+   041C 01                  950 	.db #0x01	; 1
+   041D 2A                  951 	.db #0x2A	; 42
+   041E 2A                  952 	.db #0x2A	; 42
+   041F 6A                  953 	.db #0x6A	; 106	'j'
+   0420 6D                  954 	.db #0x6D	; 109	'm'
+   0421 6F                  955 	.db #0x6F	; 111	'o'
+   0422 2D                  956 	.db #0x2D	; 45
+   0423 01                  957 	.db #0x01	; 1
+   0424 2A                  958 	.db #0x2A	; 42
+   0425 2A                  959 	.db #0x2A	; 42
+   0426 6A                  960 	.db #0x6A	; 106	'j'
+   0427 2C                  961 	.db #0x2C	; 44
+   0428 01                  962 	.db #0x01	; 1
+   0429 2A                  963 	.db #0x2A	; 42
+   042A 2A                  964 	.db #0x2A	; 42
+   042B 6A                  965 	.db #0x6A	; 106	'j'
+   042C 68                  966 	.db #0x68	; 104	'h'
+   042D 6A                  967 	.db #0x6A	; 106	'j'
+   042E 2D                  968 	.db #0x2D	; 45
+   042F 01                  969 	.db #0x01	; 1
+   0430 2A                  970 	.db #0x2A	; 42
+   0431 2A                  971 	.db #0x2A	; 42
+   0432 6A                  972 	.db #0x6A	; 106	'j'
+   0433 6C                  973 	.db #0x6C	; 108	'l'
+   0434 2A                  974 	.db #0x2A	; 42
+   0435 2A                  975 	.db #0x2A	; 42
+   0436 6A                  976 	.db #0x6A	; 106	'j'
+   0437 6D                  977 	.db #0x6D	; 109	'm'
+   0438 6F                  978 	.db #0x6F	; 111	'o'
+   0439 2D                  979 	.db #0x2D	; 45
+   043A 01                  980 	.db #0x01	; 1
+   043B 25                  981 	.db #0x25	; 37
+   043C 25                  982 	.db #0x25	; 37
+   043D 65                  983 	.db #0x65	; 101	'e'
+   043E 6F                  984 	.db #0x6F	; 111	'o'
+   043F 25                  985 	.db #0x25	; 37
+   0440 25                  986 	.db #0x25	; 37
+   0441 65                  987 	.db #0x65	; 101	'e'
+   0442 B1                  988 	.db #0xB1	; 177
+   0443 3F                  989 	.db #0x3F	; 63
+   0444 00                  990 	.db #0x00	; 0
+   0445 A1                  991 	.db #0xA1	; 161
+   0446 3F                  992 	.db #0x3F	; 63
+   0447 03                  993 	.db #0x03	; 3
+   0448 A5                  994 	.db #0xA5	; 165
+   0449 AA                  995 	.db #0xAA	; 170
+   044A 28                  996 	.db #0x28	; 40
+   044B 01                  997 	.db #0x01	; 1
+   044C 23                  998 	.db #0x23	; 35
+   044D 01                  999 	.db #0x01	; 1
+   044E A5                 1000 	.db #0xA5	; 165
+   044F BE                 1001 	.db #0xBE	; 190
+   0450 AA                 1002 	.db #0xAA	; 170
+   0451 BE                 1003 	.db #0xBE	; 190
+   0452 AD                 1004 	.db #0xAD	; 173
+   0453 27                 1005 	.db #0x27	; 39
+   0454 01                 1006 	.db #0x01	; 1
+   0455 E7                 1007 	.db #0xE7	; 231
+   0456 41                 1008 	.db #0x41	; 65	'A'
+   0457 25                 1009 	.db #0x25	; 37
+   0458 25                 1010 	.db #0x25	; 37
+   0459 65                 1011 	.db #0x65	; 101	'e'
+   045A 1E                 1012 	.db #0x1E	; 30
+   045B 1E                 1013 	.db #0x1E	; 30
+   045C 5E                 1014 	.db #0x5E	; 94
+   045D 1E                 1015 	.db #0x1E	; 30
+   045E 1E                 1016 	.db #0x1E	; 30
+   045F 5E                 1017 	.db #0x5E	; 94
+   0460 5E                 1018 	.db #0x5E	; 94
+   0461 5E                 1019 	.db #0x5E	; 94
+   0462 81                 1020 	.db #0x81	; 129
+   0463 A1                 1021 	.db #0xA1	; 161
+   0464 A5                 1022 	.db #0xA5	; 165
+   0465 6A                 1023 	.db #0x6A	; 106	'j'
+   0466 23                 1024 	.db #0x23	; 35
+   0467 01                 1025 	.db #0x01	; 1
+   0468 25                 1026 	.db #0x25	; 37
+   0469 01                 1027 	.db #0x01	; 1
+   046A 28                 1028 	.db #0x28	; 40
+   046B 01                 1029 	.db #0x01	; 1
+   046C AA                 1030 	.db #0xAA	; 170
+   046D BE                 1031 	.db #0xBE	; 190
+   046E A5                 1032 	.db #0xA5	; 165
+   046F BE                 1033 	.db #0xBE	; 190
+   0470 B1                 1034 	.db #0xB1	; 177
+   0471 5E                 1035 	.db #0x5E	; 94
+   0472 1E                 1036 	.db #0x1E	; 30
+   0473 1C                 1037 	.db #0x1C	; 28
+   0474 1E                 1038 	.db #0x1E	; 30
+   0475 1C                 1039 	.db #0x1C	; 28
+   0476 1E                 1040 	.db #0x1E	; 30
+   0477 20                 1041 	.db #0x20	; 32
+   0478 61                 1042 	.db #0x61	; 97	'a'
+   0479 21                 1043 	.db #0x21	; 33
+   047A 20                 1044 	.db #0x20	; 32
+   047B 21                 1045 	.db #0x21	; 33
+   047C 20                 1046 	.db #0x20	; 32
+   047D 21                 1047 	.db #0x21	; 33
+   047E 23                 1048 	.db #0x23	; 35
+   047F 65                 1049 	.db #0x65	; 101	'e'
+   0480 25                 1050 	.db #0x25	; 37
+   0481 23                 1051 	.db #0x23	; 35
+   0482 25                 1052 	.db #0x25	; 37
+   0483 23                 1053 	.db #0x23	; 35
+   0484 25                 1054 	.db #0x25	; 37
+   0485 27                 1055 	.db #0x27	; 39
+   0486 68                 1056 	.db #0x68	; 104	'h'
+   0487 28                 1057 	.db #0x28	; 40
+   0488 27                 1058 	.db #0x27	; 39
+   0489 28                 1059 	.db #0x28	; 40
+   048A 27                 1060 	.db #0x27	; 39
+   048B 28                 1061 	.db #0x28	; 40
+   048C 2A                 1062 	.db #0x2A	; 42
+   048D 3F                 1063 	.db #0x3F	; 63
+   048E 00                 1064 	.db #0x00	; 0
+   048F A1                 1065 	.db #0xA1	; 161
+   0490 3F                 1066 	.db #0x3F	; 63
+   0491 03                 1067 	.db #0x03	; 3
+   0492 A5                 1068 	.db #0xA5	; 165
+   0493 AA                 1069 	.db #0xAA	; 170
+   0494 28                 1070 	.db #0x28	; 40
+   0495 01                 1071 	.db #0x01	; 1
+   0496 23                 1072 	.db #0x23	; 35
+   0497 01                 1073 	.db #0x01	; 1
+   0498 A5                 1074 	.db #0xA5	; 165
+   0499 BE                 1075 	.db #0xBE	; 190
+   049A AA                 1076 	.db #0xAA	; 170
+   049B BE                 1077 	.db #0xBE	; 190
+   049C AD                 1078 	.db #0xAD	; 173
+   049D 27                 1079 	.db #0x27	; 39
+   049E 01                 1080 	.db #0x01	; 1
+   049F E7                 1081 	.db #0xE7	; 231
+   04A0 41                 1082 	.db #0x41	; 65	'A'
+   04A1 25                 1083 	.db #0x25	; 37
+   04A2 25                 1084 	.db #0x25	; 37
+   04A3 65                 1085 	.db #0x65	; 101	'e'
+   04A4 1E                 1086 	.db #0x1E	; 30
+   04A5 1E                 1087 	.db #0x1E	; 30
+   04A6 5E                 1088 	.db #0x5E	; 94
+   04A7 1E                 1089 	.db #0x1E	; 30
+   04A8 1E                 1090 	.db #0x1E	; 30
+   04A9 5E                 1091 	.db #0x5E	; 94
+   04AA 5E                 1092 	.db #0x5E	; 94
+   04AB 5E                 1093 	.db #0x5E	; 94
+   04AC 81                 1094 	.db #0x81	; 129
+   04AD A1                 1095 	.db #0xA1	; 161
+   04AE A5                 1096 	.db #0xA5	; 165
+   04AF 6A                 1097 	.db #0x6A	; 106	'j'
+   04B0 7E                 1098 	.db #0x7E	; 126
+   04B1 25                 1099 	.db #0x25	; 37
+   04B2 68                 1100 	.db #0x68	; 104	'h'
+   04B3 2C                 1101 	.db #0x2C	; 44
+   04B4 01                 1102 	.db #0x01	; 1
+   04B5 AD                 1103 	.db #0xAD	; 173
+   04B6 BE                 1104 	.db #0xBE	; 190
+   04B7 2C                 1105 	.db #0x2C	; 44
+   04B8 01                 1106 	.db #0x01	; 1
+   04B9 AA                 1107 	.db #0xAA	; 170
+   04BA AC                 1108 	.db #0xAC	; 172
+   04BB AA                 1109 	.db #0xAA	; 170
+   04BC BE                 1110 	.db #0xBE	; 190
+   04BD 28                 1111 	.db #0x28	; 40
+   04BE 26                 1112 	.db #0x26	; 38
+   04BF EA                 1113 	.db #0xEA	; 234
+   04C0 AC                 1114 	.db #0xAC	; 172
+   04C1 BE                 1115 	.db #0xBE	; 190
+   04C2 2A                 1116 	.db #0x2A	; 42
+   04C3 28                 1117 	.db #0x28	; 40
+   04C4 A5                 1118 	.db #0xA5	; 165
+   04C5 A8                 1119 	.db #0xA8	; 168
+   04C6 41                 1120 	.db #0x41	; 65	'A'
+   04C7 3F                 1121 	.db #0x3F	; 63
+   04C8 01                 1122 	.db #0x01	; 1
+   04C9 2A                 1123 	.db #0x2A	; 42
+   04CA 41                 1124 	.db #0x41	; 65	'A'
+   04CB 2A                 1125 	.db #0x2A	; 42
+   04CC 01                 1126 	.db #0x01	; 1
+   04CD 2A                 1127 	.db #0x2A	; 42
+   04CE 6C                 1128 	.db #0x6C	; 108	'l'
+   04CF A8                 1129 	.db #0xA8	; 168
+   04D0 65                 1130 	.db #0x65	; 101	'e'
+   04D1 2A                 1131 	.db #0x2A	; 42
+   04D2 01                 1132 	.db #0x01	; 1
+   04D3 2A                 1133 	.db #0x2A	; 42
+   04D4 01                 1134 	.db #0x01	; 1
+   04D5 26                 1135 	.db #0x26	; 38
+   04D6 2A                 1136 	.db #0x2A	; 42
+   04D7 6D                 1137 	.db #0x6D	; 109	'm'
+   04D8 2C                 1138 	.db #0x2C	; 44
+   04D9 01                 1139 	.db #0x01	; 1
+   04DA 2C                 1140 	.db #0x2C	; 44
+   04DB 01                 1141 	.db #0x01	; 1
+   04DC 28                 1142 	.db #0x28	; 40
+   04DD 2C                 1143 	.db #0x2C	; 44
+   04DE 6F                 1144 	.db #0x6F	; 111	'o'
+   04DF 41                 1145 	.db #0x41	; 65	'A'
+   04E0 2A                 1146 	.db #0x2A	; 42
+   04E1 41                 1147 	.db #0x41	; 65	'A'
+   04E2 2A                 1148 	.db #0x2A	; 42
+   04E3 01                 1149 	.db #0x01	; 1
+   04E4 2A                 1150 	.db #0x2A	; 42
+   04E5 6C                 1151 	.db #0x6C	; 108	'l'
+   04E6 A8                 1152 	.db #0xA8	; 168
+   04E7 65                 1153 	.db #0x65	; 101	'e'
+   04E8 68                 1154 	.db #0x68	; 104	'h'
+   04E9 7E                 1155 	.db #0x7E	; 126
+   04EA 28                 1156 	.db #0x28	; 40
+   04EB B1                 1157 	.db #0xB1	; 177
+   04EC 6F                 1158 	.db #0x6F	; 111	'o'
+   04ED 7E                 1159 	.db #0x7E	; 126
+   04EE 2F                 1160 	.db #0x2F	; 47
+   04EF B3                 1161 	.db #0xB3	; 179
+   04F0 41                 1162 	.db #0x41	; 65	'A'
+   04F1 2A                 1163 	.db #0x2A	; 42
+   04F2 41                 1164 	.db #0x41	; 65	'A'
+   04F3 2A                 1165 	.db #0x2A	; 42
+   04F4 01                 1166 	.db #0x01	; 1
+   04F5 2A                 1167 	.db #0x2A	; 42
+   04F6 6C                 1168 	.db #0x6C	; 108	'l'
+   04F7 A8                 1169 	.db #0xA8	; 168
+   04F8 65                 1170 	.db #0x65	; 101	'e'
+   04F9 2A                 1171 	.db #0x2A	; 42
+   04FA 01                 1172 	.db #0x01	; 1
+   04FB 2A                 1173 	.db #0x2A	; 42
+   04FC 01                 1174 	.db #0x01	; 1
+   04FD 26                 1175 	.db #0x26	; 38
+   04FE 2A                 1176 	.db #0x2A	; 42
+   04FF 6D                 1177 	.db #0x6D	; 109	'm'
+   0500 2C                 1178 	.db #0x2C	; 44
+   0501 01                 1179 	.db #0x01	; 1
+   0502 2C                 1180 	.db #0x2C	; 44
+   0503 01                 1181 	.db #0x01	; 1
+   0504 28                 1182 	.db #0x28	; 40
+   0505 2C                 1183 	.db #0x2C	; 44
+   0506 6F                 1184 	.db #0x6F	; 111	'o'
+   0507 41                 1185 	.db #0x41	; 65	'A'
+   0508 2A                 1186 	.db #0x2A	; 42
+   0509 41                 1187 	.db #0x41	; 65	'A'
+   050A 2A                 1188 	.db #0x2A	; 42
+   050B 01                 1189 	.db #0x01	; 1
+   050C 2A                 1190 	.db #0x2A	; 42
+   050D 6C                 1191 	.db #0x6C	; 108	'l'
+   050E 3F                 1192 	.db #0x3F	; 63
+   050F 03                 1193 	.db #0x03	; 3
+   0510 6A                 1194 	.db #0x6A	; 106	'j'
+   0511 68                 1195 	.db #0x68	; 104	'h'
+   0512 65                 1196 	.db #0x65	; 101	'e'
+   0513 01                 1197 	.db #0x01	; 1
+   0514 3F                 1198 	.db #0x3F	; 63
+   0515 04                 1199 	.db #0x04	; 4
+   0516 2A                 1200 	.db #0x2A	; 42
+   0517 2C                 1201 	.db #0x2C	; 44
+   0518 2D                 1202 	.db #0x2D	; 45
+   0519 2F                 1203 	.db #0x2F	; 47
+   051A 31                 1204 	.db #0x31	; 49	'1'
+   051B 2F                 1205 	.db #0x2F	; 47
+   051C 2D                 1206 	.db #0x2D	; 45
+   051D 2C                 1207 	.db #0x2C	; 44
+   051E 2A                 1208 	.db #0x2A	; 42
+   051F 2C                 1209 	.db #0x2C	; 44
+   0520 2D                 1210 	.db #0x2D	; 45
+   0521 2F                 1211 	.db #0x2F	; 47
+   0522 31                 1212 	.db #0x31	; 49	'1'
+   0523 2F                 1213 	.db #0x2F	; 47
+   0524 2D                 1214 	.db #0x2D	; 45
+   0525 3F                 1215 	.db #0x3F	; 63
+   0526 03                 1216 	.db #0x03	; 3
+   0527 AC                 1217 	.db #0xAC	; 172
+   0528 AA                 1218 	.db #0xAA	; 170
+   0529 A9                 1219 	.db #0xA9	; 169
+   052A A5                 1220 	.db #0xA5	; 165
+   052B 00                 1221 	.db #0x00	; 0
+   052C 7F                 1222 	.db #0x7F	; 127
+   052D 80                 1223 	.db #0x80	; 128
+   052E BE                 1224 	.db #0xBE	; 190
+   052F 7F                 1225 	.db #0x7F	; 127
+   0530 80                 1226 	.db #0x80	; 128
+   0531 BE                 1227 	.db #0xBE	; 190
+   0532 7F                 1228 	.db #0x7F	; 127
+   0533 81                 1229 	.db #0x81	; 129
+   0534 7F                 1230 	.db #0x7F	; 127
+   0535 80                 1231 	.db #0x80	; 128
+   0536 BE                 1232 	.db #0xBE	; 190
+   0537 7F                 1233 	.db #0x7F	; 127
+   0538 80                 1234 	.db #0x80	; 128
+   0539 BE                 1235 	.db #0xBE	; 190
+   053A 7F                 1236 	.db #0x7F	; 127
+   053B 41                 1237 	.db #0x41	; 65	'A'
+   053C 7F                 1238 	.db #0x7F	; 127
+   053D 40                 1239 	.db #0x40	; 64
+   053E 7F                 1240 	.db #0x7F	; 127
+   053F 80                 1241 	.db #0x80	; 128
+   0540 BE                 1242 	.db #0xBE	; 190
+   0541 7F                 1243 	.db #0x7F	; 127
+   0542 80                 1244 	.db #0x80	; 128
+   0543 7F                 1245 	.db #0x7F	; 127
+   0544 40                 1246 	.db #0x40	; 64
+   0545 7F                 1247 	.db #0x7F	; 127
+   0546 81                 1248 	.db #0x81	; 129
+   0547 7F                 1249 	.db #0x7F	; 127
+   0548 80                 1250 	.db #0x80	; 128
+   0549 BE                 1251 	.db #0xBE	; 190
+   054A 7F                 1252 	.db #0x7F	; 127
+   054B 80                 1253 	.db #0x80	; 128
+   054C BE                 1254 	.db #0xBE	; 190
+   054D 7F                 1255 	.db #0x7F	; 127
+   054E 01                 1256 	.db #0x01	; 1
+   054F 7F                 1257 	.db #0x7F	; 127
+   0550 01                 1258 	.db #0x01	; 1
+   0551 7F                 1259 	.db #0x7F	; 127
+   0552 41                 1260 	.db #0x41	; 65	'A'
+   0553 7F                 1261 	.db #0x7F	; 127
+   0554 80                 1262 	.db #0x80	; 128
+   0555 BE                 1263 	.db #0xBE	; 190
+   0556 7F                 1264 	.db #0x7F	; 127
+   0557 40                 1265 	.db #0x40	; 64
+   0558 7F                 1266 	.db #0x7F	; 127
+   0559 80                 1267 	.db #0x80	; 128
+   055A 7F                 1268 	.db #0x7F	; 127
+   055B 81                 1269 	.db #0x81	; 129
+   055C 7F                 1270 	.db #0x7F	; 127
+   055D 80                 1271 	.db #0x80	; 128
+   055E BE                 1272 	.db #0xBE	; 190
+   055F 7F                 1273 	.db #0x7F	; 127
+   0560 40                 1274 	.db #0x40	; 64
+   0561 7F                 1275 	.db #0x7F	; 127
+   0562 80                 1276 	.db #0x80	; 128
+   0563 7F                 1277 	.db #0x7F	; 127
+   0564 81                 1278 	.db #0x81	; 129
+   0565 7F                 1279 	.db #0x7F	; 127
+   0566 40                 1280 	.db #0x40	; 64
+   0567 7F                 1281 	.db #0x7F	; 127
+   0568 80                 1282 	.db #0x80	; 128
+   0569 7F                 1283 	.db #0x7F	; 127
+   056A 40                 1284 	.db #0x40	; 64
+   056B 7F                 1285 	.db #0x7F	; 127
+   056C 80                 1286 	.db #0x80	; 128
+   056D 7F                 1287 	.db #0x7F	; 127
+   056E 81                 1288 	.db #0x81	; 129
+   056F 7F                 1289 	.db #0x7F	; 127
+   0570 40                 1290 	.db #0x40	; 64
+   0571 7F                 1291 	.db #0x7F	; 127
+   0572 80                 1292 	.db #0x80	; 128
+   0573 7F                 1293 	.db #0x7F	; 127
+   0574 40                 1294 	.db #0x40	; 64
+   0575 7F                 1295 	.db #0x7F	; 127
+   0576 80                 1296 	.db #0x80	; 128
+   0577 7F                 1297 	.db #0x7F	; 127
+   0578 01                 1298 	.db #0x01	; 1
+   0579 7F                 1299 	.db #0x7F	; 127
+   057A 01                 1300 	.db #0x01	; 1
+   057B 7F                 1301 	.db #0x7F	; 127
+   057C 41                 1302 	.db #0x41	; 65	'A'
+   057D 7F                 1303 	.db #0x7F	; 127
+   057E 80                 1304 	.db #0x80	; 128
+   057F BE                 1305 	.db #0xBE	; 190
+   0580 7F                 1306 	.db #0x7F	; 127
+   0581 40                 1307 	.db #0x40	; 64
+   0582 7F                 1308 	.db #0x7F	; 127
+   0583 80                 1309 	.db #0x80	; 128
+   0584 7F                 1310 	.db #0x7F	; 127
+   0585 81                 1311 	.db #0x81	; 129
+   0586 7F                 1312 	.db #0x7F	; 127
+   0587 80                 1313 	.db #0x80	; 128
+   0588 BE                 1314 	.db #0xBE	; 190
+   0589 7F                 1315 	.db #0x7F	; 127
+   058A 40                 1316 	.db #0x40	; 64
+   058B 7F                 1317 	.db #0x7F	; 127
+   058C 80                 1318 	.db #0x80	; 128
+   058D 7F                 1319 	.db #0x7F	; 127
+   058E 81                 1320 	.db #0x81	; 129
+   058F 7F                 1321 	.db #0x7F	; 127
+   0590 40                 1322 	.db #0x40	; 64
+   0591 7F                 1323 	.db #0x7F	; 127
+   0592 80                 1324 	.db #0x80	; 128
+   0593 7F                 1325 	.db #0x7F	; 127
+   0594 40                 1326 	.db #0x40	; 64
+   0595 7F                 1327 	.db #0x7F	; 127
+   0596 80                 1328 	.db #0x80	; 128
+   0597 7F                 1329 	.db #0x7F	; 127
+   0598 81                 1330 	.db #0x81	; 129
+   0599 7F                 1331 	.db #0x7F	; 127
+   059A 40                 1332 	.db #0x40	; 64
+   059B 7F                 1333 	.db #0x7F	; 127
+   059C 80                 1334 	.db #0x80	; 128
+   059D 7F                 1335 	.db #0x7F	; 127
+   059E 40                 1336 	.db #0x40	; 64
+   059F 7F                 1337 	.db #0x7F	; 127
+   05A0 80                 1338 	.db #0x80	; 128
+   05A1 7F                 1339 	.db #0x7F	; 127
+   05A2 41                 1340 	.db #0x41	; 65	'A'
+   05A3 7F                 1341 	.db #0x7F	; 127
+   05A4 41                 1342 	.db #0x41	; 65	'A'
+   05A5 7F                 1343 	.db #0x7F	; 127
+   05A6 80                 1344 	.db #0x80	; 128
+   05A7 BE                 1345 	.db #0xBE	; 190
+   05A8 7F                 1346 	.db #0x7F	; 127
+   05A9 40                 1347 	.db #0x40	; 64
+   05AA 7F                 1348 	.db #0x7F	; 127
+   05AB 80                 1349 	.db #0x80	; 128
+   05AC 7F                 1350 	.db #0x7F	; 127
+   05AD 81                 1351 	.db #0x81	; 129
+   05AE 7F                 1352 	.db #0x7F	; 127
+   05AF 80                 1353 	.db #0x80	; 128
+   05B0 BE                 1354 	.db #0xBE	; 190
+   05B1 7F                 1355 	.db #0x7F	; 127
+   05B2 40                 1356 	.db #0x40	; 64
+   05B3 7F                 1357 	.db #0x7F	; 127
+   05B4 80                 1358 	.db #0x80	; 128
+   05B5 7F                 1359 	.db #0x7F	; 127
+   05B6 81                 1360 	.db #0x81	; 129
+   05B7 7F                 1361 	.db #0x7F	; 127
+   05B8 40                 1362 	.db #0x40	; 64
+   05B9 7F                 1363 	.db #0x7F	; 127
+   05BA 80                 1364 	.db #0x80	; 128
+   05BB 7F                 1365 	.db #0x7F	; 127
+   05BC 40                 1366 	.db #0x40	; 64
+   05BD 7F                 1367 	.db #0x7F	; 127
+   05BE 80                 1368 	.db #0x80	; 128
+   05BF 7F                 1369 	.db #0x7F	; 127
+   05C0 81                 1370 	.db #0x81	; 129
+   05C1 7F                 1371 	.db #0x7F	; 127
+   05C2 40                 1372 	.db #0x40	; 64
+   05C3 7F                 1373 	.db #0x7F	; 127
+   05C4 80                 1374 	.db #0x80	; 128
+   05C5 7F                 1375 	.db #0x7F	; 127
+   05C6 40                 1376 	.db #0x40	; 64
+   05C7 7F                 1377 	.db #0x7F	; 127
+   05C8 80                 1378 	.db #0x80	; 128
+   05C9 7F                 1379 	.db #0x7F	; 127
+   05CA 01                 1380 	.db #0x01	; 1
+   05CB 7F                 1381 	.db #0x7F	; 127
+   05CC 01                 1382 	.db #0x01	; 1
+   05CD 7F                 1383 	.db #0x7F	; 127
+   05CE 41                 1384 	.db #0x41	; 65	'A'
+   05CF 7F                 1385 	.db #0x7F	; 127
+   05D0 80                 1386 	.db #0x80	; 128
+   05D1 BE                 1387 	.db #0xBE	; 190
+   05D2 7F                 1388 	.db #0x7F	; 127
+   05D3 40                 1389 	.db #0x40	; 64
+   05D4 7F                 1390 	.db #0x7F	; 127
+   05D5 80                 1391 	.db #0x80	; 128
+   05D6 7F                 1392 	.db #0x7F	; 127
+   05D7 81                 1393 	.db #0x81	; 129
+   05D8 7F                 1394 	.db #0x7F	; 127
+   05D9 80                 1395 	.db #0x80	; 128
+   05DA BE                 1396 	.db #0xBE	; 190
+   05DB 7F                 1397 	.db #0x7F	; 127
+   05DC 40                 1398 	.db #0x40	; 64
+   05DD 7F                 1399 	.db #0x7F	; 127
+   05DE 80                 1400 	.db #0x80	; 128
+   05DF 7F                 1401 	.db #0x7F	; 127
+   05E0 81                 1402 	.db #0x81	; 129
+   05E1 7F                 1403 	.db #0x7F	; 127
+   05E2 40                 1404 	.db #0x40	; 64
+   05E3 7F                 1405 	.db #0x7F	; 127
+   05E4 80                 1406 	.db #0x80	; 128
+   05E5 7F                 1407 	.db #0x7F	; 127
+   05E6 40                 1408 	.db #0x40	; 64
+   05E7 7F                 1409 	.db #0x7F	; 127
+   05E8 80                 1410 	.db #0x80	; 128
+   05E9 7F                 1411 	.db #0x7F	; 127
+   05EA 81                 1412 	.db #0x81	; 129
+   05EB 7F                 1413 	.db #0x7F	; 127
+   05EC 40                 1414 	.db #0x40	; 64
+   05ED 7F                 1415 	.db #0x7F	; 127
+   05EE 80                 1416 	.db #0x80	; 128
+   05EF 7F                 1417 	.db #0x7F	; 127
+   05F0 40                 1418 	.db #0x40	; 64
+   05F1 7F                 1419 	.db #0x7F	; 127
+   05F2 01                 1420 	.db #0x01	; 1
+   05F3 7F                 1421 	.db #0x7F	; 127
+   05F4 01                 1422 	.db #0x01	; 1
+   05F5 7F                 1423 	.db #0x7F	; 127
+   05F6 41                 1424 	.db #0x41	; 65	'A'
+   05F7 7F                 1425 	.db #0x7F	; 127
+   05F8 01                 1426 	.db #0x01	; 1
+   05F9 7F                 1427 	.db #0x7F	; 127
+   05FA 01                 1428 	.db #0x01	; 1
+   05FB 7F                 1429 	.db #0x7F	; 127
+   05FC 41                 1430 	.db #0x41	; 65	'A'
+   05FD 7F                 1431 	.db #0x7F	; 127
+   05FE 00                 1432 	.db #0x00	; 0
+   05FF 7F                 1433 	.db #0x7F	; 127
+   0600 40                 1434 	.db #0x40	; 64
+   0601 7E                 1435 	.db #0x7E	; 126
+   0602 7F                 1436 	.db #0x7F	; 127
+   0603 41                 1437 	.db #0x41	; 65	'A'
+   0604 7F                 1438 	.db #0x7F	; 127
+   0605 80                 1439 	.db #0x80	; 128
+   0606 7F                 1440 	.db #0x7F	; 127
+   0607 40                 1441 	.db #0x40	; 64
+   0608 7F                 1442 	.db #0x7F	; 127
+   0609 81                 1443 	.db #0x81	; 129
+   060A 7F                 1444 	.db #0x7F	; 127
+   060B 40                 1445 	.db #0x40	; 64
+   060C 7F                 1446 	.db #0x7F	; 127
+   060D 40                 1447 	.db #0x40	; 64
+   060E 7F                 1448 	.db #0x7F	; 127
+   060F 41                 1449 	.db #0x41	; 65	'A'
+   0610 7F                 1450 	.db #0x7F	; 127
+   0611 80                 1451 	.db #0x80	; 128
+   0612 7F                 1452 	.db #0x7F	; 127
+   0613 40                 1453 	.db #0x40	; 64
+   0614 7F                 1454 	.db #0x7F	; 127
+   0615 81                 1455 	.db #0x81	; 129
+   0616 7F                 1456 	.db #0x7F	; 127
+   0617 00                 1457 	.db #0x00	; 0
+   0618 7F                 1458 	.db #0x7F	; 127
+   0619 40                 1459 	.db #0x40	; 64
+   061A 7E                 1460 	.db #0x7E	; 126
+   061B 7F                 1461 	.db #0x7F	; 127
+   061C 41                 1462 	.db #0x41	; 65	'A'
+   061D 7F                 1463 	.db #0x7F	; 127
+   061E 80                 1464 	.db #0x80	; 128
+   061F 7F                 1465 	.db #0x7F	; 127
+   0620 40                 1466 	.db #0x40	; 64
+   0621 7F                 1467 	.db #0x7F	; 127
+   0622 81                 1468 	.db #0x81	; 129
+   0623 7F                 1469 	.db #0x7F	; 127
+   0624 40                 1470 	.db #0x40	; 64
+   0625 7F                 1471 	.db #0x7F	; 127
+   0626 40                 1472 	.db #0x40	; 64
+   0627 7F                 1473 	.db #0x7F	; 127
+   0628 41                 1474 	.db #0x41	; 65	'A'
+   0629 7F                 1475 	.db #0x7F	; 127
+   062A 80                 1476 	.db #0x80	; 128
+   062B 7F                 1477 	.db #0x7F	; 127
+   062C 40                 1478 	.db #0x40	; 64
+   062D 7F                 1479 	.db #0x7F	; 127
+   062E 01                 1480 	.db #0x01	; 1
+   062F 7F                 1481 	.db #0x7F	; 127
+   0630 41                 1482 	.db #0x41	; 65	'A'
+   0631 7E                 1483 	.db #0x7E	; 126
+   0632 7F                 1484 	.db #0x7F	; 127
+   0633 00                 1485 	.db #0x00	; 0
+   0634 7F                 1486 	.db #0x7F	; 127
+   0635 40                 1487 	.db #0x40	; 64
+   0636 7E                 1488 	.db #0x7E	; 126
+   0637 7F                 1489 	.db #0x7F	; 127
+   0638 41                 1490 	.db #0x41	; 65	'A'
+   0639 7F                 1491 	.db #0x7F	; 127
+   063A 80                 1492 	.db #0x80	; 128
+   063B 7F                 1493 	.db #0x7F	; 127
+   063C 40                 1494 	.db #0x40	; 64
+   063D 7F                 1495 	.db #0x7F	; 127
+   063E 81                 1496 	.db #0x81	; 129
+   063F 7F                 1497 	.db #0x7F	; 127
+   0640 40                 1498 	.db #0x40	; 64
+   0641 7F                 1499 	.db #0x7F	; 127
+   0642 40                 1500 	.db #0x40	; 64
+   0643 7F                 1501 	.db #0x7F	; 127
+   0644 41                 1502 	.db #0x41	; 65	'A'
+   0645 7F                 1503 	.db #0x7F	; 127
+   0646 80                 1504 	.db #0x80	; 128
+   0647 7F                 1505 	.db #0x7F	; 127
+   0648 40                 1506 	.db #0x40	; 64
+   0649 7F                 1507 	.db #0x7F	; 127
+   064A 81                 1508 	.db #0x81	; 129
+   064B 7F                 1509 	.db #0x7F	; 127
+   064C 00                 1510 	.db #0x00	; 0
+   064D 7F                 1511 	.db #0x7F	; 127
+   064E 40                 1512 	.db #0x40	; 64
+   064F 7E                 1513 	.db #0x7E	; 126
+   0650 7F                 1514 	.db #0x7F	; 127
+   0651 41                 1515 	.db #0x41	; 65	'A'
+   0652 7F                 1516 	.db #0x7F	; 127
+   0653 80                 1517 	.db #0x80	; 128
+   0654 7F                 1518 	.db #0x7F	; 127
+   0655 40                 1519 	.db #0x40	; 64
+   0656 7F                 1520 	.db #0x7F	; 127
+   0657 81                 1521 	.db #0x81	; 129
+   0658 7F                 1522 	.db #0x7F	; 127
+   0659 40                 1523 	.db #0x40	; 64
+   065A 7F                 1524 	.db #0x7F	; 127
+   065B 40                 1525 	.db #0x40	; 64
+   065C 7F                 1526 	.db #0x7F	; 127
+   065D 41                 1527 	.db #0x41	; 65	'A'
+   065E 7F                 1528 	.db #0x7F	; 127
+   065F 80                 1529 	.db #0x80	; 128
+   0660 7F                 1530 	.db #0x7F	; 127
+   0661 40                 1531 	.db #0x40	; 64
+   0662 7F                 1532 	.db #0x7F	; 127
+   0663 01                 1533 	.db #0x01	; 1
+   0664 7F                 1534 	.db #0x7F	; 127
+   0665 41                 1535 	.db #0x41	; 65	'A'
+   0666 7E                 1536 	.db #0x7E	; 126
+   0667 7F                 1537 	.db #0x7F	; 127
+   0668 41                 1538 	.db #0x41	; 65	'A'
+   0669 7F                 1539 	.db #0x7F	; 127
+   066A 40                 1540 	.db #0x40	; 64
+   066B 7F                 1541 	.db #0x7F	; 127
+   066C 41                 1542 	.db #0x41	; 65	'A'
+   066D 7F                 1543 	.db #0x7F	; 127
+   066E 40                 1544 	.db #0x40	; 64
+   066F 7F                 1545 	.db #0x7F	; 127
+   0670 01                 1546 	.db #0x01	; 1
+   0671 7F                 1547 	.db #0x7F	; 127
+   0672 01                 1548 	.db #0x01	; 1
+   0673 7F                 1549 	.db #0x7F	; 127
+   0674 41                 1550 	.db #0x41	; 65	'A'
+   0675 7F                 1551 	.db #0x7F	; 127
+   0676 01                 1552 	.db #0x01	; 1
+   0677 7F                 1553 	.db #0x7F	; 127
+   0678 01                 1554 	.db #0x01	; 1
+   0679 7F                 1555 	.db #0x7F	; 127
+   067A 01                 1556 	.db #0x01	; 1
+   067B 7F                 1557 	.db #0x7F	; 127
+   067C 01                 1558 	.db #0x01	; 1
+   067D 00                 1559 	.db #0x00	; 0
+   067E 00                 1560 	.db #0x00	; 0
+                           1561 ;shots.c:100: void timerOn(void) {
+                           1562 ;	---------------------------------
+                           1563 ; Function timerOn
+                           1564 ; ---------------------------------
+   067F                    1565 _timerOn_start::
+   067F                    1566 _timerOn:
+                           1567 ;shots.c:129: __endasm;
+   067F F3            [ 4] 1568 	DI
+   0680 ED 56         [ 8] 1569 	IM 1
+   0682 E5            [11] 1570 	PUSH HL
+   0683 21r22r00      [10] 1571 	LD HL, #_timer0
+   0686 36 00         [10] 1572 	LD (HL),#0X0000
+   0688 21 38 00      [10] 1573 	LD HL,#0X0038
+   068B 36 C3         [10] 1574 	LD (HL),#0XC3 ;JP
+   068D 23            [ 6] 1575 	INC HL
+   068E 21r99r06      [10] 1576 	LD HL,#interrupcion
+   0691 22 39 00      [16] 1577 	LD (#0X0039),HL
+   0694 E1            [10] 1578 	POP HL
+   0695 FB            [ 4] 1579 	EI
+   0696 C3rA7r06      [10] 1580 	JP term
+   0699                    1581 	interrupcion:
+   0699 F3            [ 4] 1582 	DI
+   069A E5            [11] 1583 	PUSH HL
+   069B F5            [11] 1584 	PUSH AF
+   069C 21r22r00      [10] 1585 	LD HL,#_timer0
+   069F                    1586 	desborde:
+   069F 34            [11] 1587 	INC (HL)
+   06A0 23            [ 6] 1588 	INC HL
+   06A1 28 FC         [12] 1589 	JR Z,desborde
+   06A3 F1            [10] 1590 	POP AF
+   06A4 E1            [10] 1591 	POP HL
+   06A5 FB            [ 4] 1592 	EI
+   06A6 C9            [10] 1593 	RET
+   06A7                    1594 	term:
+   06A7 C9            [10] 1595 	ret
+   06A8                    1596 _timerOn_end::
+                           1597 ;shots.c:135: void timerOff(void) {
+                           1598 ;	---------------------------------
+                           1599 ; Function timerOff
+                           1600 ; ---------------------------------
+   06A8                    1601 _timerOff_start::
+   06A8                    1602 _timerOff:
+                           1603 ;shots.c:144: __endasm;
+   06A8 F3            [ 4] 1604 	DI
+   06A9 ED 56         [ 8] 1605 	IM 1
+   06AB 21 38 00      [10] 1606 	LD HL,#0X0038
+   06AE 36 FB         [10] 1607 	LD (HL),#0XFB ;EI
+   06B0 23            [ 6] 1608 	INC HL
+   06B1 36 C9         [10] 1609 	LD (HL),#0XC9 ;RET
+   06B3 FB            [ 4] 1610 	EI
+   06B4 C9            [10] 1611 	ret
+   06B5                    1612 _timerOff_end::
+                           1613 ;shots.c:150: unsigned long getTime()
+                           1614 ;	---------------------------------
+                           1615 ; Function getTime
+                           1616 ; ---------------------------------
+   06B5                    1617 _getTime_start::
+   06B5                    1618 _getTime:
+                           1619 ;shots.c:153: nTime = (timer1 << 8) + timer0;
+   06B5 21r24r00      [10] 1620 	ld	hl,#_timer1 + 0
+   06B8 56            [ 7] 1621 	ld	d, (hl)
+   06B9 1E 00         [ 7] 1622 	ld	e,#0x00
+   06BB 2Ar22r00      [16] 1623 	ld	hl,(_timer0)
+   06BE 19            [11] 1624 	add	hl,de
+   06BF 11 00 00      [10] 1625 	ld	de,#0x0000
+                           1626 ;shots.c:154: return nTime;
+   06C2 C9            [10] 1627 	ret
+   06C3                    1628 _getTime_end::
+                           1629 ;shots.c:161: void set_colours()
+                           1630 ;	---------------------------------
+                           1631 ; Function set_colours
+                           1632 ; ---------------------------------
+   06C3                    1633 _set_colours_start::
+   06C3                    1634 _set_colours:
+                           1635 ;shots.c:164: for (x=0; x<17; x++)
+   06C3 1E 00         [ 7] 1636 	ld	e,#0x00
+   06C5                    1637 00102$:
+                           1638 ;shots.c:166: cpc_SetColour(x,tintas[x]);
+   06C5 21rE9r01      [10] 1639 	ld	hl,#_tintas
+   06C8 16 00         [ 7] 1640 	ld	d,#0x00
+   06CA 19            [11] 1641 	add	hl, de
+   06CB 66            [ 7] 1642 	ld	h,(hl)
+   06CC D5            [11] 1643 	push	de
+   06CD E5            [11] 1644 	push	hl
+   06CE 33            [ 6] 1645 	inc	sp
+   06CF 7B            [ 4] 1646 	ld	a,e
+   06D0 F5            [11] 1647 	push	af
+   06D1 33            [ 6] 1648 	inc	sp
+   06D2 CDr00r00      [17] 1649 	call	_cpc_SetColour
+   06D5 F1            [10] 1650 	pop	af
+   06D6 D1            [10] 1651 	pop	de
+                           1652 ;shots.c:164: for (x=0; x<17; x++)
+   06D7 1C            [ 4] 1653 	inc	e
+   06D8 7B            [ 4] 1654 	ld	a,e
+   06D9 D6 11         [ 7] 1655 	sub	a, #0x11
+   06DB 38 E8         [12] 1656 	jr	C,00102$
+   06DD C9            [10] 1657 	ret
+   06DE                    1658 _set_colours_end::
+                           1659 ;shots.c:173: void pause(unsigned char p){
+                           1660 ;	---------------------------------
+                           1661 ; Function pause
+                           1662 ; ---------------------------------
+   06DE                    1663 _pause_start::
+   06DE                    1664 _pause:
+                           1665 ;shots.c:175: for (i=0; i < p; i++) {
+   06DE 16 00         [ 7] 1666 	ld	d,#0x00
+   06E0                    1667 00103$:
+   06E0 21 02 00      [10] 1668 	ld	hl,#2
+   06E3 39            [11] 1669 	add	hl,sp
+   06E4 7A            [ 4] 1670 	ld	a,d
+   06E5 96            [ 7] 1671 	sub	a, (hl)
+   06E6 D0            [11] 1672 	ret	NC
+                           1673 ;shots.c:178: __endasm;
+   06E7 76            [ 4] 1674 	halt
+                           1675 ;shots.c:175: for (i=0; i < p; i++) {
+   06E8 14            [ 4] 1676 	inc	d
+   06E9 18 F5         [12] 1677 	jr	00103$
+   06EB C9            [10] 1678 	ret
+   06EC                    1679 _pause_end::
+                           1680 ;shots.c:185: void letrasColorAzul(){
+                           1681 ;	---------------------------------
+                           1682 ; Function letrasColorAzul
+                           1683 ; ---------------------------------
+   06EC                    1684 _letrasColorAzul_start::
+   06EC                    1685 _letrasColorAzul:
+                           1686 ;shots.c:186: cpc_SetInkGphStr(0,0);
+   06EC 21 00 00      [10] 1687 	ld	hl,#0x0000
+   06EF E5            [11] 1688 	push	hl
+   06F0 CDr00r00      [17] 1689 	call	_cpc_SetInkGphStr
+                           1690 ;shots.c:187: cpc_SetInkGphStr(1,42);
+   06F3 21 01 2A      [10] 1691 	ld	hl, #0x2A01
+   06F6 E3            [19] 1692 	ex	(sp),hl
+   06F7 CDr00r00      [17] 1693 	call	_cpc_SetInkGphStr
+                           1694 ;shots.c:188: cpc_SetInkGphStr(2,34);
+   06FA 21 02 22      [10] 1695 	ld	hl, #0x2202
+   06FD E3            [19] 1696 	ex	(sp),hl
+   06FE CDr00r00      [17] 1697 	call	_cpc_SetInkGphStr
+                           1698 ;shots.c:189: cpc_SetInkGphStr(3,42);
+   0701 21 03 2A      [10] 1699 	ld	hl, #0x2A03
+   0704 E3            [19] 1700 	ex	(sp),hl
+   0705 CDr00r00      [17] 1701 	call	_cpc_SetInkGphStr
+                           1702 ;shots.c:190: pause(2);
+   0708 26 02         [ 7] 1703 	ld	h,#0x02
+   070A E3            [19] 1704 	ex	(sp),hl
+   070B 33            [ 6] 1705 	inc	sp
+   070C CDrDEr06      [17] 1706 	call	_pause
+   070F 33            [ 6] 1707 	inc	sp
+   0710 C9            [10] 1708 	ret
+   0711                    1709 _letrasColorAzul_end::
+                           1710 ;shots.c:196: void letrasColorRojo(){
+                           1711 ;	---------------------------------
+                           1712 ; Function letrasColorRojo
+                           1713 ; ---------------------------------
+   0711                    1714 _letrasColorRojo_start::
+   0711                    1715 _letrasColorRojo:
+                           1716 ;shots.c:197: cpc_SetInkGphStr(0,0);
+   0711 21 00 00      [10] 1717 	ld	hl,#0x0000
+   0714 E5            [11] 1718 	push	hl
+   0715 CDr00r00      [17] 1719 	call	_cpc_SetInkGphStr
+                           1720 ;shots.c:198: cpc_SetInkGphStr(1,40);
+   0718 21 01 28      [10] 1721 	ld	hl, #0x2801
+   071B E3            [19] 1722 	ex	(sp),hl
+   071C CDr00r00      [17] 1723 	call	_cpc_SetInkGphStr
+                           1724 ;shots.c:199: cpc_SetInkGphStr(2,136);
+   071F 21 02 88      [10] 1725 	ld	hl, #0x8802
+   0722 E3            [19] 1726 	ex	(sp),hl
+   0723 CDr00r00      [17] 1727 	call	_cpc_SetInkGphStr
+                           1728 ;shots.c:200: cpc_SetInkGphStr(3,40);
+   0726 21 03 28      [10] 1729 	ld	hl, #0x2803
+   0729 E3            [19] 1730 	ex	(sp),hl
+   072A CDr00r00      [17] 1731 	call	_cpc_SetInkGphStr
+                           1732 ;shots.c:201: pause(2);
+   072D 26 02         [ 7] 1733 	ld	h,#0x02
+   072F E3            [19] 1734 	ex	(sp),hl
+   0730 33            [ 6] 1735 	inc	sp
+   0731 CDrDEr06      [17] 1736 	call	_pause
+   0734 33            [ 6] 1737 	inc	sp
+   0735 C9            [10] 1738 	ret
+   0736                    1739 _letrasColorRojo_end::
+                           1740 ;shots.c:208: char menu() {
+                           1741 ;	---------------------------------
+                           1742 ; Function menu
+                           1743 ; ---------------------------------
+   0736                    1744 _menu_start::
+   0736                    1745 _menu:
+   0736 3B            [ 6] 1746 	dec	sp
+                           1747 ;shots.c:209: char choice=-1;
+   0737 FD 21 00 00   [14] 1748 	ld	iy,#0
+   073B FD 39         [15] 1749 	add	iy,sp
+   073D FD 36 00 FF   [19] 1750 	ld	0 (iy),#0xFF
+                           1751 ;shots.c:211: letrasColorRojo();
+   0741 CDr11r07      [17] 1752 	call	_letrasColorRojo
+                           1753 ;shots.c:212: cpc_PrintGphStrXY("SHOTS;IN;THE;SPACE",20, 1*16);
+   0744 11rF6r07      [10] 1754 	ld	de,#___str_0
+   0747 21 14 10      [10] 1755 	ld	hl,#0x1014
+   074A E5            [11] 1756 	push	hl
+   074B D5            [11] 1757 	push	de
+   074C CDr00r00      [17] 1758 	call	_cpc_PrintGphStrXY
+   074F F1            [10] 1759 	pop	af
+   0750 F1            [10] 1760 	pop	af
+                           1761 ;shots.c:213: letrasColorAzul();
+   0751 CDrECr06      [17] 1762 	call	_letrasColorAzul
+                           1763 ;shots.c:214: cpc_PrintGphStrXY("1;JUGAR",    30, 4*16);
+   0754 11r09r08      [10] 1764 	ld	de,#___str_1
+   0757 21 1E 40      [10] 1765 	ld	hl,#0x401E
+   075A E5            [11] 1766 	push	hl
+   075B D5            [11] 1767 	push	de
+   075C CDr00r00      [17] 1768 	call	_cpc_PrintGphStrXY
+   075F F1            [10] 1769 	pop	af
+   0760 F1            [10] 1770 	pop	af
+                           1771 ;shots.c:215: cpc_PrintGphStrXY("2;REDEFINIR;TECLAS",    30, 5*16);
+   0761 11r11r08      [10] 1772 	ld	de,#___str_2
+   0764 21 1E 50      [10] 1773 	ld	hl,#0x501E
+   0767 E5            [11] 1774 	push	hl
+   0768 D5            [11] 1775 	push	de
+   0769 CDr00r00      [17] 1776 	call	_cpc_PrintGphStrXY
+   076C F1            [10] 1777 	pop	af
+   076D F1            [10] 1778 	pop	af
+                           1779 ;shots.c:216: cpc_PrintGphStrXY("ESC;SALIR",  30, 7*16);
+   076E 11r24r08      [10] 1780 	ld	de,#___str_3
+   0771 21 1E 70      [10] 1781 	ld	hl,#0x701E
+   0774 E5            [11] 1782 	push	hl
+   0775 D5            [11] 1783 	push	de
+   0776 CDr00r00      [17] 1784 	call	_cpc_PrintGphStrXY
+   0779 F1            [10] 1785 	pop	af
+   077A F1            [10] 1786 	pop	af
+                           1787 ;shots.c:218: cpc_PrintGphStrXY("C;2015;GLASNOST;CORP", 20, 10*16);
+   077B 11r2Er08      [10] 1788 	ld	de,#___str_4
+   077E 21 14 A0      [10] 1789 	ld	hl,#0xA014
+   0781 E5            [11] 1790 	push	hl
+   0782 D5            [11] 1791 	push	de
+   0783 CDr00r00      [17] 1792 	call	_cpc_PrintGphStrXY
+   0786 F1            [10] 1793 	pop	af
+   0787 F1            [10] 1794 	pop	af
+                           1795 ;shots.c:219: letrasColorRojo();
+   0788 CDr11r07      [17] 1796 	call	_letrasColorRojo
+                           1797 ;shots.c:220: cpc_PrintGphStrXY("JOHN;LOBO", 31, 11*16);
+   078B 11r43r08      [10] 1798 	ld	de,#___str_5
+   078E 21 1F B0      [10] 1799 	ld	hl,#0xB01F
+   0791 E5            [11] 1800 	push	hl
+   0792 D5            [11] 1801 	push	de
+   0793 CDr00r00      [17] 1802 	call	_cpc_PrintGphStrXY
+   0796 F1            [10] 1803 	pop	af
+   0797 F1            [10] 1804 	pop	af
+                           1805 ;shots.c:222: while (choice==-1) {
+   0798                    1806 00107$:
+   0798 21 00 00      [10] 1807 	ld	hl, #0+0
+   079B 39            [11] 1808 	add	hl, sp
+   079C 7E            [ 7] 1809 	ld	a, (hl)
+   079D 3C            [ 4] 1810 	inc	a
+   079E 20 44         [12] 1811 	jr	NZ,00110$
+                           1812 ;shots.c:223: cpc_ScanKeyboard();
+   07A0 CDr00r00      [17] 1813 	call	_cpc_ScanKeyboard
+                           1814 ;shots.c:225: if (cpc_TestKey(KEY_ME1)==1)
+   07A3 3E 06         [ 7] 1815 	ld	a,#0x06
+   07A5 F5            [11] 1816 	push	af
+   07A6 33            [ 6] 1817 	inc	sp
+   07A7 CDr00r00      [17] 1818 	call	_cpc_TestKey
+   07AA 33            [ 6] 1819 	inc	sp
+   07AB 2D            [ 4] 1820 	dec	l
+   07AC 20 0A         [12] 1821 	jr	NZ,00102$
+                           1822 ;shots.c:226: choice=STATE_GAME;
+   07AE FD 21 00 00   [14] 1823 	ld	iy,#0
+   07B2 FD 39         [15] 1824 	add	iy,sp
+   07B4 FD 36 00 04   [19] 1825 	ld	0 (iy),#0x04
+   07B8                    1826 00102$:
+                           1827 ;shots.c:227: if (cpc_TestKey(KEY_ME2)==1)   
+   07B8 3E 07         [ 7] 1828 	ld	a,#0x07
+   07BA F5            [11] 1829 	push	af
+   07BB 33            [ 6] 1830 	inc	sp
+   07BC CDr00r00      [17] 1831 	call	_cpc_TestKey
+   07BF 33            [ 6] 1832 	inc	sp
+   07C0 2D            [ 4] 1833 	dec	l
+   07C1 20 0A         [12] 1834 	jr	NZ,00104$
+                           1835 ;shots.c:228: choice=STATE_REDEFINE;
+   07C3 FD 21 00 00   [14] 1836 	ld	iy,#0
+   07C7 FD 39         [15] 1837 	add	iy,sp
+   07C9 FD 36 00 09   [19] 1838 	ld	0 (iy),#0x09
+   07CD                    1839 00104$:
+                           1840 ;shots.c:229: if (cpc_TestKey(KEY_ESC)==1)   
+   07CD 3E 05         [ 7] 1841 	ld	a,#0x05
+   07CF F5            [11] 1842 	push	af
+   07D0 33            [ 6] 1843 	inc	sp
+   07D1 CDr00r00      [17] 1844 	call	_cpc_TestKey
+   07D4 33            [ 6] 1845 	inc	sp
+   07D5 2D            [ 4] 1846 	dec	l
+   07D6 20 C0         [12] 1847 	jr	NZ,00107$
+                           1848 ;shots.c:230: choice=STATE_EXIT;
+   07D8 FD 21 00 00   [14] 1849 	ld	iy,#0
+   07DC FD 39         [15] 1850 	add	iy,sp
+   07DE FD 36 00 05   [19] 1851 	ld	0 (iy),#0x05
+   07E2 18 B4         [12] 1852 	jr	00107$
+                           1853 ;shots.c:233: while (cpc_AnyKeyPressed());
+   07E4                    1854 00110$:
+   07E4 CDr00r00      [17] 1855 	call	_cpc_AnyKeyPressed
+   07E7 7C            [ 4] 1856 	ld	a,h
+   07E8 B5            [ 4] 1857 	or	a,l
+   07E9 20 F9         [12] 1858 	jr	NZ,00110$
+                           1859 ;shots.c:235: return choice; 
+   07EB FD 21 00 00   [14] 1860 	ld	iy,#0
+   07EF FD 39         [15] 1861 	add	iy,sp
+   07F1 FD 6E 00      [19] 1862 	ld	l,0 (iy)
+   07F4 33            [ 6] 1863 	inc	sp
+   07F5 C9            [10] 1864 	ret
+   07F6                    1865 _menu_end::
+   07F6                    1866 ___str_0:
+   07F6 53 48 4F 54 53 3B  1867 	.ascii "SHOTS;IN;THE;SPACE"
+        49 4E 3B 54 48 45
+        3B 53 50 41 43 45
+   0808 00                 1868 	.db 0x00
+   0809                    1869 ___str_1:
+   0809 31 3B 4A 55 47 41  1870 	.ascii "1;JUGAR"
+        52
+   0810 00                 1871 	.db 0x00
+   0811                    1872 ___str_2:
+   0811 32 3B 52 45 44 45  1873 	.ascii "2;REDEFINIR;TECLAS"
+        46 49 4E 49 52 3B
+        54 45 43 4C 41 53
+   0823 00                 1874 	.db 0x00
+   0824                    1875 ___str_3:
+   0824 45 53 43 3B 53 41  1876 	.ascii "ESC;SALIR"
+        4C 49 52
+   082D 00                 1877 	.db 0x00
+   082E                    1878 ___str_4:
+   082E 43 3B 32 30 31 35  1879 	.ascii "C;2015;GLASNOST;CORP"
+        3B 47 4C 41 53 4E
+        4F 53 54 3B 43 4F
+        52 50
+   0842 00                 1880 	.db 0x00
+   0843                    1881 ___str_5:
+   0843 4A 4F 48 4E 3B 4C  1882 	.ascii "JOHN;LOBO"
+        4F 42 4F
+   084C 00                 1883 	.db 0x00
+                           1884 ;shots.c:242: char levelUp()
+                           1885 ;	---------------------------------
+                           1886 ; Function levelUp
+                           1887 ; ---------------------------------
+   084D                    1888 _levelUp_start::
+   084D                    1889 _levelUp:
+                           1890 ;shots.c:244: letrasColorAzul();
+   084D CDrECr06      [17] 1891 	call	_letrasColorAzul
+                           1892 ;shots.c:245: sprintf(aux_txt,";;;PUNTUACION:;%05d;;;",score);
+   0850 11r30r03      [10] 1893 	ld	de,#_aux_txt
+   0853 2Ar2Ar00      [16] 1894 	ld	hl,(_score)
+   0856 E5            [11] 1895 	push	hl
+   0857 21r2Cr09      [10] 1896 	ld	hl,#___str_6
+   085A E5            [11] 1897 	push	hl
+   085B D5            [11] 1898 	push	de
+   085C CDr00r00      [17] 1899 	call	_sprintf
+   085F 21 06 00      [10] 1900 	ld	hl,#6
+   0862 39            [11] 1901 	add	hl,sp
+   0863 F9            [ 6] 1902 	ld	sp,hl
+                           1903 ;shots.c:246: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   0864 11r43r09      [10] 1904 	ld	de,#___str_7
+   0867 21 10 58      [10] 1905 	ld	hl,#0x5810
+   086A E5            [11] 1906 	push	hl
+   086B D5            [11] 1907 	push	de
+   086C CDr00r00      [17] 1908 	call	_cpc_PrintGphStrXY2X
+   086F F1            [10] 1909 	pop	af
+   0870 F1            [10] 1910 	pop	af
+                           1911 ;shots.c:247: cpc_PrintGphStrXY2X(aux_txt,8*2,13*8);
+   0871 11r30r03      [10] 1912 	ld	de,#_aux_txt
+   0874 21 10 68      [10] 1913 	ld	hl,#0x6810
+   0877 E5            [11] 1914 	push	hl
+   0878 D5            [11] 1915 	push	de
+   0879 CDr00r00      [17] 1916 	call	_cpc_PrintGphStrXY2X
+   087C F1            [10] 1917 	pop	af
+   087D F1            [10] 1918 	pop	af
+                           1919 ;shots.c:248: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   087E 11r43r09      [10] 1920 	ld	de,#___str_7
+   0881 21 10 78      [10] 1921 	ld	hl,#0x7810
+   0884 E5            [11] 1922 	push	hl
+   0885 D5            [11] 1923 	push	de
+   0886 CDr00r00      [17] 1924 	call	_cpc_PrintGphStrXY2X
+   0889 F1            [10] 1925 	pop	af
+   088A F1            [10] 1926 	pop	af
+                           1927 ;shots.c:249: while (!cpc_AnyKeyPressed());
+   088B                    1928 00101$:
+   088B CDr00r00      [17] 1929 	call	_cpc_AnyKeyPressed
+   088E 7C            [ 4] 1930 	ld	a,h
+   088F B5            [ 4] 1931 	or	a,l
+   0890 28 F9         [12] 1932 	jr	Z,00101$
+                           1933 ;shots.c:250: while (cpc_AnyKeyPressed());
+   0892                    1934 00104$:
+   0892 CDr00r00      [17] 1935 	call	_cpc_AnyKeyPressed
+   0895 7C            [ 4] 1936 	ld	a,h
+   0896 B5            [ 4] 1937 	or	a,l
+   0897 20 F9         [12] 1938 	jr	NZ,00104$
+                           1939 ;shots.c:251: nivel++;
+   0899 21r2Er03      [10] 1940 	ld	hl, #_nivel+0
+   089C 34            [11] 1941 	inc	(hl)
+                           1942 ;shots.c:252: sprintf(aux_txt,";;SIGUIENTE;NIVEL;:;%02d;",nivel);
+   089D 21r2Er03      [10] 1943 	ld	hl,#_nivel + 0
+   08A0 5E            [ 7] 1944 	ld	e, (hl)
+   08A1 3Ar2Er03      [13] 1945 	ld	a,(#_nivel + 0)
+   08A4 17            [ 4] 1946 	rla
+   08A5 9F            [ 4] 1947 	sbc	a, a
+   08A6 57            [ 4] 1948 	ld	d,a
+   08A7 21r30r03      [10] 1949 	ld	hl,#_aux_txt
+   08AA D5            [11] 1950 	push	de
+   08AB 01r5Br09      [10] 1951 	ld	bc,#___str_8
+   08AE C5            [11] 1952 	push	bc
+   08AF E5            [11] 1953 	push	hl
+   08B0 CDr00r00      [17] 1954 	call	_sprintf
+   08B3 21 06 00      [10] 1955 	ld	hl,#6
+   08B6 39            [11] 1956 	add	hl,sp
+   08B7 F9            [ 6] 1957 	ld	sp,hl
+                           1958 ;shots.c:253: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   08B8 11r43r09      [10] 1959 	ld	de,#___str_7
+   08BB 21 10 58      [10] 1960 	ld	hl,#0x5810
+   08BE E5            [11] 1961 	push	hl
+   08BF D5            [11] 1962 	push	de
+   08C0 CDr00r00      [17] 1963 	call	_cpc_PrintGphStrXY2X
+   08C3 F1            [10] 1964 	pop	af
+   08C4 F1            [10] 1965 	pop	af
+                           1966 ;shots.c:254: cpc_PrintGphStrXY2X(aux_txt,8*2,13*8);
+   08C5 11r30r03      [10] 1967 	ld	de,#_aux_txt
+   08C8 21 10 68      [10] 1968 	ld	hl,#0x6810
+   08CB E5            [11] 1969 	push	hl
+   08CC D5            [11] 1970 	push	de
+   08CD CDr00r00      [17] 1971 	call	_cpc_PrintGphStrXY2X
+   08D0 F1            [10] 1972 	pop	af
+   08D1 F1            [10] 1973 	pop	af
+                           1974 ;shots.c:255: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   08D2 11r43r09      [10] 1975 	ld	de,#___str_7
+   08D5 21 10 78      [10] 1976 	ld	hl,#0x7810
+   08D8 E5            [11] 1977 	push	hl
+   08D9 D5            [11] 1978 	push	de
+   08DA CDr00r00      [17] 1979 	call	_cpc_PrintGphStrXY2X
+   08DD F1            [10] 1980 	pop	af
+   08DE F1            [10] 1981 	pop	af
+                           1982 ;shots.c:256: while (!cpc_AnyKeyPressed());
+   08DF                    1983 00107$:
+   08DF CDr00r00      [17] 1984 	call	_cpc_AnyKeyPressed
+   08E2 7C            [ 4] 1985 	ld	a,h
+   08E3 B5            [ 4] 1986 	or	a,l
+   08E4 28 F9         [12] 1987 	jr	Z,00107$
+                           1988 ;shots.c:257: while (cpc_AnyKeyPressed());
+   08E6                    1989 00110$:
+   08E6 CDr00r00      [17] 1990 	call	_cpc_AnyKeyPressed
+   08E9 7C            [ 4] 1991 	ld	a,h
+   08EA B5            [ 4] 1992 	or	a,l
+   08EB 20 F9         [12] 1993 	jr	NZ,00110$
+                           1994 ;shots.c:258: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   08ED 11r43r09      [10] 1995 	ld	de,#___str_7
+   08F0 21 10 58      [10] 1996 	ld	hl,#0x5810
+   08F3 E5            [11] 1997 	push	hl
+   08F4 D5            [11] 1998 	push	de
+   08F5 CDr00r00      [17] 1999 	call	_cpc_PrintGphStrXY2X
+   08F8 F1            [10] 2000 	pop	af
+   08F9 F1            [10] 2001 	pop	af
+                           2002 ;shots.c:259: cpc_PrintGphStrXY2X(";;;;;;;PREPARADO;;;;;;;",8*2,13*8);
+   08FA 11r75r09      [10] 2003 	ld	de,#___str_9
+   08FD 21 10 68      [10] 2004 	ld	hl,#0x6810
+   0900 E5            [11] 2005 	push	hl
+   0901 D5            [11] 2006 	push	de
+   0902 CDr00r00      [17] 2007 	call	_cpc_PrintGphStrXY2X
+   0905 F1            [10] 2008 	pop	af
+   0906 F1            [10] 2009 	pop	af
+                           2010 ;shots.c:260: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0907 11r43r09      [10] 2011 	ld	de,#___str_7
+   090A 21 10 78      [10] 2012 	ld	hl,#0x7810
+   090D E5            [11] 2013 	push	hl
+   090E D5            [11] 2014 	push	de
+   090F CDr00r00      [17] 2015 	call	_cpc_PrintGphStrXY2X
+   0912 F1            [10] 2016 	pop	af
+                           2017 ;shots.c:261: pause(6);
+   0913 26 06         [ 7] 2018 	ld	h,#0x06
+   0915 E3            [19] 2019 	ex	(sp),hl
+   0916 33            [ 6] 2020 	inc	sp
+   0917 CDrDEr06      [17] 2021 	call	_pause
+   091A 33            [ 6] 2022 	inc	sp
+                           2023 ;shots.c:262: while (!cpc_AnyKeyPressed());
+   091B                    2024 00113$:
+   091B CDr00r00      [17] 2025 	call	_cpc_AnyKeyPressed
+   091E 7C            [ 4] 2026 	ld	a,h
+   091F B5            [ 4] 2027 	or	a,l
+   0920 28 F9         [12] 2028 	jr	Z,00113$
+                           2029 ;shots.c:263: while (cpc_AnyKeyPressed());
+   0922                    2030 00116$:
+   0922 CDr00r00      [17] 2031 	call	_cpc_AnyKeyPressed
+   0925 7C            [ 4] 2032 	ld	a,h
+   0926 B5            [ 4] 2033 	or	a,l
+   0927 20 F9         [12] 2034 	jr	NZ,00116$
+                           2035 ;shots.c:265: return STATE_GAME; 
+   0929 2E 04         [ 7] 2036 	ld	l,#0x04
+   092B C9            [10] 2037 	ret
+   092C                    2038 _levelUp_end::
+   092C                    2039 ___str_6:
+   092C 3B 3B 3B 50 55 4E  2040 	.ascii ";;;PUNTUACION:;%05d;;;"
+        54 55 41 43 49 4F
+        4E 3A 3B 25 30 35
+        64 3B 3B 3B
+   0942 00                 2041 	.db 0x00
+   0943                    2042 ___str_7:
+   0943 3B 3B 3B 3B 3B 3B  2043 	.ascii ";;;;;;;;;;;;;;;;;;;;;;;"
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B
+   095A 00                 2044 	.db 0x00
+   095B                    2045 ___str_8:
+   095B 3B 3B 53 49 47 55  2046 	.ascii ";;SIGUIENTE;NIVEL;:;%02d;"
+        49 45 4E 54 45 3B
+        4E 49 56 45 4C 3B
+        3A 3B 25 30 32 64
+        3B
+   0974 00                 2047 	.db 0x00
+   0975                    2048 ___str_9:
+   0975 3B 3B 3B 3B 3B 3B  2049 	.ascii ";;;;;;;PREPARADO;;;;;;;"
+        3B 50 52 45 50 41
+        52 41 44 4F 3B 3B
+        3B 3B 3B 3B 3B
+   098C 00                 2050 	.db 0x00
+                           2051 ;shots.c:271: char protaDead()
+                           2052 ;	---------------------------------
+                           2053 ; Function protaDead
+                           2054 ; ---------------------------------
+   098D                    2055 _protaDead_start::
+   098D                    2056 _protaDead:
+   098D F5            [11] 2057 	push	af
+                           2058 ;shots.c:273: letrasColorAzul();
+   098E CDrECr06      [17] 2059 	call	_letrasColorAzul
+                           2060 ;shots.c:274: sprintf(aux_txt,";;;PUNTUACION:;%05d;;;",score);
+   0991 11r30r03      [10] 2061 	ld	de,#_aux_txt
+   0994 2Ar2Ar00      [16] 2062 	ld	hl,(_score)
+   0997 E5            [11] 2063 	push	hl
+   0998 21rD2r0A      [10] 2064 	ld	hl,#___str_10
+   099B E5            [11] 2065 	push	hl
+   099C D5            [11] 2066 	push	de
+   099D CDr00r00      [17] 2067 	call	_sprintf
+   09A0 21 06 00      [10] 2068 	ld	hl,#6
+   09A3 39            [11] 2069 	add	hl,sp
+   09A4 F9            [ 6] 2070 	ld	sp,hl
+                           2071 ;shots.c:275: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   09A5 11rE9r0A      [10] 2072 	ld	de,#___str_11
+   09A8 21 10 58      [10] 2073 	ld	hl,#0x5810
+   09AB E5            [11] 2074 	push	hl
+   09AC D5            [11] 2075 	push	de
+   09AD CDr00r00      [17] 2076 	call	_cpc_PrintGphStrXY2X
+   09B0 F1            [10] 2077 	pop	af
+   09B1 F1            [10] 2078 	pop	af
+                           2079 ;shots.c:276: cpc_PrintGphStrXY2X(aux_txt,8*2,13*8);
+   09B2 11r30r03      [10] 2080 	ld	de,#_aux_txt
+   09B5 21 10 68      [10] 2081 	ld	hl,#0x6810
+   09B8 E5            [11] 2082 	push	hl
+   09B9 D5            [11] 2083 	push	de
+   09BA CDr00r00      [17] 2084 	call	_cpc_PrintGphStrXY2X
+   09BD F1            [10] 2085 	pop	af
+   09BE F1            [10] 2086 	pop	af
+                           2087 ;shots.c:277: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   09BF 11rE9r0A      [10] 2088 	ld	de,#___str_11
+   09C2 21 10 78      [10] 2089 	ld	hl,#0x7810
+   09C5 E5            [11] 2090 	push	hl
+   09C6 D5            [11] 2091 	push	de
+   09C7 CDr00r00      [17] 2092 	call	_cpc_PrintGphStrXY2X
+   09CA F1            [10] 2093 	pop	af
+   09CB F1            [10] 2094 	pop	af
+                           2095 ;shots.c:278: while (!cpc_AnyKeyPressed());
+   09CC                    2096 00101$:
+   09CC CDr00r00      [17] 2097 	call	_cpc_AnyKeyPressed
+   09CF 7C            [ 4] 2098 	ld	a,h
+   09D0 B5            [ 4] 2099 	or	a,l
+   09D1 28 F9         [12] 2100 	jr	Z,00101$
+                           2101 ;shots.c:279: while (cpc_AnyKeyPressed());
+   09D3                    2102 00104$:
+   09D3 CDr00r00      [17] 2103 	call	_cpc_AnyKeyPressed
+   09D6 7C            [ 4] 2104 	ld	a,h
+   09D7 B5            [ 4] 2105 	or	a,l
+   09D8 20 F9         [12] 2106 	jr	NZ,00104$
+                           2107 ;shots.c:280: sprintf(aux_txt,";;;;;;;;;VIDAS;:;%02d;",prota.vidas);
+   09DA 3Ar99r00      [13] 2108 	ld	a, (#(_prota + 0x000f) + 0)
+   09DD 5F            [ 4] 2109 	ld	e,a
+   09DE 16 00         [ 7] 2110 	ld	d,#0x00
+   09E0 21r30r03      [10] 2111 	ld	hl,#_aux_txt
+   09E3 D5            [11] 2112 	push	de
+   09E4 01r01r0B      [10] 2113 	ld	bc,#___str_12
+   09E7 C5            [11] 2114 	push	bc
+   09E8 E5            [11] 2115 	push	hl
+   09E9 CDr00r00      [17] 2116 	call	_sprintf
+   09EC 21 06 00      [10] 2117 	ld	hl,#6
+   09EF 39            [11] 2118 	add	hl,sp
+   09F0 F9            [ 6] 2119 	ld	sp,hl
+                           2120 ;shots.c:281: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   09F1 11rE9r0A      [10] 2121 	ld	de,#___str_11
+   09F4 21 10 58      [10] 2122 	ld	hl,#0x5810
+   09F7 E5            [11] 2123 	push	hl
+   09F8 D5            [11] 2124 	push	de
+   09F9 CDr00r00      [17] 2125 	call	_cpc_PrintGphStrXY2X
+   09FC F1            [10] 2126 	pop	af
+   09FD F1            [10] 2127 	pop	af
+                           2128 ;shots.c:282: cpc_PrintGphStrXY2X(aux_txt,8*2,13*8);
+   09FE 11r30r03      [10] 2129 	ld	de,#_aux_txt
+   0A01 21 10 68      [10] 2130 	ld	hl,#0x6810
+   0A04 E5            [11] 2131 	push	hl
+   0A05 D5            [11] 2132 	push	de
+   0A06 CDr00r00      [17] 2133 	call	_cpc_PrintGphStrXY2X
+   0A09 F1            [10] 2134 	pop	af
+   0A0A F1            [10] 2135 	pop	af
+                           2136 ;shots.c:283: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0A0B 11rE9r0A      [10] 2137 	ld	de,#___str_11
+   0A0E 21 10 78      [10] 2138 	ld	hl,#0x7810
+   0A11 E5            [11] 2139 	push	hl
+   0A12 D5            [11] 2140 	push	de
+   0A13 CDr00r00      [17] 2141 	call	_cpc_PrintGphStrXY2X
+   0A16 F1            [10] 2142 	pop	af
+   0A17 F1            [10] 2143 	pop	af
+                           2144 ;shots.c:284: while (!cpc_AnyKeyPressed());
+   0A18                    2145 00107$:
+   0A18 CDr00r00      [17] 2146 	call	_cpc_AnyKeyPressed
+   0A1B 7C            [ 4] 2147 	ld	a,h
+   0A1C B5            [ 4] 2148 	or	a,l
+   0A1D 28 F9         [12] 2149 	jr	Z,00107$
+                           2150 ;shots.c:285: while (cpc_AnyKeyPressed());
+   0A1F                    2151 00110$:
+   0A1F CDr00r00      [17] 2152 	call	_cpc_AnyKeyPressed
+   0A22 7C            [ 4] 2153 	ld	a,h
+   0A23 B5            [ 4] 2154 	or	a,l
+   0A24 20 F9         [12] 2155 	jr	NZ,00110$
+                           2156 ;shots.c:286: if (prota.vidas){
+   0A26 3Ar99r00      [13] 2157 	ld	a,(#(_prota + 0x000f) + 0)
+   0A29 B7            [ 4] 2158 	or	a, a
+   0A2A CArCEr0A      [10] 2159 	jp	Z,00126$
+                           2160 ;shots.c:287: sprintf(aux_txt,";;;NIVEL;ACTUAL;:;%02d;",nivel);
+   0A2D 21r2Er03      [10] 2161 	ld	hl,#_nivel + 0
+   0A30 5E            [ 7] 2162 	ld	e, (hl)
+   0A31 3Ar2Er03      [13] 2163 	ld	a,(#_nivel + 0)
+   0A34 17            [ 4] 2164 	rla
+   0A35 9F            [ 4] 2165 	sbc	a, a
+   0A36 57            [ 4] 2166 	ld	d,a
+   0A37 21r30r03      [10] 2167 	ld	hl,#_aux_txt
+   0A3A D5            [11] 2168 	push	de
+   0A3B 01r18r0B      [10] 2169 	ld	bc,#___str_13
+   0A3E C5            [11] 2170 	push	bc
+   0A3F E5            [11] 2171 	push	hl
+   0A40 CDr00r00      [17] 2172 	call	_sprintf
+   0A43 21 06 00      [10] 2173 	ld	hl,#6
+   0A46 39            [11] 2174 	add	hl,sp
+   0A47 F9            [ 6] 2175 	ld	sp,hl
+                           2176 ;shots.c:288: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   0A48 11rE9r0A      [10] 2177 	ld	de,#___str_11
+   0A4B 21 10 58      [10] 2178 	ld	hl,#0x5810
+   0A4E E5            [11] 2179 	push	hl
+   0A4F D5            [11] 2180 	push	de
+   0A50 CDr00r00      [17] 2181 	call	_cpc_PrintGphStrXY2X
+   0A53 F1            [10] 2182 	pop	af
+   0A54 F1            [10] 2183 	pop	af
+                           2184 ;shots.c:289: cpc_PrintGphStrXY2X(aux_txt,8*2,13*8);
+   0A55 11r30r03      [10] 2185 	ld	de,#_aux_txt
+   0A58 21 10 68      [10] 2186 	ld	hl,#0x6810
+   0A5B E5            [11] 2187 	push	hl
+   0A5C D5            [11] 2188 	push	de
+   0A5D CDr00r00      [17] 2189 	call	_cpc_PrintGphStrXY2X
+   0A60 F1            [10] 2190 	pop	af
+   0A61 F1            [10] 2191 	pop	af
+                           2192 ;shots.c:290: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0A62 11rE9r0A      [10] 2193 	ld	de,#___str_11
+   0A65 21 10 78      [10] 2194 	ld	hl,#0x7810
+   0A68 E5            [11] 2195 	push	hl
+   0A69 D5            [11] 2196 	push	de
+   0A6A CDr00r00      [17] 2197 	call	_cpc_PrintGphStrXY2X
+   0A6D F1            [10] 2198 	pop	af
+   0A6E F1            [10] 2199 	pop	af
+                           2200 ;shots.c:291: while (!cpc_AnyKeyPressed());
+   0A6F                    2201 00113$:
+   0A6F CDr00r00      [17] 2202 	call	_cpc_AnyKeyPressed
+   0A72 7C            [ 4] 2203 	ld	a,h
+   0A73 B5            [ 4] 2204 	or	a,l
+   0A74 28 F9         [12] 2205 	jr	Z,00113$
+                           2206 ;shots.c:292: while (cpc_AnyKeyPressed());
+   0A76                    2207 00116$:
+   0A76 CDr00r00      [17] 2208 	call	_cpc_AnyKeyPressed
+   0A79 7C            [ 4] 2209 	ld	a,h
+   0A7A B5            [ 4] 2210 	or	a,l
+   0A7B 20 F9         [12] 2211 	jr	NZ,00116$
+                           2212 ;shots.c:293: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   0A7D 11rE9r0A      [10] 2213 	ld	de,#___str_11
+   0A80 21 10 58      [10] 2214 	ld	hl,#0x5810
+   0A83 E5            [11] 2215 	push	hl
+   0A84 D5            [11] 2216 	push	de
+   0A85 CDr00r00      [17] 2217 	call	_cpc_PrintGphStrXY2X
+   0A88 F1            [10] 2218 	pop	af
+   0A89 F1            [10] 2219 	pop	af
+                           2220 ;shots.c:294: cpc_PrintGphStrXY2X(";;;;;;;PREPARADO;;;;;;;",8*2,13*8);
+   0A8A 11r30r0B      [10] 2221 	ld	de,#___str_14
+   0A8D 21 10 68      [10] 2222 	ld	hl,#0x6810
+   0A90 E5            [11] 2223 	push	hl
+   0A91 D5            [11] 2224 	push	de
+   0A92 CDr00r00      [17] 2225 	call	_cpc_PrintGphStrXY2X
+   0A95 F1            [10] 2226 	pop	af
+   0A96 F1            [10] 2227 	pop	af
+                           2228 ;shots.c:295: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0A97 11rE9r0A      [10] 2229 	ld	de,#___str_11
+   0A9A 21 10 78      [10] 2230 	ld	hl,#0x7810
+   0A9D E5            [11] 2231 	push	hl
+   0A9E D5            [11] 2232 	push	de
+   0A9F CDr00r00      [17] 2233 	call	_cpc_PrintGphStrXY2X
+   0AA2 F1            [10] 2234 	pop	af
+                           2235 ;shots.c:296: pause(6);
+   0AA3 26 06         [ 7] 2236 	ld	h,#0x06
+   0AA5 E3            [19] 2237 	ex	(sp),hl
+   0AA6 33            [ 6] 2238 	inc	sp
+   0AA7 CDrDEr06      [17] 2239 	call	_pause
+   0AAA 33            [ 6] 2240 	inc	sp
+                           2241 ;shots.c:297: while (!cpc_AnyKeyPressed());
+   0AAB                    2242 00119$:
+   0AAB CDr00r00      [17] 2243 	call	_cpc_AnyKeyPressed
+   0AAE 7C            [ 4] 2244 	ld	a,h
+   0AAF B5            [ 4] 2245 	or	a,l
+   0AB0 28 F9         [12] 2246 	jr	Z,00119$
+                           2247 ;shots.c:298: while (cpc_AnyKeyPressed());
+   0AB2                    2248 00122$:
+   0AB2 CDr00r00      [17] 2249 	call	_cpc_AnyKeyPressed
+   0AB5 FD 21 00 00   [14] 2250 	ld	iy,#0
+   0AB9 FD 39         [15] 2251 	add	iy,sp
+   0ABB FD 74 01      [19] 2252 	ld	1 (iy),h
+   0ABE FD 75 00      [19] 2253 	ld	0 (iy),l
+   0AC1 21 01 00      [10] 2254 	ld	hl, #0+1
+   0AC4 39            [11] 2255 	add	hl, sp
+   0AC5 7E            [ 7] 2256 	ld	a, (hl)
+   0AC6 2B            [ 6] 2257 	dec	hl
+   0AC7 B6            [ 7] 2258 	or	a,(hl)
+   0AC8 20 E8         [12] 2259 	jr	NZ,00122$
+                           2260 ;shots.c:299: return STATE_GAME;
+   0ACA 2E 04         [ 7] 2261 	ld	l,#0x04
+   0ACC 18 02         [12] 2262 	jr	00128$
+   0ACE                    2263 00126$:
+                           2264 ;shots.c:301: return STATE_LOSE; 
+   0ACE 2E 07         [ 7] 2265 	ld	l,#0x07
+   0AD0                    2266 00128$:
+   0AD0 F1            [10] 2267 	pop	af
+   0AD1 C9            [10] 2268 	ret
+   0AD2                    2269 _protaDead_end::
+   0AD2                    2270 ___str_10:
+   0AD2 3B 3B 3B 50 55 4E  2271 	.ascii ";;;PUNTUACION:;%05d;;;"
+        54 55 41 43 49 4F
+        4E 3A 3B 25 30 35
+        64 3B 3B 3B
+   0AE8 00                 2272 	.db 0x00
+   0AE9                    2273 ___str_11:
+   0AE9 3B 3B 3B 3B 3B 3B  2274 	.ascii ";;;;;;;;;;;;;;;;;;;;;;;"
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B
+   0B00 00                 2275 	.db 0x00
+   0B01                    2276 ___str_12:
+   0B01 3B 3B 3B 3B 3B 3B  2277 	.ascii ";;;;;;;;;VIDAS;:;%02d;"
+        3B 3B 3B 56 49 44
+        41 53 3B 3A 3B 25
+        30 32 64 3B
+   0B17 00                 2278 	.db 0x00
+   0B18                    2279 ___str_13:
+   0B18 3B 3B 3B 4E 49 56  2280 	.ascii ";;;NIVEL;ACTUAL;:;%02d;"
+        45 4C 3B 41 43 54
+        55 41 4C 3B 3A 3B
+        25 30 32 64 3B
+   0B2F 00                 2281 	.db 0x00
+   0B30                    2282 ___str_14:
+   0B30 3B 3B 3B 3B 3B 3B  2283 	.ascii ";;;;;;;PREPARADO;;;;;;;"
+        3B 50 52 45 50 41
+        52 41 44 4F 3B 3B
+        3B 3B 3B 3B 3B
+   0B47 00                 2284 	.db 0x00
+                           2285 ;shots.c:307: char win()
+                           2286 ;	---------------------------------
+                           2287 ; Function win
+                           2288 ; ---------------------------------
+   0B48                    2289 _win_start::
+   0B48                    2290 _win:
+                           2291 ;shots.c:309: letrasColorAzul();
+   0B48 CDrECr06      [17] 2292 	call	_letrasColorAzul
+                           2293 ;shots.c:310: sprintf(aux_txt,"PUNTUACION;FINAL:;%05d",score);
+   0B4B 11r30r03      [10] 2294 	ld	de,#_aux_txt
+   0B4E 2Ar2Ar00      [16] 2295 	ld	hl,(_score)
+   0B51 E5            [11] 2296 	push	hl
+   0B52 21rD3r0B      [10] 2297 	ld	hl,#___str_15
+   0B55 E5            [11] 2298 	push	hl
+   0B56 D5            [11] 2299 	push	de
+   0B57 CDr00r00      [17] 2300 	call	_sprintf
+   0B5A 21 06 00      [10] 2301 	ld	hl,#6
+   0B5D 39            [11] 2302 	add	hl,sp
+   0B5E F9            [ 6] 2303 	ld	sp,hl
+                           2304 ;shots.c:311: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,13*8);
+   0B5F 11rEAr0B      [10] 2305 	ld	de,#___str_16
+   0B62 21 10 68      [10] 2306 	ld	hl,#0x6810
+   0B65 E5            [11] 2307 	push	hl
+   0B66 D5            [11] 2308 	push	de
+   0B67 CDr00r00      [17] 2309 	call	_cpc_PrintGphStrXY2X
+   0B6A F1            [10] 2310 	pop	af
+   0B6B F1            [10] 2311 	pop	af
+                           2312 ;shots.c:312: cpc_PrintGphStrXY2X(aux_txt,8*2,14*8);
+   0B6C 11r30r03      [10] 2313 	ld	de,#_aux_txt
+   0B6F 21 10 70      [10] 2314 	ld	hl,#0x7010
+   0B72 E5            [11] 2315 	push	hl
+   0B73 D5            [11] 2316 	push	de
+   0B74 CDr00r00      [17] 2317 	call	_cpc_PrintGphStrXY2X
+   0B77 F1            [10] 2318 	pop	af
+   0B78 F1            [10] 2319 	pop	af
+                           2320 ;shots.c:313: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0B79 11rEAr0B      [10] 2321 	ld	de,#___str_16
+   0B7C 21 10 78      [10] 2322 	ld	hl,#0x7810
+   0B7F E5            [11] 2323 	push	hl
+   0B80 D5            [11] 2324 	push	de
+   0B81 CDr00r00      [17] 2325 	call	_cpc_PrintGphStrXY2X
+   0B84 F1            [10] 2326 	pop	af
+   0B85 F1            [10] 2327 	pop	af
+                           2328 ;shots.c:314: while (!cpc_AnyKeyPressed());
+   0B86                    2329 00101$:
+   0B86 CDr00r00      [17] 2330 	call	_cpc_AnyKeyPressed
+   0B89 7C            [ 4] 2331 	ld	a,h
+   0B8A B5            [ 4] 2332 	or	a,l
+   0B8B 28 F9         [12] 2333 	jr	Z,00101$
+                           2334 ;shots.c:315: while (cpc_AnyKeyPressed());
+   0B8D                    2335 00104$:
+   0B8D CDr00r00      [17] 2336 	call	_cpc_AnyKeyPressed
+   0B90 7C            [ 4] 2337 	ld	a,h
+   0B91 B5            [ 4] 2338 	or	a,l
+   0B92 20 F9         [12] 2339 	jr	NZ,00104$
+                           2340 ;shots.c:316: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,13*8);
+   0B94 11rEAr0B      [10] 2341 	ld	de,#___str_16
+   0B97 21 10 68      [10] 2342 	ld	hl,#0x6810
+   0B9A E5            [11] 2343 	push	hl
+   0B9B D5            [11] 2344 	push	de
+   0B9C CDr00r00      [17] 2345 	call	_cpc_PrintGphStrXY2X
+   0B9F F1            [10] 2346 	pop	af
+   0BA0 F1            [10] 2347 	pop	af
+                           2348 ;shots.c:317: cpc_PrintGphStrXY2X(";;;;;;;GAME;OVER;;;;;;;",8*2,14*8);
+   0BA1 11r02r0C      [10] 2349 	ld	de,#___str_17
+   0BA4 21 10 70      [10] 2350 	ld	hl,#0x7010
+   0BA7 E5            [11] 2351 	push	hl
+   0BA8 D5            [11] 2352 	push	de
+   0BA9 CDr00r00      [17] 2353 	call	_cpc_PrintGphStrXY2X
+   0BAC F1            [10] 2354 	pop	af
+   0BAD F1            [10] 2355 	pop	af
+                           2356 ;shots.c:318: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,13*8);
+   0BAE 11rEAr0B      [10] 2357 	ld	de,#___str_16
+   0BB1 21 10 68      [10] 2358 	ld	hl,#0x6810
+   0BB4 E5            [11] 2359 	push	hl
+   0BB5 D5            [11] 2360 	push	de
+   0BB6 CDr00r00      [17] 2361 	call	_cpc_PrintGphStrXY2X
+   0BB9 F1            [10] 2362 	pop	af
+                           2363 ;shots.c:319: pause(6);
+   0BBA 26 06         [ 7] 2364 	ld	h,#0x06
+   0BBC E3            [19] 2365 	ex	(sp),hl
+   0BBD 33            [ 6] 2366 	inc	sp
+   0BBE CDrDEr06      [17] 2367 	call	_pause
+   0BC1 33            [ 6] 2368 	inc	sp
+                           2369 ;shots.c:321: while (!cpc_AnyKeyPressed());
+   0BC2                    2370 00107$:
+   0BC2 CDr00r00      [17] 2371 	call	_cpc_AnyKeyPressed
+   0BC5 7C            [ 4] 2372 	ld	a,h
+   0BC6 B5            [ 4] 2373 	or	a,l
+   0BC7 28 F9         [12] 2374 	jr	Z,00107$
+                           2375 ;shots.c:322: while (cpc_AnyKeyPressed());
+   0BC9                    2376 00110$:
+   0BC9 CDr00r00      [17] 2377 	call	_cpc_AnyKeyPressed
+   0BCC 7C            [ 4] 2378 	ld	a,h
+   0BCD B5            [ 4] 2379 	or	a,l
+   0BCE 20 F9         [12] 2380 	jr	NZ,00110$
+                           2381 ;shots.c:324: return STATE_MENU; 
+   0BD0 2E 02         [ 7] 2382 	ld	l,#0x02
+   0BD2 C9            [10] 2383 	ret
+   0BD3                    2384 _win_end::
+   0BD3                    2385 ___str_15:
+   0BD3 50 55 4E 54 55 41  2386 	.ascii "PUNTUACION;FINAL:;%05d"
+        43 49 4F 4E 3B 46
+        49 4E 41 4C 3A 3B
+        25 30 35 64
+   0BE9 00                 2387 	.db 0x00
+   0BEA                    2388 ___str_16:
+   0BEA 3B 3B 3B 3B 3B 3B  2389 	.ascii ";;;;;;;;;;;;;;;;;;;;;;;"
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B
+   0C01 00                 2390 	.db 0x00
+   0C02                    2391 ___str_17:
+   0C02 3B 3B 3B 3B 3B 3B  2392 	.ascii ";;;;;;;GAME;OVER;;;;;;;"
+        3B 47 41 4D 45 3B
+        4F 56 45 52 3B 3B
+        3B 3B 3B 3B 3B
+   0C19 00                 2393 	.db 0x00
+                           2394 ;shots.c:330: void inicializarProta(){
+                           2395 ;	---------------------------------
+                           2396 ; Function inicializarProta
+                           2397 ; ---------------------------------
+   0C1A                    2398 _inicializarProta_start::
+   0C1A                    2399 _inicializarProta:
+                           2400 ;shots.c:331: prota.activo=1;
+   0C1A 21r93r00      [10] 2401 	ld	hl,#_prota + 9
+   0C1D 36 01         [10] 2402 	ld	(hl),#0x01
+                           2403 ;shots.c:332: prota.sp0=ship01;
+   0C1F 21r00r00      [10] 2404 	ld	hl,#_ship01
+   0C22 22r8Ar00      [16] 2405 	ld	(_prota), hl
+                           2406 ;shots.c:333: prota.cx=39;
+   0C25 21r8Cr00      [10] 2407 	ld	hl,#_prota + 2
+   0C28 36 27         [10] 2408 	ld	(hl),#0x27
+                           2409 ;shots.c:334: prota.cy=177;
+   0C2A 21r8Dr00      [10] 2410 	ld	hl,#_prota + 3
+   0C2D 36 B1         [10] 2411 	ld	(hl),#0xB1
+                           2412 ;shots.c:335: prota.ox=39;
+   0C2F 21r8Er00      [10] 2413 	ld	hl,#_prota + 4
+   0C32 36 27         [10] 2414 	ld	(hl),#0x27
+                           2415 ;shots.c:336: prota.oy=177;
+   0C34 21r8Fr00      [10] 2416 	ld	hl,#_prota + 5
+   0C37 36 B1         [10] 2417 	ld	(hl),#0xB1
+                           2418 ;shots.c:337: prota.moved=0;
+   0C39 21r95r00      [10] 2419 	ld	hl,#_prota + 11
+   0C3C 36 00         [10] 2420 	ld	(hl),#0x00
+                           2421 ;shots.c:338: prota.dead=0;
+   0C3E 21r98r00      [10] 2422 	ld	hl,#_prota + 14
+   0C41 36 00         [10] 2423 	ld	(hl),#0x00
+                           2424 ;shots.c:339: prota.speed=PROTA_SPEED;
+   0C43 21r96r00      [10] 2425 	ld	hl,#_prota + 12
+   0C46 36 0A         [10] 2426 	ld	(hl),#0x0A
+                           2427 ;shots.c:340: prota.lastmoved=0;
+   0C48 21 00 00      [10] 2428 	ld	hl,#0x0000
+   0C4B 22r9Ar00      [16] 2429 	ld	((_prota + 0x0010)),hl
+   0C4E 22r9Cr00      [16] 2430 	ld	((_prota + 0x0010) + 2), hl
+                           2431 ;shots.c:341: prota.lastShot=0;
+   0C51 21 00 00      [10] 2432 	ld	hl,#0x0000
+   0C54 22r9Er00      [16] 2433 	ld	((_prota + 0x0014)),hl
+   0C57 22rA0r00      [16] 2434 	ld	((_prota + 0x0014) + 2), hl
+                           2435 ;shots.c:342: prota.reloadSpeed=80; //Velocidad de recarga
+   0C5A 21rA2r00      [10] 2436 	ld	hl,#_prota + 24
+   0C5D 36 50         [10] 2437 	ld	(hl),#0x50
+                           2438 ;shots.c:343: prota.max_disparos=2;
+   0C5F 21rA4r00      [10] 2439 	ld	hl,#_prota + 26
+   0C62 36 02         [10] 2440 	ld	(hl),#0x02
+                           2441 ;shots.c:344: prota.escudo=0;
+   0C64 21rA3r00      [10] 2442 	ld	hl,#_prota + 25
+   0C67 36 00         [10] 2443 	ld	(hl),#0x00
+                           2444 ;shots.c:345: prota.motor=0;
+   0C69 21rA5r00      [10] 2445 	ld	hl,#_prota + 27
+   0C6C 36 00         [10] 2446 	ld	(hl),#0x00
+   0C6E C9            [10] 2447 	ret
+   0C6F                    2448 _inicializarProta_end::
+                           2449 ;shots.c:355: void moverProta(){
+                           2450 ;	---------------------------------
+                           2451 ; Function moverProta
+                           2452 ; ---------------------------------
+   0C6F                    2453 _moverProta_start::
+   0C6F                    2454 _moverProta:
+                           2455 ;shots.c:356: if (!prota.dead){
+   0C6F 3Ar98r00      [13] 2456 	ld	a, (#_prota + 14)
+   0C72 B7            [ 4] 2457 	or	a, a
+   0C73 C0            [11] 2458 	ret	NZ
+                           2459 ;shots.c:357: if (cpc_TestKey(KEY_RIGHT)==1 && prota.cx<=75)   // DERECHA
+   0C74 3E 01         [ 7] 2460 	ld	a,#0x01
+   0C76 F5            [11] 2461 	push	af
+   0C77 33            [ 6] 2462 	inc	sp
+   0C78 CDr00r00      [17] 2463 	call	_cpc_TestKey
+   0C7B 33            [ 6] 2464 	inc	sp
+   0C7C 01r8Cr00      [10] 2465 	ld	bc,#_prota + 2
+                           2466 ;shots.c:360: prota.moved=1;
+                           2467 ;shots.c:357: if (cpc_TestKey(KEY_RIGHT)==1 && prota.cx<=75)   // DERECHA
+   0C7F 2D            [ 4] 2468 	dec	l
+   0C80 20 0F         [12] 2469 	jr	NZ,00102$
+   0C82 0A            [ 7] 2470 	ld	a,(bc)
+   0C83 67            [ 4] 2471 	ld	h,a
+   0C84 3E 4B         [ 7] 2472 	ld	a,#0x4B
+   0C86 94            [ 4] 2473 	sub	a, h
+   0C87 38 08         [12] 2474 	jr	C,00102$
+                           2475 ;shots.c:359: prota.cx++;
+   0C89 7C            [ 4] 2476 	ld	a,h
+   0C8A 3C            [ 4] 2477 	inc	a
+   0C8B 02            [ 7] 2478 	ld	(bc),a
+                           2479 ;shots.c:360: prota.moved=1;
+   0C8C 21r95r00      [10] 2480 	ld	hl,#(_prota + 0x000b)
+   0C8F 36 01         [10] 2481 	ld	(hl),#0x01
+   0C91                    2482 00102$:
+                           2483 ;shots.c:362: if (cpc_TestKey(KEY_LEFT)==1 && prota.cx>0)   // IZQUIERDA
+   0C91 C5            [11] 2484 	push	bc
+   0C92 AF            [ 4] 2485 	xor	a, a
+   0C93 F5            [11] 2486 	push	af
+   0C94 33            [ 6] 2487 	inc	sp
+   0C95 CDr00r00      [17] 2488 	call	_cpc_TestKey
+   0C98 33            [ 6] 2489 	inc	sp
+   0C99 C1            [10] 2490 	pop	bc
+   0C9A 2D            [ 4] 2491 	dec	l
+   0C9B 20 0C         [12] 2492 	jr	NZ,00105$
+   0C9D 0A            [ 7] 2493 	ld	a,(bc)
+   0C9E B7            [ 4] 2494 	or	a, a
+   0C9F 28 08         [12] 2495 	jr	Z,00105$
+                           2496 ;shots.c:364: prota.cx--;
+   0CA1 C6 FF         [ 7] 2497 	add	a,#0xFF
+   0CA3 02            [ 7] 2498 	ld	(bc),a
+                           2499 ;shots.c:365: prota.moved=1;
+   0CA4 21r95r00      [10] 2500 	ld	hl,#(_prota + 0x000b)
+   0CA7 36 01         [10] 2501 	ld	(hl),#0x01
+   0CA9                    2502 00105$:
+                           2503 ;shots.c:367: if (cpc_TestKey(KEY_UP)==1 && prota.cy>15)   // ARRIBA
+   0CA9 3E 02         [ 7] 2504 	ld	a,#0x02
+   0CAB F5            [11] 2505 	push	af
+   0CAC 33            [ 6] 2506 	inc	sp
+   0CAD CDr00r00      [17] 2507 	call	_cpc_TestKey
+   0CB0 33            [ 6] 2508 	inc	sp
+   0CB1 01r8Dr00      [10] 2509 	ld	bc,#_prota + 3
+   0CB4 2D            [ 4] 2510 	dec	l
+   0CB5 20 0F         [12] 2511 	jr	NZ,00108$
+   0CB7 0A            [ 7] 2512 	ld	a,(bc)
+   0CB8 57            [ 4] 2513 	ld	d,a
+   0CB9 3E 0F         [ 7] 2514 	ld	a,#0x0F
+   0CBB 92            [ 4] 2515 	sub	a, d
+   0CBC 30 08         [12] 2516 	jr	NC,00108$
+                           2517 ;shots.c:369: prota.cy--;
+   0CBE 15            [ 4] 2518 	dec	d
+   0CBF 7A            [ 4] 2519 	ld	a,d
+   0CC0 02            [ 7] 2520 	ld	(bc),a
+                           2521 ;shots.c:370: prota.moved=1;
+   0CC1 21r95r00      [10] 2522 	ld	hl,#(_prota + 0x000b)
+   0CC4 36 01         [10] 2523 	ld	(hl),#0x01
+   0CC6                    2524 00108$:
+                           2525 ;shots.c:372: if (cpc_TestKey(KEY_DOWN)==1 && prota.cy<177)   // ABAJO
+   0CC6 C5            [11] 2526 	push	bc
+   0CC7 3E 03         [ 7] 2527 	ld	a,#0x03
+   0CC9 F5            [11] 2528 	push	af
+   0CCA 33            [ 6] 2529 	inc	sp
+   0CCB CDr00r00      [17] 2530 	call	_cpc_TestKey
+   0CCE 33            [ 6] 2531 	inc	sp
+   0CCF C1            [10] 2532 	pop	bc
+   0CD0 2D            [ 4] 2533 	dec	l
+   0CD1 C0            [11] 2534 	ret	NZ
+   0CD2 0A            [ 7] 2535 	ld	a,(bc)
+   0CD3 67            [ 4] 2536 	ld	h,a
+   0CD4 D6 B1         [ 7] 2537 	sub	a, #0xB1
+   0CD6 D0            [11] 2538 	ret	NC
+                           2539 ;shots.c:374: prota.cy++;
+   0CD7 7C            [ 4] 2540 	ld	a,h
+   0CD8 3C            [ 4] 2541 	inc	a
+   0CD9 02            [ 7] 2542 	ld	(bc),a
+                           2543 ;shots.c:375: prota.moved=1;
+   0CDA 21r95r00      [10] 2544 	ld	hl,#(_prota + 0x000b)
+   0CDD 36 01         [10] 2545 	ld	(hl),#0x01
+   0CDF C9            [10] 2546 	ret
+   0CE0                    2547 _moverProta_end::
+                           2548 ;shots.c:387: void borrarProta(){
+                           2549 ;	---------------------------------
+                           2550 ; Function borrarProta
+                           2551 ; ---------------------------------
+   0CE0                    2552 _borrarProta_start::
+   0CE0                    2553 _borrarProta:
+   0CE0 F5            [11] 2554 	push	af
+                           2555 ;shots.c:388: if ((prota.moved) || (prota.dead==1)){
+   0CE1 21r95r00      [10] 2556 	ld	hl, #(_prota + 0x000b) + 0
+   0CE4 66            [ 7] 2557 	ld	h,(hl)
+   0CE5 01r98r00      [10] 2558 	ld	bc,#_prota + 14
+   0CE8 7C            [ 4] 2559 	ld	a,h
+   0CE9 B7            [ 4] 2560 	or	a, a
+   0CEA 20 04         [12] 2561 	jr	NZ,00103$
+   0CEC 0A            [ 7] 2562 	ld	a,(bc)
+   0CED 3D            [ 4] 2563 	dec	a
+   0CEE 20 5D         [12] 2564 	jr	NZ,00106$
+   0CF0                    2565 00103$:
+                           2566 ;shots.c:392: printSpriteXOR(prota.sp0,prota.ox,prota.oy,0);
+   0CF0 21r8Fr00      [10] 2567 	ld	hl, #(_prota + 0x0005) + 0
+   0CF3 5E            [ 7] 2568 	ld	e,(hl)
+   0CF4 21r8Er00      [10] 2569 	ld	hl, #(_prota + 0x0004) + 0
+   0CF7 56            [ 7] 2570 	ld	d,(hl)
+   0CF8 21r8Ar00      [10] 2571 	ld	hl, #_prota + 0
+   0CFB 7E            [ 7] 2572 	ld	a,(hl)
+   0CFC FD 21 00 00   [14] 2573 	ld	iy,#0
+   0D00 FD 39         [15] 2574 	add	iy,sp
+   0D02 FD 77 00      [19] 2575 	ld	0 (iy),a
+   0D05 23            [ 6] 2576 	inc	hl
+   0D06 7E            [ 7] 2577 	ld	a,(hl)
+   0D07 FD 77 01      [19] 2578 	ld	1 (iy),a
+   0D0A C5            [11] 2579 	push	bc
+   0D0B 21 00 00      [10] 2580 	ld	hl,#0x0000
+   0D0E E5            [11] 2581 	push	hl
+   0D0F 7B            [ 4] 2582 	ld	a,e
+   0D10 F5            [11] 2583 	push	af
+   0D11 33            [ 6] 2584 	inc	sp
+   0D12 D5            [11] 2585 	push	de
+   0D13 33            [ 6] 2586 	inc	sp
+   0D14 FD 6E 00      [19] 2587 	ld	l,0 (iy)
+   0D17 FD 66 01      [19] 2588 	ld	h,1 (iy)
+   0D1A E5            [11] 2589 	push	hl
+   0D1B CDr00r00      [17] 2590 	call	_printSpriteXOR
+   0D1E 21 06 00      [10] 2591 	ld	hl,#6
+   0D21 39            [11] 2592 	add	hl,sp
+   0D22 F9            [ 6] 2593 	ld	sp,hl
+   0D23 C1            [10] 2594 	pop	bc
+                           2595 ;shots.c:393: if (prota.dead) { 
+   0D24 0A            [ 7] 2596 	ld	a,(bc)
+   0D25 B7            [ 4] 2597 	or	a, a
+   0D26 28 08         [12] 2598 	jr	Z,00102$
+                           2599 ;shots.c:394: prota.moved=0;
+   0D28 21r95r00      [10] 2600 	ld	hl,#(_prota + 0x000b)
+   0D2B 36 00         [10] 2601 	ld	(hl),#0x00
+                           2602 ;shots.c:395: prota.dead++;
+   0D2D 0A            [ 7] 2603 	ld	a,(bc)
+   0D2E 3C            [ 4] 2604 	inc	a
+   0D2F 02            [ 7] 2605 	ld	(bc),a
+   0D30                    2606 00102$:
+                           2607 ;shots.c:398: cpct_drawSprite(animMotorSprite[3],getScreenAddress(prota.ox+1,prota.oy+15));
+   0D30 3Ar8Fr00      [13] 2608 	ld	a, (#(_prota + 0x0005) + 0)
+   0D33 C6 0F         [ 7] 2609 	add	a, #0x0F
+   0D35 57            [ 4] 2610 	ld	d,a
+   0D36 3Ar8Er00      [13] 2611 	ld	a, (#(_prota + 0x0004) + 0)
+   0D39 3C            [ 4] 2612 	inc	a
+   0D3A D5            [11] 2613 	push	de
+   0D3B 33            [ 6] 2614 	inc	sp
+   0D3C F5            [11] 2615 	push	af
+   0D3D 33            [ 6] 2616 	inc	sp
+   0D3E CDr00r00      [17] 2617 	call	_getScreenAddress
+   0D41 F1            [10] 2618 	pop	af
+   0D42 EB            [ 4] 2619 	ex	de,hl
+   0D43 2Ar08r02      [16] 2620 	ld	hl, (#(_animMotorSprite + 0x0006) + 0)
+   0D46 D5            [11] 2621 	push	de
+   0D47 E5            [11] 2622 	push	hl
+   0D48 CDr00r00      [17] 2623 	call	_cpct_drawSprite
+   0D4B F1            [10] 2624 	pop	af
+   0D4C F1            [10] 2625 	pop	af
+   0D4D                    2626 00106$:
+   0D4D F1            [10] 2627 	pop	af
+   0D4E C9            [10] 2628 	ret
+   0D4F                    2629 _borrarProta_end::
+                           2630 ;shots.c:401: void pintarProta(){
+                           2631 ;	---------------------------------
+                           2632 ; Function pintarProta
+                           2633 ; ---------------------------------
+   0D4F                    2634 _pintarProta_start::
+   0D4F                    2635 _pintarProta:
+   0D4F 3B            [ 6] 2636 	dec	sp
+                           2637 ;shots.c:402: if ((prota.moved) && (!prota.dead)){
+   0D50 3Ar95r00      [13] 2638 	ld	a, (#(_prota + 0x000b) + 0)
+   0D53 B7            [ 4] 2639 	or	a, a
+   0D54 28 56         [12] 2640 	jr	Z,00104$
+   0D56 3Ar98r00      [13] 2641 	ld	a, (#_prota + 14)
+   0D59 B7            [ 4] 2642 	or	a, a
+   0D5A 20 50         [12] 2643 	jr	NZ,00104$
+                           2644 ;shots.c:406: printSpriteXOR(prota.sp0,prota.cx,prota.cy,0);
+   0D5C 21r8Dr00      [10] 2645 	ld	hl, #(_prota + 0x0003) + 0
+   0D5F 4E            [ 7] 2646 	ld	c,(hl)
+   0D60 3Ar8Cr00      [13] 2647 	ld	a,(#(_prota + 0x0002) + 0)
+   0D63 33            [ 6] 2648 	inc	sp
+   0D64 F5            [11] 2649 	push	af
+   0D65 33            [ 6] 2650 	inc	sp
+   0D66 ED 5Br8Ar00   [20] 2651 	ld	de, (#_prota + 0)
+   0D6A 21 00 00      [10] 2652 	ld	hl,#0x0000
+   0D6D E5            [11] 2653 	push	hl
+   0D6E 79            [ 4] 2654 	ld	a,c
+   0D6F F5            [11] 2655 	push	af
+   0D70 33            [ 6] 2656 	inc	sp
+   0D71 21 03 00      [10] 2657 	ld	hl, #3+0
+   0D74 39            [11] 2658 	add	hl, sp
+   0D75 7E            [ 7] 2659 	ld	a, (hl)
+   0D76 F5            [11] 2660 	push	af
+   0D77 33            [ 6] 2661 	inc	sp
+   0D78 D5            [11] 2662 	push	de
+   0D79 CDr00r00      [17] 2663 	call	_printSpriteXOR
+   0D7C 21 06 00      [10] 2664 	ld	hl,#6
+   0D7F 39            [11] 2665 	add	hl,sp
+   0D80 F9            [ 6] 2666 	ld	sp,hl
+                           2667 ;shots.c:407: cpct_drawSprite(prota.sp0,getScreenAddress(prota.cx,prota.cy));
+   0D81 21r8Dr00      [10] 2668 	ld	hl, #(_prota + 0x0003) + 0
+   0D84 56            [ 7] 2669 	ld	d,(hl)
+   0D85 3Ar8Cr00      [13] 2670 	ld	a, (#(_prota + 0x0002) + 0)
+   0D88 D5            [11] 2671 	push	de
+   0D89 33            [ 6] 2672 	inc	sp
+   0D8A F5            [11] 2673 	push	af
+   0D8B 33            [ 6] 2674 	inc	sp
+   0D8C CDr00r00      [17] 2675 	call	_getScreenAddress
+   0D8F F1            [10] 2676 	pop	af
+   0D90 EB            [ 4] 2677 	ex	de,hl
+   0D91 2Ar8Ar00      [16] 2678 	ld	hl, (#_prota + 0)
+   0D94 D5            [11] 2679 	push	de
+   0D95 E5            [11] 2680 	push	hl
+   0D96 CDr00r00      [17] 2681 	call	_cpct_drawSprite
+   0D99 F1            [10] 2682 	pop	af
+   0D9A F1            [10] 2683 	pop	af
+                           2684 ;shots.c:408: prota.ox=prota.cx;
+   0D9B 3Ar8Cr00      [13] 2685 	ld	a, (#(_prota + 0x0002) + 0)
+   0D9E 32r8Er00      [13] 2686 	ld	(#(_prota + 0x0004)),a
+                           2687 ;shots.c:409: prota.oy=prota.cy;
+   0DA1 3Ar8Dr00      [13] 2688 	ld	a, (#(_prota + 0x0003) + 0)
+   0DA4 32r8Fr00      [13] 2689 	ld	(#(_prota + 0x0005)),a
+                           2690 ;shots.c:410: prota.moved=0;
+   0DA7 21r95r00      [10] 2691 	ld	hl,#(_prota + 0x000b)
+   0DAA 36 00         [10] 2692 	ld	(hl),#0x00
+   0DAC                    2693 00104$:
+   0DAC 33            [ 6] 2694 	inc	sp
+   0DAD C9            [10] 2695 	ret
+   0DAE                    2696 _pintarProta_end::
+                           2697 ;shots.c:417: void mostrarVidasProta(){
+                           2698 ;	---------------------------------
+                           2699 ; Function mostrarVidasProta
+                           2700 ; ---------------------------------
+   0DAE                    2701 _mostrarVidasProta_start::
+   0DAE                    2702 _mostrarVidasProta:
+                           2703 ;shots.c:419: for (i=0;i<prota.vidas;i++){
+   0DAE 11 00 00      [10] 2704 	ld	de,#0x0000
+   0DB1                    2705 00103$:
+   0DB1 21r99r00      [10] 2706 	ld	hl, #(_prota + 0x000f) + 0
+   0DB4 66            [ 7] 2707 	ld	h,(hl)
+   0DB5 7A            [ 4] 2708 	ld	a,d
+   0DB6 94            [ 4] 2709 	sub	a, h
+   0DB7 D0            [11] 2710 	ret	NC
+                           2711 ;shots.c:420: printSpriteXOR(heart,77-(i*3),194,0);
+   0DB8 3E 4D         [ 7] 2712 	ld	a,#0x4D
+   0DBA 93            [ 4] 2713 	sub	a, e
+   0DBB 47            [ 4] 2714 	ld	b,a
+   0DBC D5            [11] 2715 	push	de
+   0DBD 21 00 00      [10] 2716 	ld	hl,#0x0000
+   0DC0 E5            [11] 2717 	push	hl
+   0DC1 3E C2         [ 7] 2718 	ld	a,#0xC2
+   0DC3 F5            [11] 2719 	push	af
+   0DC4 33            [ 6] 2720 	inc	sp
+   0DC5 C5            [11] 2721 	push	bc
+   0DC6 33            [ 6] 2722 	inc	sp
+   0DC7 21r00r00      [10] 2723 	ld	hl,#_heart
+   0DCA E5            [11] 2724 	push	hl
+   0DCB CDr00r00      [17] 2725 	call	_printSpriteXOR
+   0DCE 21 06 00      [10] 2726 	ld	hl,#6
+   0DD1 39            [11] 2727 	add	hl,sp
+   0DD2 F9            [ 6] 2728 	ld	sp,hl
+   0DD3 D1            [10] 2729 	pop	de
+                           2730 ;shots.c:419: for (i=0;i<prota.vidas;i++){
+   0DD4 1C            [ 4] 2731 	inc	e
+   0DD5 1C            [ 4] 2732 	inc	e
+   0DD6 1C            [ 4] 2733 	inc	e
+   0DD7 14            [ 4] 2734 	inc	d
+   0DD8 18 D7         [12] 2735 	jr	00103$
+   0DDA C9            [10] 2736 	ret
+   0DDB                    2737 _mostrarVidasProta_end::
+                           2738 ;shots.c:431: void pintarBanderasNivel(){
+                           2739 ;	---------------------------------
+                           2740 ; Function pintarBanderasNivel
+                           2741 ; ---------------------------------
+   0DDB                    2742 _pintarBanderasNivel_start::
+   0DDB                    2743 _pintarBanderasNivel:
+   0DDB 3B            [ 6] 2744 	dec	sp
+                           2745 ;shots.c:439: aux=nivel/5;
+   0DDC 3E 05         [ 7] 2746 	ld	a,#0x05
+   0DDE F5            [11] 2747 	push	af
+   0DDF 33            [ 6] 2748 	inc	sp
+   0DE0 3Ar2Er03      [13] 2749 	ld	a,(_nivel)
+   0DE3 F5            [11] 2750 	push	af
+   0DE4 33            [ 6] 2751 	inc	sp
+   0DE5 CDr00r00      [17] 2752 	call	__divuschar_rrx_s
+   0DE8 F1            [10] 2753 	pop	af
+   0DE9 4D            [ 4] 2754 	ld	c,l
+                           2755 ;shots.c:440: for (i=0;i<aux;i++){
+   0DEA 1E 00         [ 7] 2756 	ld	e,#0x00
+   0DEC FD 21 00 00   [14] 2757 	ld	iy,#0
+   0DF0 FD 39         [15] 2758 	add	iy,sp
+   0DF2 FD 36 00 00   [19] 2759 	ld	0 (iy),#0x00
+   0DF6                    2760 00104$:
+   0DF6 21 00 00      [10] 2761 	ld	hl, #0+0
+   0DF9 39            [11] 2762 	add	hl, sp
+   0DFA 7E            [ 7] 2763 	ld	a, (hl)
+   0DFB 91            [ 4] 2764 	sub	a, c
+   0DFC 30 25         [12] 2765 	jr	NC,00101$
+                           2766 ;shots.c:441: printSpriteXOR(greenFlag,avance,194,0);
+   0DFE C5            [11] 2767 	push	bc
+   0DFF D5            [11] 2768 	push	de
+   0E00 21 00 00      [10] 2769 	ld	hl,#0x0000
+   0E03 E5            [11] 2770 	push	hl
+   0E04 16 C2         [ 7] 2771 	ld	d,#0xC2
+   0E06 D5            [11] 2772 	push	de
+   0E07 21rD5r01      [10] 2773 	ld	hl,#_greenFlag
+   0E0A E5            [11] 2774 	push	hl
+   0E0B CDr00r00      [17] 2775 	call	_printSpriteXOR
+   0E0E 21 06 00      [10] 2776 	ld	hl,#6
+   0E11 39            [11] 2777 	add	hl,sp
+   0E12 F9            [ 6] 2778 	ld	sp,hl
+   0E13 D1            [10] 2779 	pop	de
+   0E14 C1            [10] 2780 	pop	bc
+                           2781 ;shots.c:442: avance=avance+3;
+   0E15 1C            [ 4] 2782 	inc	e
+   0E16 1C            [ 4] 2783 	inc	e
+   0E17 1C            [ 4] 2784 	inc	e
+                           2785 ;shots.c:440: for (i=0;i<aux;i++){
+   0E18 FD 21 00 00   [14] 2786 	ld	iy,#0
+   0E1C FD 39         [15] 2787 	add	iy,sp
+   0E1E FD 34 00      [23] 2788 	inc	0 (iy)
+   0E21 18 D3         [12] 2789 	jr	00104$
+   0E23                    2790 00101$:
+                           2791 ;shots.c:445: aux2=nivel-(aux*5);
+   0E23 79            [ 4] 2792 	ld	a,c
+   0E24 87            [ 4] 2793 	add	a, a
+   0E25 87            [ 4] 2794 	add	a, a
+   0E26 81            [ 4] 2795 	add	a, c
+   0E27 57            [ 4] 2796 	ld	d,a
+   0E28 3Ar2Er03      [13] 2797 	ld	a,(#_nivel + 0)
+   0E2B 92            [ 4] 2798 	sub	a, d
+   0E2C 57            [ 4] 2799 	ld	d,a
+                           2800 ;shots.c:446: for (i=0;i<aux2;i++){
+   0E2D 43            [ 4] 2801 	ld	b,e
+   0E2E 1E 00         [ 7] 2802 	ld	e,#0x00
+   0E30                    2803 00107$:
+   0E30 7B            [ 4] 2804 	ld	a,e
+   0E31 92            [ 4] 2805 	sub	a, d
+   0E32 30 20         [12] 2806 	jr	NC,00109$
+                           2807 ;shots.c:447: printSpriteXOR(redFlag,avance,194,0);
+   0E34 C5            [11] 2808 	push	bc
+   0E35 D5            [11] 2809 	push	de
+   0E36 21 00 00      [10] 2810 	ld	hl,#0x0000
+   0E39 E5            [11] 2811 	push	hl
+   0E3A 3E C2         [ 7] 2812 	ld	a,#0xC2
+   0E3C F5            [11] 2813 	push	af
+   0E3D 33            [ 6] 2814 	inc	sp
+   0E3E C5            [11] 2815 	push	bc
+   0E3F 33            [ 6] 2816 	inc	sp
+   0E40 21r14r00      [10] 2817 	ld	hl,#_redFlag
+   0E43 E5            [11] 2818 	push	hl
+   0E44 CDr00r00      [17] 2819 	call	_printSpriteXOR
+   0E47 21 06 00      [10] 2820 	ld	hl,#6
+   0E4A 39            [11] 2821 	add	hl,sp
+   0E4B F9            [ 6] 2822 	ld	sp,hl
+   0E4C D1            [10] 2823 	pop	de
+   0E4D C1            [10] 2824 	pop	bc
+                           2825 ;shots.c:448: avance=avance+3;
+   0E4E 04            [ 4] 2826 	inc	b
+   0E4F 04            [ 4] 2827 	inc	b
+   0E50 04            [ 4] 2828 	inc	b
+                           2829 ;shots.c:446: for (i=0;i<aux2;i++){
+   0E51 1C            [ 4] 2830 	inc	e
+   0E52 18 DC         [12] 2831 	jr	00107$
+   0E54                    2832 00109$:
+   0E54 33            [ 6] 2833 	inc	sp
+   0E55 C9            [10] 2834 	ret
+   0E56                    2835 _pintarBanderasNivel_end::
+                           2836 ;shots.c:455: char gameOver()
+                           2837 ;	---------------------------------
+                           2838 ; Function gameOver
+                           2839 ; ---------------------------------
+   0E56                    2840 _gameOver_start::
+   0E56                    2841 _gameOver:
+                           2842 ;shots.c:457: letrasColorAzul();
+   0E56 CDrECr06      [17] 2843 	call	_letrasColorAzul
+                           2844 ;shots.c:458: sprintf(aux_txt,"PUNTUACION;FINAL:;%05d",score);
+   0E59 11r30r03      [10] 2845 	ld	de,#_aux_txt
+   0E5C 2Ar2Ar00      [16] 2846 	ld	hl,(_score)
+   0E5F E5            [11] 2847 	push	hl
+   0E60 21rDAr0E      [10] 2848 	ld	hl,#___str_18
+   0E63 E5            [11] 2849 	push	hl
+   0E64 D5            [11] 2850 	push	de
+   0E65 CDr00r00      [17] 2851 	call	_sprintf
+   0E68 21 06 00      [10] 2852 	ld	hl,#6
+   0E6B 39            [11] 2853 	add	hl,sp
+   0E6C F9            [ 6] 2854 	ld	sp,hl
+                           2855 ;shots.c:459: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   0E6D 11rF1r0E      [10] 2856 	ld	de,#___str_19
+   0E70 21 10 58      [10] 2857 	ld	hl,#0x5810
+   0E73 E5            [11] 2858 	push	hl
+   0E74 D5            [11] 2859 	push	de
+   0E75 CDr00r00      [17] 2860 	call	_cpc_PrintGphStrXY2X
+   0E78 F1            [10] 2861 	pop	af
+   0E79 F1            [10] 2862 	pop	af
+                           2863 ;shots.c:460: cpc_PrintGphStrXY2X(aux_txt,8*2,13*8);
+   0E7A 11r30r03      [10] 2864 	ld	de,#_aux_txt
+   0E7D 21 10 68      [10] 2865 	ld	hl,#0x6810
+   0E80 E5            [11] 2866 	push	hl
+   0E81 D5            [11] 2867 	push	de
+   0E82 CDr00r00      [17] 2868 	call	_cpc_PrintGphStrXY2X
+   0E85 F1            [10] 2869 	pop	af
+   0E86 F1            [10] 2870 	pop	af
+                           2871 ;shots.c:461: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0E87 11rF1r0E      [10] 2872 	ld	de,#___str_19
+   0E8A 21 10 78      [10] 2873 	ld	hl,#0x7810
+   0E8D E5            [11] 2874 	push	hl
+   0E8E D5            [11] 2875 	push	de
+   0E8F CDr00r00      [17] 2876 	call	_cpc_PrintGphStrXY2X
+   0E92 F1            [10] 2877 	pop	af
+   0E93 F1            [10] 2878 	pop	af
+                           2879 ;shots.c:462: while (cpc_AnyKeyPressed()==0);
+   0E94                    2880 00101$:
+   0E94 CDr00r00      [17] 2881 	call	_cpc_AnyKeyPressed
+   0E97 7C            [ 4] 2882 	ld	a,h
+   0E98 B5            [ 4] 2883 	or	a,l
+   0E99 28 F9         [12] 2884 	jr	Z,00101$
+                           2885 ;shots.c:463: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,11*8);
+   0E9B 11rF1r0E      [10] 2886 	ld	de,#___str_19
+   0E9E 21 10 58      [10] 2887 	ld	hl,#0x5810
+   0EA1 E5            [11] 2888 	push	hl
+   0EA2 D5            [11] 2889 	push	de
+   0EA3 CDr00r00      [17] 2890 	call	_cpc_PrintGphStrXY2X
+   0EA6 F1            [10] 2891 	pop	af
+   0EA7 F1            [10] 2892 	pop	af
+                           2893 ;shots.c:464: cpc_PrintGphStrXY2X(";;;;;;;GAME;OVER;;;;;;;",8*2,13*8);
+   0EA8 11r09r0F      [10] 2894 	ld	de,#___str_20
+   0EAB 21 10 68      [10] 2895 	ld	hl,#0x6810
+   0EAE E5            [11] 2896 	push	hl
+   0EAF D5            [11] 2897 	push	de
+   0EB0 CDr00r00      [17] 2898 	call	_cpc_PrintGphStrXY2X
+   0EB3 F1            [10] 2899 	pop	af
+   0EB4 F1            [10] 2900 	pop	af
+                           2901 ;shots.c:465: cpc_PrintGphStrXY2X(";;;;;;;;;;;;;;;;;;;;;;;",8*2,15*8);
+   0EB5 11rF1r0E      [10] 2902 	ld	de,#___str_19
+   0EB8 21 10 78      [10] 2903 	ld	hl,#0x7810
+   0EBB E5            [11] 2904 	push	hl
+   0EBC D5            [11] 2905 	push	de
+   0EBD CDr00r00      [17] 2906 	call	_cpc_PrintGphStrXY2X
+   0EC0 F1            [10] 2907 	pop	af
+                           2908 ;shots.c:466: pause(6);
+   0EC1 26 06         [ 7] 2909 	ld	h,#0x06
+   0EC3 E3            [19] 2910 	ex	(sp),hl
+   0EC4 33            [ 6] 2911 	inc	sp
+   0EC5 CDrDEr06      [17] 2912 	call	_pause
+   0EC8 33            [ 6] 2913 	inc	sp
+                           2914 ;shots.c:468: while (!cpc_AnyKeyPressed());
+   0EC9                    2915 00104$:
+   0EC9 CDr00r00      [17] 2916 	call	_cpc_AnyKeyPressed
+   0ECC 7C            [ 4] 2917 	ld	a,h
+   0ECD B5            [ 4] 2918 	or	a,l
+   0ECE 28 F9         [12] 2919 	jr	Z,00104$
+                           2920 ;shots.c:469: while (cpc_AnyKeyPressed());
+   0ED0                    2921 00107$:
+   0ED0 CDr00r00      [17] 2922 	call	_cpc_AnyKeyPressed
+   0ED3 7C            [ 4] 2923 	ld	a,h
+   0ED4 B5            [ 4] 2924 	or	a,l
+   0ED5 20 F9         [12] 2925 	jr	NZ,00107$
+                           2926 ;shots.c:471: return STATE_MENU; 
+   0ED7 2E 02         [ 7] 2927 	ld	l,#0x02
+   0ED9 C9            [10] 2928 	ret
+   0EDA                    2929 _gameOver_end::
+   0EDA                    2930 ___str_18:
+   0EDA 50 55 4E 54 55 41  2931 	.ascii "PUNTUACION;FINAL:;%05d"
+        43 49 4F 4E 3B 46
+        49 4E 41 4C 3A 3B
+        25 30 35 64
+   0EF0 00                 2932 	.db 0x00
+   0EF1                    2933 ___str_19:
+   0EF1 3B 3B 3B 3B 3B 3B  2934 	.ascii ";;;;;;;;;;;;;;;;;;;;;;;"
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B 3B
+        3B 3B 3B 3B 3B
+   0F08 00                 2935 	.db 0x00
+   0F09                    2936 ___str_20:
+   0F09 3B 3B 3B 3B 3B 3B  2937 	.ascii ";;;;;;;GAME;OVER;;;;;;;"
+        3B 47 41 4D 45 3B
+        4F 56 45 52 3B 3B
+        3B 3B 3B 3B 3B
+   0F20 00                 2938 	.db 0x00
+                           2939 ;shots.c:478: void inicializarTeclado()
+                           2940 ;	---------------------------------
+                           2941 ; Function inicializarTeclado
+                           2942 ; ---------------------------------
+   0F21                    2943 _inicializarTeclado_start::
+   0F21                    2944 _inicializarTeclado:
+                           2945 ;shots.c:480: cpc_AssignKey (KEY_LEFT, 0x4404);		// O
+   0F21 21 04 44      [10] 2946 	ld	hl,#0x4404
+   0F24 E5            [11] 2947 	push	hl
+   0F25 AF            [ 4] 2948 	xor	a, a
+   0F26 F5            [11] 2949 	push	af
+   0F27 33            [ 6] 2950 	inc	sp
+   0F28 CDr00r00      [17] 2951 	call	_cpc_AssignKey
+                           2952 ;shots.c:481: cpc_AssignKey (KEY_RIGHT, 0x4308);		// P
+   0F2B 33            [ 6] 2953 	inc	sp
+   0F2C 21 08 43      [10] 2954 	ld	hl,#0x4308
+   0F2F E3            [19] 2955 	ex	(sp),hl
+   0F30 3E 01         [ 7] 2956 	ld	a,#0x01
+   0F32 F5            [11] 2957 	push	af
+   0F33 33            [ 6] 2958 	inc	sp
+   0F34 CDr00r00      [17] 2959 	call	_cpc_AssignKey
+                           2960 ;shots.c:482: cpc_AssignKey (KEY_UP, 0x4808);		    // Q
+   0F37 33            [ 6] 2961 	inc	sp
+   0F38 21 08 48      [10] 2962 	ld	hl,#0x4808
+   0F3B E3            [19] 2963 	ex	(sp),hl
+   0F3C 3E 02         [ 7] 2964 	ld	a,#0x02
+   0F3E F5            [11] 2965 	push	af
+   0F3F 33            [ 6] 2966 	inc	sp
+   0F40 CDr00r00      [17] 2967 	call	_cpc_AssignKey
+                           2968 ;shots.c:483: cpc_AssignKey (KEY_DOWN, 0x4820);		// A
+   0F43 33            [ 6] 2969 	inc	sp
+   0F44 21 20 48      [10] 2970 	ld	hl,#0x4820
+   0F47 E3            [19] 2971 	ex	(sp),hl
+   0F48 3E 03         [ 7] 2972 	ld	a,#0x03
+   0F4A F5            [11] 2973 	push	af
+   0F4B 33            [ 6] 2974 	inc	sp
+   0F4C CDr00r00      [17] 2975 	call	_cpc_AssignKey
+                           2976 ;shots.c:484: cpc_AssignKey (KEY_FIRE, 0x4580);		// SPACE
+   0F4F 33            [ 6] 2977 	inc	sp
+   0F50 21 80 45      [10] 2978 	ld	hl,#0x4580
+   0F53 E3            [19] 2979 	ex	(sp),hl
+   0F54 3E 04         [ 7] 2980 	ld	a,#0x04
+   0F56 F5            [11] 2981 	push	af
+   0F57 33            [ 6] 2982 	inc	sp
+   0F58 CDr00r00      [17] 2983 	call	_cpc_AssignKey
+                           2984 ;shots.c:485: cpc_AssignKey (KEY_ESC, 0x4804);		// ESC
+   0F5B 33            [ 6] 2985 	inc	sp
+   0F5C 21 04 48      [10] 2986 	ld	hl,#0x4804
+   0F5F E3            [19] 2987 	ex	(sp),hl
+   0F60 3E 05         [ 7] 2988 	ld	a,#0x05
+   0F62 F5            [11] 2989 	push	af
+   0F63 33            [ 6] 2990 	inc	sp
+   0F64 CDr00r00      [17] 2991 	call	_cpc_AssignKey
+                           2992 ;shots.c:486: cpc_AssignKey (KEY_ME1, 0x4801);		// 1
+   0F67 33            [ 6] 2993 	inc	sp
+   0F68 21 01 48      [10] 2994 	ld	hl,#0x4801
+   0F6B E3            [19] 2995 	ex	(sp),hl
+   0F6C 3E 06         [ 7] 2996 	ld	a,#0x06
+   0F6E F5            [11] 2997 	push	af
+   0F6F 33            [ 6] 2998 	inc	sp
+   0F70 CDr00r00      [17] 2999 	call	_cpc_AssignKey
+                           3000 ;shots.c:487: cpc_AssignKey (KEY_ME2, 0x4802);		// 2
+   0F73 33            [ 6] 3001 	inc	sp
+   0F74 21 02 48      [10] 3002 	ld	hl,#0x4802
+   0F77 E3            [19] 3003 	ex	(sp),hl
+   0F78 3E 07         [ 7] 3004 	ld	a,#0x07
+   0F7A F5            [11] 3005 	push	af
+   0F7B 33            [ 6] 3006 	inc	sp
+   0F7C CDr00r00      [17] 3007 	call	_cpc_AssignKey
+                           3008 ;shots.c:488: cpc_AssignKey (KEY_ME3, 0x4702);		// 3
+   0F7F 33            [ 6] 3009 	inc	sp
+   0F80 21 02 47      [10] 3010 	ld	hl,#0x4702
+   0F83 E3            [19] 3011 	ex	(sp),hl
+   0F84 3E 08         [ 7] 3012 	ld	a,#0x08
+   0F86 F5            [11] 3013 	push	af
+   0F87 33            [ 6] 3014 	inc	sp
+   0F88 CDr00r00      [17] 3015 	call	_cpc_AssignKey
+                           3016 ;shots.c:489: cpc_AssignKey (KEY_ME4, 0x4701);		// 4
+   0F8B 33            [ 6] 3017 	inc	sp
+   0F8C 21 01 47      [10] 3018 	ld	hl,#0x4701
+   0F8F E3            [19] 3019 	ex	(sp),hl
+   0F90 3E 09         [ 7] 3020 	ld	a,#0x09
+   0F92 F5            [11] 3021 	push	af
+   0F93 33            [ 6] 3022 	inc	sp
+   0F94 CDr00r00      [17] 3023 	call	_cpc_AssignKey
+                           3024 ;shots.c:490: cpc_AssignKey (KEY_HOSTILITY, 0x4510);		// H
+   0F97 33            [ 6] 3025 	inc	sp
+   0F98 21 10 45      [10] 3026 	ld	hl,#0x4510
+   0F9B E3            [19] 3027 	ex	(sp),hl
+   0F9C 3E 0B         [ 7] 3028 	ld	a,#0x0B
+   0F9E F5            [11] 3029 	push	af
+   0F9F 33            [ 6] 3030 	inc	sp
+   0FA0 CDr00r00      [17] 3031 	call	_cpc_AssignKey
+   0FA3 F1            [10] 3032 	pop	af
+   0FA4 33            [ 6] 3033 	inc	sp
+   0FA5 C9            [10] 3034 	ret
+   0FA6                    3035 _inicializarTeclado_end::
+                           3036 ;shots.c:496: unsigned char redefinirTeclas()
+                           3037 ;	---------------------------------
+                           3038 ; Function redefinirTeclas
+                           3039 ; ---------------------------------
+   0FA6                    3040 _redefinirTeclas_start::
+   0FA6                    3041 _redefinirTeclas:
+                           3042 ;shots.c:499: cpc_SetMode(0);				//hardware call to set mode 1
+   0FA6 AF            [ 4] 3043 	xor	a, a
+   0FA7 F5            [11] 3044 	push	af
+   0FA8 33            [ 6] 3045 	inc	sp
+   0FA9 CDr00r00      [17] 3046 	call	_cpc_SetMode
+   0FAC 33            [ 6] 3047 	inc	sp
+                           3048 ;shots.c:500: cpc_ClrScr();				//fills scr with ink 0
+   0FAD CDr00r00      [17] 3049 	call	_cpc_ClrScr
+                           3050 ;shots.c:502: letrasColorAzul();
+   0FB0 CDrECr06      [17] 3051 	call	_letrasColorAzul
+                           3052 ;shots.c:504: cpc_PrintGphStrXY("PULSA;PARA",12*2,15*8);
+   0FB3 11r75r10      [10] 3053 	ld	de,#___str_21
+   0FB6 21 18 78      [10] 3054 	ld	hl,#0x7818
+   0FB9 E5            [11] 3055 	push	hl
+   0FBA D5            [11] 3056 	push	de
+   0FBB CDr00r00      [17] 3057 	call	_cpc_PrintGphStrXY
+   0FBE F1            [10] 3058 	pop	af
+   0FBF F1            [10] 3059 	pop	af
+                           3060 ;shots.c:505: letrasColorRojo();
+   0FC0 CDr11r07      [17] 3061 	call	_letrasColorRojo
+                           3062 ;shots.c:507: cpc_PrintGphStrXY("IZQUIERDA",12*2,17*8);
+   0FC3 11r80r10      [10] 3063 	ld	de,#___str_22
+   0FC6 21 18 88      [10] 3064 	ld	hl,#0x8818
+   0FC9 E5            [11] 3065 	push	hl
+   0FCA D5            [11] 3066 	push	de
+   0FCB CDr00r00      [17] 3067 	call	_cpc_PrintGphStrXY
+   0FCE F1            [10] 3068 	pop	af
+   0FCF F1            [10] 3069 	pop	af
+                           3070 ;shots.c:508: cpc_RedefineKey(KEY_LEFT);
+   0FD0 AF            [ 4] 3071 	xor	a, a
+   0FD1 F5            [11] 3072 	push	af
+   0FD2 33            [ 6] 3073 	inc	sp
+   0FD3 CDr00r00      [17] 3074 	call	_cpc_RedefineKey
+   0FD6 33            [ 6] 3075 	inc	sp
+                           3076 ;shots.c:509: cpc_WyzStartEffect(2,1);	//(Channel, SFX #)
+   0FD7 21 02 01      [10] 3077 	ld	hl,#0x0102
+   0FDA E5            [11] 3078 	push	hl
+   0FDB CDr00r00      [17] 3079 	call	_cpc_WyzStartEffect
+                           3080 ;shots.c:510: pause(6);
+   0FDE 26 06         [ 7] 3081 	ld	h,#0x06
+   0FE0 E3            [19] 3082 	ex	(sp),hl
+   0FE1 33            [ 6] 3083 	inc	sp
+   0FE2 CDrDEr06      [17] 3084 	call	_pause
+   0FE5 33            [ 6] 3085 	inc	sp
+                           3086 ;shots.c:511: cpc_PrintGphStrXY("DERECHA;;",12*2,17*8);
+   0FE6 11r8Ar10      [10] 3087 	ld	de,#___str_23
+   0FE9 21 18 88      [10] 3088 	ld	hl,#0x8818
+   0FEC E5            [11] 3089 	push	hl
+   0FED D5            [11] 3090 	push	de
+   0FEE CDr00r00      [17] 3091 	call	_cpc_PrintGphStrXY
+   0FF1 F1            [10] 3092 	pop	af
+                           3093 ;shots.c:512: cpc_RedefineKey(KEY_RIGHT);
+   0FF2 26 01         [ 7] 3094 	ld	h,#0x01
+   0FF4 E3            [19] 3095 	ex	(sp),hl
+   0FF5 33            [ 6] 3096 	inc	sp
+   0FF6 CDr00r00      [17] 3097 	call	_cpc_RedefineKey
+   0FF9 33            [ 6] 3098 	inc	sp
+                           3099 ;shots.c:513: cpc_WyzStartEffect(2,1);	//(Channel, SFX #)
+   0FFA 21 02 01      [10] 3100 	ld	hl,#0x0102
+   0FFD E5            [11] 3101 	push	hl
+   0FFE CDr00r00      [17] 3102 	call	_cpc_WyzStartEffect
+                           3103 ;shots.c:514: pause(6);
+   1001 26 06         [ 7] 3104 	ld	h,#0x06
+   1003 E3            [19] 3105 	ex	(sp),hl
+   1004 33            [ 6] 3106 	inc	sp
+   1005 CDrDEr06      [17] 3107 	call	_pause
+   1008 33            [ 6] 3108 	inc	sp
+                           3109 ;shots.c:515: cpc_PrintGphStrXY("ARRIBA;;;",12*2,17*8);
+   1009 11r94r10      [10] 3110 	ld	de,#___str_24
+   100C 21 18 88      [10] 3111 	ld	hl,#0x8818
+   100F E5            [11] 3112 	push	hl
+   1010 D5            [11] 3113 	push	de
+   1011 CDr00r00      [17] 3114 	call	_cpc_PrintGphStrXY
+   1014 F1            [10] 3115 	pop	af
+                           3116 ;shots.c:516: cpc_RedefineKey(KEY_UP);
+   1015 26 02         [ 7] 3117 	ld	h,#0x02
+   1017 E3            [19] 3118 	ex	(sp),hl
+   1018 33            [ 6] 3119 	inc	sp
+   1019 CDr00r00      [17] 3120 	call	_cpc_RedefineKey
+   101C 33            [ 6] 3121 	inc	sp
+                           3122 ;shots.c:517: cpc_WyzStartEffect(2,1);	//(Channel, SFX #)
+   101D 21 02 01      [10] 3123 	ld	hl,#0x0102
+   1020 E5            [11] 3124 	push	hl
+   1021 CDr00r00      [17] 3125 	call	_cpc_WyzStartEffect
+                           3126 ;shots.c:518: pause(6);
+   1024 26 06         [ 7] 3127 	ld	h,#0x06
+   1026 E3            [19] 3128 	ex	(sp),hl
+   1027 33            [ 6] 3129 	inc	sp
+   1028 CDrDEr06      [17] 3130 	call	_pause
+   102B 33            [ 6] 3131 	inc	sp
+                           3132 ;shots.c:519: cpc_PrintGphStrXY("ABAJO;;;;",12*2,17*8);
+   102C 11r9Er10      [10] 3133 	ld	de,#___str_25
+   102F 21 18 88      [10] 3134 	ld	hl,#0x8818
+   1032 E5            [11] 3135 	push	hl
+   1033 D5            [11] 3136 	push	de
+   1034 CDr00r00      [17] 3137 	call	_cpc_PrintGphStrXY
+   1037 F1            [10] 3138 	pop	af
+                           3139 ;shots.c:520: cpc_RedefineKey(KEY_DOWN);
+   1038 26 03         [ 7] 3140 	ld	h,#0x03
+   103A E3            [19] 3141 	ex	(sp),hl
+   103B 33            [ 6] 3142 	inc	sp
+   103C CDr00r00      [17] 3143 	call	_cpc_RedefineKey
+   103F 33            [ 6] 3144 	inc	sp
+                           3145 ;shots.c:521: cpc_WyzStartEffect(2,1);	//(Channel, SFX #)
+   1040 21 02 01      [10] 3146 	ld	hl,#0x0102
+   1043 E5            [11] 3147 	push	hl
+   1044 CDr00r00      [17] 3148 	call	_cpc_WyzStartEffect
+                           3149 ;shots.c:522: pause(6);
+   1047 26 06         [ 7] 3150 	ld	h,#0x06
+   1049 E3            [19] 3151 	ex	(sp),hl
+   104A 33            [ 6] 3152 	inc	sp
+   104B CDrDEr06      [17] 3153 	call	_pause
+   104E 33            [ 6] 3154 	inc	sp
+                           3155 ;shots.c:523: cpc_PrintGphStrXY("DISPARO;;;",12*2,17*8);
+   104F 11rA8r10      [10] 3156 	ld	de,#___str_26
+   1052 21 18 88      [10] 3157 	ld	hl,#0x8818
+   1055 E5            [11] 3158 	push	hl
+   1056 D5            [11] 3159 	push	de
+   1057 CDr00r00      [17] 3160 	call	_cpc_PrintGphStrXY
+   105A F1            [10] 3161 	pop	af
+                           3162 ;shots.c:524: cpc_RedefineKey(KEY_FIRE);
+   105B 26 04         [ 7] 3163 	ld	h,#0x04
+   105D E3            [19] 3164 	ex	(sp),hl
+   105E 33            [ 6] 3165 	inc	sp
+   105F CDr00r00      [17] 3166 	call	_cpc_RedefineKey
+   1062 33            [ 6] 3167 	inc	sp
+                           3168 ;shots.c:525: cpc_WyzStartEffect(2,1);	//(Channel, SFX #)
+   1063 21 02 01      [10] 3169 	ld	hl,#0x0102
+   1066 E5            [11] 3170 	push	hl
+   1067 CDr00r00      [17] 3171 	call	_cpc_WyzStartEffect
+                           3172 ;shots.c:526: pause(6);
+   106A 26 06         [ 7] 3173 	ld	h,#0x06
+   106C E3            [19] 3174 	ex	(sp),hl
+   106D 33            [ 6] 3175 	inc	sp
+   106E CDrDEr06      [17] 3176 	call	_pause
+   1071 33            [ 6] 3177 	inc	sp
+                           3178 ;shots.c:528: return STATE_MENU;
+   1072 2E 02         [ 7] 3179 	ld	l,#0x02
+   1074 C9            [10] 3180 	ret
+   1075                    3181 _redefinirTeclas_end::
+   1075                    3182 ___str_21:
+   1075 50 55 4C 53 41 3B  3183 	.ascii "PULSA;PARA"
+        50 41 52 41
+   107F 00                 3184 	.db 0x00
+   1080                    3185 ___str_22:
+   1080 49 5A 51 55 49 45  3186 	.ascii "IZQUIERDA"
+        52 44 41
+   1089 00                 3187 	.db 0x00
+   108A                    3188 ___str_23:
+   108A 44 45 52 45 43 48  3189 	.ascii "DERECHA;;"
+        41 3B 3B
+   1093 00                 3190 	.db 0x00
+   1094                    3191 ___str_24:
+   1094 41 52 52 49 42 41  3192 	.ascii "ARRIBA;;;"
+        3B 3B 3B
+   109D 00                 3193 	.db 0x00
+   109E                    3194 ___str_25:
+   109E 41 42 41 4A 4F 3B  3195 	.ascii "ABAJO;;;;"
+        3B 3B 3B
+   10A7 00                 3196 	.db 0x00
+   10A8                    3197 ___str_26:
+   10A8 44 49 53 50 41 52  3198 	.ascii "DISPARO;;;"
+        4F 3B 3B 3B
+   10B2 00                 3199 	.db 0x00
+                           3200 ;shots.c:534: void Inicializacion() {
+                           3201 ;	---------------------------------
+                           3202 ; Function Inicializacion
+                           3203 ; ---------------------------------
+   10B3                    3204 _Inicializacion_start::
+   10B3                    3205 _Inicializacion:
+                           3206 ;shots.c:536: cpc_DisableFirmware();
+   10B3 CDr00r00      [17] 3207 	call	_cpc_DisableFirmware
+                           3208 ;shots.c:538: set_colours();
+   10B6 CDrC3r06      [17] 3209 	call	_set_colours
+                           3210 ;shots.c:539: cpc_SetMode(0);				//hardware call to set mode 0
+   10B9 AF            [ 4] 3211 	xor	a, a
+   10BA F5            [11] 3212 	push	af
+   10BB 33            [ 6] 3213 	inc	sp
+   10BC CDr00r00      [17] 3214 	call	_cpc_SetMode
+   10BF 33            [ 6] 3215 	inc	sp
+                           3216 ;shots.c:540: cpc_ClrScr();				//fills scr with ink 0
+   10C0 CDr00r00      [17] 3217 	call	_cpc_ClrScr
+                           3218 ;shots.c:542: inicializarTeclado();
+   10C3 CDr21r0F      [17] 3219 	call	_inicializarTeclado
+                           3220 ;shots.c:546: cpc_WyzInitPlayer(SOUND_TABLE_0, RULE_TABLE_0, EFFECT_TABLE, SONG_TABLE_0);
+   10C6 21r8Fr00      [10] 3221 	ld	hl,#_SOUND_TABLE_0
+   10C9 01r00r00      [10] 3222 	ld	bc,#_SONG_TABLE_0
+   10CC C5            [11] 3223 	push	bc
+   10CD 01rB1r00      [10] 3224 	ld	bc,#_EFFECT_TABLE
+   10D0 C5            [11] 3225 	push	bc
+   10D1 01r02r00      [10] 3226 	ld	bc,#_RULE_TABLE_0
+   10D4 C5            [11] 3227 	push	bc
+   10D5 E5            [11] 3228 	push	hl
+   10D6 CDr00r00      [17] 3229 	call	_cpc_WyzInitPlayer
+   10D9 21 08 00      [10] 3230 	ld	hl,#8
+   10DC 39            [11] 3231 	add	hl,sp
+   10DD F9            [ 6] 3232 	ld	sp,hl
+                           3233 ;shots.c:547: cpc_WyzLoadSong(0);
+   10DE AF            [ 4] 3234 	xor	a, a
+   10DF F5            [11] 3235 	push	af
+   10E0 33            [ 6] 3236 	inc	sp
+   10E1 CDr00r00      [17] 3237 	call	_cpc_WyzLoadSong
+   10E4 33            [ 6] 3238 	inc	sp
+                           3239 ;shots.c:548: cpc_WyzSetPlayerOn();
+   10E5 CDr00r00      [17] 3240 	call	_cpc_WyzSetPlayerOn
+                           3241 ;shots.c:551: state = STATE_MENU;
+   10E8 21r2Dr03      [10] 3242 	ld	hl,#_state + 0
+   10EB 36 02         [10] 3243 	ld	(hl), #0x02
+   10ED C9            [10] 3244 	ret
+   10EE                    3245 _Inicializacion_end::
+                           3246 ;shots.c:558: void inicializarNivel(){
+                           3247 ;	---------------------------------
+                           3248 ; Function inicializarNivel
+                           3249 ; ---------------------------------
+   10EE                    3250 _inicializarNivel_start::
+   10EE                    3251 _inicializarNivel:
+                           3252 ;shots.c:560: letrasColorAzul();
+   10EE CDrECr06      [17] 3253 	call	_letrasColorAzul
+                           3254 ;shots.c:561: cpc_PrintGphStr("1UP",0xc000);
+   10F1 21r6Dr11      [10] 3255 	ld	hl,#___str_27
+   10F4 01 00 C0      [10] 3256 	ld	bc,#0xC000
+   10F7 C5            [11] 3257 	push	bc
+   10F8 E5            [11] 3258 	push	hl
+   10F9 CDr00r00      [17] 3259 	call	_cpc_PrintGphStr
+   10FC F1            [10] 3260 	pop	af
+   10FD F1            [10] 3261 	pop	af
+                           3262 ;shots.c:562: cpc_PrintGphStr("HIGH;SCORE",0xc01E);	
+   10FE 21r71r11      [10] 3263 	ld	hl,#___str_28
+   1101 01 1E C0      [10] 3264 	ld	bc,#0xC01E
+   1104 C5            [11] 3265 	push	bc
+   1105 E5            [11] 3266 	push	hl
+   1106 CDr00r00      [17] 3267 	call	_cpc_PrintGphStr
+   1109 F1            [10] 3268 	pop	af
+   110A F1            [10] 3269 	pop	af
+                           3270 ;shots.c:563: cpc_PrintGphStr("2UP",0xc04A);
+   110B 21r7Cr11      [10] 3271 	ld	hl,#___str_29
+   110E 01 4A C0      [10] 3272 	ld	bc,#0xC04A
+   1111 C5            [11] 3273 	push	bc
+   1112 E5            [11] 3274 	push	hl
+   1113 CDr00r00      [17] 3275 	call	_cpc_PrintGphStr
+   1116 F1            [10] 3276 	pop	af
+   1117 F1            [10] 3277 	pop	af
+                           3278 ;shots.c:564: letrasColorRojo();
+   1118 CDr11r07      [17] 3279 	call	_letrasColorRojo
+                           3280 ;shots.c:565: sprintf(aux_txt,"%05d",score);
+   111B 11r30r03      [10] 3281 	ld	de,#_aux_txt
+   111E 2Ar2Ar00      [16] 3282 	ld	hl,(_score)
+   1121 E5            [11] 3283 	push	hl
+   1122 21r80r11      [10] 3284 	ld	hl,#___str_30
+   1125 E5            [11] 3285 	push	hl
+   1126 D5            [11] 3286 	push	de
+   1127 CDr00r00      [17] 3287 	call	_sprintf
+   112A 21 06 00      [10] 3288 	ld	hl,#6
+   112D 39            [11] 3289 	add	hl,sp
+   112E F9            [ 6] 3290 	ld	sp,hl
+                           3291 ;shots.c:566: cpc_PrintGphStr(aux_txt,0xc050);
+   112F 21r30r03      [10] 3292 	ld	hl,#_aux_txt
+   1132 01 50 C0      [10] 3293 	ld	bc,#0xC050
+   1135 C5            [11] 3294 	push	bc
+   1136 E5            [11] 3295 	push	hl
+   1137 CDr00r00      [17] 3296 	call	_cpc_PrintGphStr
+   113A F1            [10] 3297 	pop	af
+   113B F1            [10] 3298 	pop	af
+                           3299 ;shots.c:567: cpc_PrintGphStr("00000",0xc073);	
+   113C 21r85r11      [10] 3300 	ld	hl,#___str_31
+   113F 01 73 C0      [10] 3301 	ld	bc,#0xC073
+   1142 C5            [11] 3302 	push	bc
+   1143 E5            [11] 3303 	push	hl
+   1144 CDr00r00      [17] 3304 	call	_cpc_PrintGphStr
+   1147 F1            [10] 3305 	pop	af
+   1148 F1            [10] 3306 	pop	af
+                           3307 ;shots.c:568: cpc_PrintGphStr("00000",0xc096);
+   1149 21r85r11      [10] 3308 	ld	hl,#___str_31
+   114C 01 96 C0      [10] 3309 	ld	bc,#0xC096
+   114F C5            [11] 3310 	push	bc
+   1150 E5            [11] 3311 	push	hl
+   1151 CDr00r00      [17] 3312 	call	_cpc_PrintGphStr
+   1154 F1            [10] 3313 	pop	af
+   1155 F1            [10] 3314 	pop	af
+                           3315 ;shots.c:577: inicializarProta();
+   1156 CDr1Ar0C      [17] 3316 	call	_inicializarProta
+                           3317 ;shots.c:578: prota.moved=1;
+   1159 21r95r00      [10] 3318 	ld	hl,#_prota+11
+   115C 36 01         [10] 3319 	ld	(hl),#0x01
+                           3320 ;shots.c:598: pintarProta();
+   115E CDr4Fr0D      [17] 3321 	call	_pintarProta
+                           3322 ;shots.c:599: mostrarVidasProta();
+   1161 CDrAEr0D      [17] 3323 	call	_mostrarVidasProta
+                           3324 ;shots.c:600: pintarBanderasNivel();
+   1164 CDrDBr0D      [17] 3325 	call	_pintarBanderasNivel
+                           3326 ;shots.c:616: hostilidad=1;  //este flag hace que los enemigos disparen
+   1167 21r2Fr03      [10] 3327 	ld	hl,#_hostilidad + 0
+   116A 36 01         [10] 3328 	ld	(hl), #0x01
+   116C C9            [10] 3329 	ret
+   116D                    3330 _inicializarNivel_end::
+   116D                    3331 ___str_27:
+   116D 31 55 50           3332 	.ascii "1UP"
+   1170 00                 3333 	.db 0x00
+   1171                    3334 ___str_28:
+   1171 48 49 47 48 3B 53  3335 	.ascii "HIGH;SCORE"
+        43 4F 52 45
+   117B 00                 3336 	.db 0x00
+   117C                    3337 ___str_29:
+   117C 32 55 50           3338 	.ascii "2UP"
+   117F 00                 3339 	.db 0x00
+   1180                    3340 ___str_30:
+   1180 25 30 35 64        3341 	.ascii "%05d"
+   1184 00                 3342 	.db 0x00
+   1185                    3343 ___str_31:
+   1185 30 30 30 30 30     3344 	.ascii "00000"
+   118A 00                 3345 	.db 0x00
+                           3346 ;shots.c:622: unsigned char game()
+                           3347 ;	---------------------------------
+                           3348 ; Function game
+                           3349 ; ---------------------------------
+   118B                    3350 _game_start::
+   118B                    3351 _game:
+   118B F5            [11] 3352 	push	af
+   118C F5            [11] 3353 	push	af
+                           3354 ;shots.c:624: timerOn();
+   118D CDr7Fr06      [17] 3355 	call	_timerOn
+                           3356 ;shots.c:627: cpc_WyzInitPlayer(SOUND_TABLE_0, RULE_TABLE_0, EFFECT_TABLE, SONG_TABLE_0);
+   1190 21r8Fr00      [10] 3357 	ld	hl,#_SOUND_TABLE_0
+   1193 01r00r00      [10] 3358 	ld	bc,#_SONG_TABLE_0
+   1196 C5            [11] 3359 	push	bc
+   1197 01rB1r00      [10] 3360 	ld	bc,#_EFFECT_TABLE
+   119A C5            [11] 3361 	push	bc
+   119B 01r02r00      [10] 3362 	ld	bc,#_RULE_TABLE_0
+   119E C5            [11] 3363 	push	bc
+   119F E5            [11] 3364 	push	hl
+   11A0 CDr00r00      [17] 3365 	call	_cpc_WyzInitPlayer
+   11A3 21 08 00      [10] 3366 	ld	hl,#8
+   11A6 39            [11] 3367 	add	hl,sp
+   11A7 F9            [ 6] 3368 	ld	sp,hl
+                           3369 ;shots.c:628: cpc_WyzSetPlayerOn();
+   11A8 CDr00r00      [17] 3370 	call	_cpc_WyzSetPlayerOn
+                           3371 ;shots.c:630: cpc_ClrScr();				//fills scr with ink 0
+   11AB CDr00r00      [17] 3372 	call	_cpc_ClrScr
+                           3373 ;shots.c:632: inicializarNivel();
+   11AE CDrEEr10      [17] 3374 	call	_inicializarNivel
+                           3375 ;shots.c:634: while(1)
+   11B1                    3376 00122$:
+                           3377 ;shots.c:649: if ((getTime()-prota.lastmoved)>prota.speed){
+   11B1 CDrB5r06      [17] 3378 	call	_getTime
+   11B4 FD 21 00 00   [14] 3379 	ld	iy,#0
+   11B8 FD 39         [15] 3380 	add	iy,sp
+   11BA FD 72 03      [19] 3381 	ld	3 (iy),d
+   11BD FD 73 02      [19] 3382 	ld	2 (iy),e
+   11C0 FD 74 01      [19] 3383 	ld	1 (iy),h
+   11C3 FD 75 00      [19] 3384 	ld	0 (iy),l
+   11C6 ED 5Br9Ar00   [20] 3385 	ld	de, (#(_prota + 0x0010) + 0)
+   11CA ED 4Br9Cr00   [20] 3386 	ld	bc, (#(_prota + 0x0010) + 2)
+   11CE 21 00 00      [10] 3387 	ld	hl,#0
+   11D1 39            [11] 3388 	add	hl,sp
+   11D2 7E            [ 7] 3389 	ld	a,(hl)
+   11D3 93            [ 4] 3390 	sub	a, e
+   11D4 77            [ 7] 3391 	ld	(hl),a
+   11D5 23            [ 6] 3392 	inc	hl
+   11D6 7E            [ 7] 3393 	ld	a,(hl)
+   11D7 9A            [ 4] 3394 	sbc	a, d
+   11D8 77            [ 7] 3395 	ld	(hl),a
+   11D9 23            [ 6] 3396 	inc	hl
+   11DA 7E            [ 7] 3397 	ld	a,(hl)
+   11DB 99            [ 4] 3398 	sbc	a, c
+   11DC 77            [ 7] 3399 	ld	(hl),a
+   11DD 23            [ 6] 3400 	inc	hl
+   11DE 7E            [ 7] 3401 	ld	a,(hl)
+   11DF 98            [ 4] 3402 	sbc	a, b
+   11E0 77            [ 7] 3403 	ld	(hl),a
+   11E1 3Ar96r00      [13] 3404 	ld	a, (#_prota + 12)
+   11E4 57            [ 4] 3405 	ld	d,a
+   11E5 1E 00         [ 7] 3406 	ld	e,#0x00
+   11E7 01 00 00      [10] 3407 	ld	bc,#0x0000
+   11EA 7A            [ 4] 3408 	ld	a,d
+   11EB FD 21 00 00   [14] 3409 	ld	iy,#0
+   11EF FD 39         [15] 3410 	add	iy,sp
+   11F1 FD 96 00      [19] 3411 	sub	a, 0 (iy)
+   11F4 7B            [ 4] 3412 	ld	a,e
+   11F5 FD 9E 01      [19] 3413 	sbc	a, 1 (iy)
+   11F8 79            [ 4] 3414 	ld	a,c
+   11F9 FD 9E 02      [19] 3415 	sbc	a, 2 (iy)
+   11FC 78            [ 4] 3416 	ld	a,b
+   11FD FD 9E 03      [19] 3417 	sbc	a, 3 (iy)
+   1200 30 13         [12] 3418 	jr	NC,00104$
+                           3419 ;shots.c:650: prota.lastmoved=getTime();
+   1202 CDrB5r06      [17] 3420 	call	_getTime
+   1205 4D            [ 4] 3421 	ld	c,l
+   1206 44            [ 4] 3422 	ld	b,h
+   1207 ED 43r9Ar00   [20] 3423 	ld	((_prota + 0x0010)), bc
+   120B ED 53r9Cr00   [20] 3424 	ld	((_prota + 0x0010) + 2), de
+                           3425 ;shots.c:651: moverProta();	//mover al prota
+   120F CDr6Fr0C      [17] 3426 	call	_moverProta
+                           3427 ;shots.c:652: pintarProta();	//Pinto al protagonista
+   1212 CDr4Fr0D      [17] 3428 	call	_pintarProta
+   1215                    3429 00104$:
+                           3430 ;shots.c:700: if ((prota.dead) && (!explosiones_activas) && (!disparos_activos) && (!disparos_malos_activos) && (!explosion_prota_activada)){
+   1215 3Ar98r00      [13] 3431 	ld	a, (#_prota + 14)
+   1218 B7            [ 4] 3432 	or	a, a
+   1219 28 1F         [12] 3433 	jr	Z,00106$
+   121B 3ArCBr02      [13] 3434 	ld	a,(#_explosiones_activas + 0)
+   121E B7            [ 4] 3435 	or	a, a
+   121F 20 19         [12] 3436 	jr	NZ,00106$
+   1221 3Ar4Br00      [13] 3437 	ld	a,(#_disparos_activos + 0)
+   1224 B7            [ 4] 3438 	or	a, a
+   1225 20 13         [12] 3439 	jr	NZ,00106$
+   1227 3Ar88r00      [13] 3440 	ld	a,(#_disparos_malos_activos + 0)
+   122A B7            [ 4] 3441 	or	a, a
+   122B 20 0D         [12] 3442 	jr	NZ,00106$
+   122D 3Ar03r03      [13] 3443 	ld	a,(#_explosion_prota_activada + 0)
+   1230 B7            [ 4] 3444 	or	a, a
+   1231 20 07         [12] 3445 	jr	NZ,00106$
+                           3446 ;shots.c:701: state = STATE_DEAD;
+   1233 21r2Dr03      [10] 3447 	ld	hl,#_state + 0
+   1236 36 0B         [10] 3448 	ld	(hl), #0x0B
+                           3449 ;shots.c:702: break;
+   1238 18 49         [12] 3450 	jr	00124$
+   123A                    3451 00106$:
+                           3452 ;shots.c:705: if (cpc_TestKey(KEY_ESC)==1){			// ESC
+   123A 3E 05         [ 7] 3453 	ld	a,#0x05
+   123C F5            [11] 3454 	push	af
+   123D 33            [ 6] 3455 	inc	sp
+   123E CDr00r00      [17] 3456 	call	_cpc_TestKey
+   1241 33            [ 6] 3457 	inc	sp
+   1242 2D            [ 4] 3458 	dec	l
+   1243 20 07         [12] 3459 	jr	NZ,00115$
+                           3460 ;shots.c:706: state = STATE_MENU;
+   1245 21r2Dr03      [10] 3461 	ld	hl,#_state + 0
+   1248 36 02         [10] 3462 	ld	(hl), #0x02
+                           3463 ;shots.c:707: break;
+   124A 18 37         [12] 3464 	jr	00124$
+                           3465 ;shots.c:712: if ((DEBUG) && (cpc_TestKey(KEY_HOSTILITY)==1)){			
+   124C                    3466 00115$:
+   124C 3E 0B         [ 7] 3467 	ld	a,#0x0B
+   124E F5            [11] 3468 	push	af
+   124F 33            [ 6] 3469 	inc	sp
+   1250 CDr00r00      [17] 3470 	call	_cpc_TestKey
+   1253 33            [ 6] 3471 	inc	sp
+   1254 2D            [ 4] 3472 	dec	l
+   1255 20 0B         [12] 3473 	jr	NZ,00114$
+                           3474 ;shots.c:713: hostilidad=!hostilidad;
+   1257 3Ar2Fr03      [13] 3475 	ld	a,(#_hostilidad + 0)
+   125A D6 01         [ 7] 3476 	sub	a,#0x01
+   125C 3E 00         [ 7] 3477 	ld	a,#0x00
+   125E 17            [ 4] 3478 	rla
+   125F 32r2Fr03      [13] 3479 	ld	(#_hostilidad + 0),a
+   1262                    3480 00114$:
+                           3481 ;shots.c:717: if ((malos_activos==0) && (explosiones_activas==0) && (!disparos_activos) && (!disparos_malos_activos)){
+   1262 3Ar0Ar02      [13] 3482 	ld	a,(#_malos_activos + 0)
+   1265 B7            [ 4] 3483 	or	a, a
+   1266 C2rB1r11      [10] 3484 	jp	NZ,00122$
+   1269 3ArCBr02      [13] 3485 	ld	a,(#_explosiones_activas + 0)
+   126C B7            [ 4] 3486 	or	a, a
+   126D C2rB1r11      [10] 3487 	jp	NZ,00122$
+   1270 3Ar4Br00      [13] 3488 	ld	a,(#_disparos_activos + 0)
+   1273 B7            [ 4] 3489 	or	a, a
+   1274 C2rB1r11      [10] 3490 	jp	NZ,00122$
+   1277 3Ar88r00      [13] 3491 	ld	a,(#_disparos_malos_activos + 0)
+   127A B7            [ 4] 3492 	or	a, a
+   127B C2rB1r11      [10] 3493 	jp	NZ,00122$
+                           3494 ;shots.c:718: state = STATE_LEVELUP;
+   127E 21r2Dr03      [10] 3495 	ld	hl,#_state + 0
+   1281 36 08         [10] 3496 	ld	(hl), #0x08
+                           3497 ;shots.c:724: if (SONIDO_ACTIVADO) cpc_WyzSetPlayerOff();
+   1283                    3498 00124$:
+   1283 CDr00r00      [17] 3499 	call	_cpc_WyzSetPlayerOff
+                           3500 ;shots.c:725: timerOff();
+   1286 CDrA8r06      [17] 3501 	call	_timerOff
+                           3502 ;shots.c:726: return state;
+   1289 FD 21r2Dr03   [14] 3503 	ld	iy,#_state
+   128D FD 6E 00      [19] 3504 	ld	l,0 (iy)
+   1290 F1            [10] 3505 	pop	af
+   1291 F1            [10] 3506 	pop	af
+   1292 C9            [10] 3507 	ret
+   1293                    3508 _game_end::
+                           3509 ;shots.c:733: int main() {
+                           3510 ;	---------------------------------
+                           3511 ; Function main
+                           3512 ; ---------------------------------
+   1293                    3513 _main_start::
+   1293                    3514 _main:
+                           3515 ;shots.c:734: Inicializacion();
+   1293 CDrB3r10      [17] 3516 	call	_Inicializacion
+                           3517 ;shots.c:736: while (state != STATE_EXIT) {
+   1296                    3518 00121$:
+                           3519 ;shots.c:737: switch(state) {
+   1296 3Ar2Dr03      [13] 3520 	ld	a,(#_state + 0)
+   1299 FE 05         [ 7] 3521 	cp	a,#0x05
+   129B CAr7Er13      [10] 3522 	jp	Z,00124$
+   129E FE 02         [ 7] 3523 	cp	a,#0x02
+   12A0 28 15         [12] 3524 	jr	Z,00101$
+   12A2 FE 04         [ 7] 3525 	cp	a,#0x04
+   12A4 28 29         [12] 3526 	jr	Z,00103$
+   12A6 FE 06         [ 7] 3527 	cp	a,#0x06
+   12A8 CAr5Cr13      [10] 3528 	jp	Z,00117$
+   12AB FE 07         [ 7] 3529 	cp	a,#0x07
+   12AD CAr69r13      [10] 3530 	jp	Z,00118$
+   12B0 D6 09         [ 7] 3531 	sub	a, #0x09
+   12B2 28 0F         [12] 3532 	jr	Z,00102$
+   12B4 C3r76r13      [10] 3533 	jp	00119$
+                           3534 ;shots.c:738: case STATE_MENU:
+   12B7                    3535 00101$:
+                           3536 ;shots.c:739: state = menu();
+   12B7 CDr36r07      [17] 3537 	call	_menu
+   12BA FD 21r2Dr03   [14] 3538 	ld	iy,#_state
+   12BE FD 75 00      [19] 3539 	ld	0 (iy),l
+                           3540 ;shots.c:740: break;
+   12C1 18 D3         [12] 3541 	jr	00121$
+                           3542 ;shots.c:742: case STATE_REDEFINE:
+   12C3                    3543 00102$:
+                           3544 ;shots.c:743: state = redefinirTeclas();
+   12C3 CDrA6r0F      [17] 3545 	call	_redefinirTeclas
+   12C6 FD 21r2Dr03   [14] 3546 	ld	iy,#_state
+   12CA FD 75 00      [19] 3547 	ld	0 (iy),l
+                           3548 ;shots.c:744: break;
+   12CD 18 C7         [12] 3549 	jr	00121$
+                           3550 ;shots.c:746: case STATE_GAME:
+   12CF                    3551 00103$:
+                           3552 ;shots.c:747: nivel=1;
+   12CF 21r2Er03      [10] 3553 	ld	hl,#_nivel + 0
+   12D2 36 01         [10] 3554 	ld	(hl), #0x01
+                           3555 ;shots.c:748: prota.vidas=3;
+   12D4 21r99r00      [10] 3556 	ld	hl,#(_prota + 0x000f)
+   12D7 36 03         [10] 3557 	ld	(hl),#0x03
+                           3558 ;shots.c:749: prota.escudo=0;
+   12D9 21rA3r00      [10] 3559 	ld	hl,#_prota + 25
+   12DC 36 00         [10] 3560 	ld	(hl),#0x00
+                           3561 ;shots.c:750: prota.max_disparos=2;
+   12DE 21rA4r00      [10] 3562 	ld	hl,#_prota + 26
+   12E1 36 02         [10] 3563 	ld	(hl),#0x02
+                           3564 ;shots.c:752: cambio_score=0;
+   12E3 21r2Cr00      [10] 3565 	ld	hl,#_cambio_score + 0
+   12E6 36 00         [10] 3566 	ld	(hl), #0x00
+                           3567 ;shots.c:753: score=0;
+   12E8 21r2Ar00      [10] 3568 	ld	hl,#_score + 0
+   12EB 36 00         [10] 3569 	ld	(hl), #0x00
+   12ED 21r2Br00      [10] 3570 	ld	hl,#_score + 1
+   12F0 36 00         [10] 3571 	ld	(hl), #0x00
+                           3572 ;shots.c:755: while ((state!=STATE_LOSE) && (state!=STATE_WIN) && (state!=STATE_MENU)) {
+   12F2                    3573 00114$:
+   12F2 3Ar2Dr03      [13] 3574 	ld	a,(#_state + 0)
+   12F5 FE 07         [ 7] 3575 	cp	a,#0x07
+   12F7 28 9D         [12] 3576 	jr	Z,00121$
+   12F9 FE 06         [ 7] 3577 	cp	a,#0x06
+   12FB 28 99         [12] 3578 	jr	Z,00121$
+   12FD D6 02         [ 7] 3579 	sub	a, #0x02
+   12FF 28 95         [12] 3580 	jr	Z,00121$
+                           3581 ;shots.c:757: if (SONIDO_ACTIVADO) cpc_WyzSetPlayerOff();
+   1301 CDr00r00      [17] 3582 	call	_cpc_WyzSetPlayerOff
+                           3583 ;shots.c:758: state = game();
+   1304 CDr8Br11      [17] 3584 	call	_game
+   1307 FD 21r2Dr03   [14] 3585 	ld	iy,#_state
+   130B FD 75 00      [19] 3586 	ld	0 (iy),l
+                           3587 ;shots.c:760: cpc_WyzInitPlayer(SOUND_TABLE_0, RULE_TABLE_0, EFFECT_TABLE, SONG_TABLE_0);
+   130E 21r8Fr00      [10] 3588 	ld	hl,#_SOUND_TABLE_0
+   1311 01r00r00      [10] 3589 	ld	bc,#_SONG_TABLE_0
+   1314 C5            [11] 3590 	push	bc
+   1315 01rB1r00      [10] 3591 	ld	bc,#_EFFECT_TABLE
+   1318 C5            [11] 3592 	push	bc
+   1319 01r02r00      [10] 3593 	ld	bc,#_RULE_TABLE_0
+   131C C5            [11] 3594 	push	bc
+   131D E5            [11] 3595 	push	hl
+   131E CDr00r00      [17] 3596 	call	_cpc_WyzInitPlayer
+   1321 21 08 00      [10] 3597 	ld	hl,#8
+   1324 39            [11] 3598 	add	hl,sp
+   1325 F9            [ 6] 3599 	ld	sp,hl
+                           3600 ;shots.c:761: cpc_WyzLoadSong(0);
+   1326 AF            [ 4] 3601 	xor	a, a
+   1327 F5            [11] 3602 	push	af
+   1328 33            [ 6] 3603 	inc	sp
+   1329 CDr00r00      [17] 3604 	call	_cpc_WyzLoadSong
+   132C 33            [ 6] 3605 	inc	sp
+                           3606 ;shots.c:762: cpc_WyzSetPlayerOn();
+   132D CDr00r00      [17] 3607 	call	_cpc_WyzSetPlayerOn
+                           3608 ;shots.c:764: if (state==STATE_LEVELUP)
+   1330 3Ar2Dr03      [13] 3609 	ld	a,(#_state + 0)
+   1333 D6 08         [ 7] 3610 	sub	a, #0x08
+   1335 20 0A         [12] 3611 	jr	NZ,00109$
+                           3612 ;shots.c:765: state=levelUp();
+   1337 CDr4Dr08      [17] 3613 	call	_levelUp
+   133A FD 21r2Dr03   [14] 3614 	ld	iy,#_state
+   133E FD 75 00      [19] 3615 	ld	0 (iy),l
+   1341                    3616 00109$:
+                           3617 ;shots.c:766: if (state==STATE_DEAD){
+   1341 3Ar2Dr03      [13] 3618 	ld	a,(#_state + 0)
+   1344 D6 0B         [ 7] 3619 	sub	a, #0x0B
+   1346 20 AA         [12] 3620 	jr	NZ,00114$
+                           3621 ;shots.c:767: prota.vidas--;
+   1348 3Ar99r00      [13] 3622 	ld	a, (#(_prota + 0x000f) + 0)
+   134B C6 FF         [ 7] 3623 	add	a,#0xFF
+   134D 32r99r00      [13] 3624 	ld	(#(_prota + 0x000f)),a
+                           3625 ;shots.c:768: state=protaDead();
+   1350 CDr8Dr09      [17] 3626 	call	_protaDead
+   1353 FD 21r2Dr03   [14] 3627 	ld	iy,#_state
+   1357 FD 75 00      [19] 3628 	ld	0 (iy),l
+   135A 18 96         [12] 3629 	jr	00114$
+                           3630 ;shots.c:773: case STATE_WIN:
+   135C                    3631 00117$:
+                           3632 ;shots.c:774: state = win();
+   135C CDr48r0B      [17] 3633 	call	_win
+   135F FD 21r2Dr03   [14] 3634 	ld	iy,#_state
+   1363 FD 75 00      [19] 3635 	ld	0 (iy),l
+                           3636 ;shots.c:775: break;
+   1366 C3r96r12      [10] 3637 	jp	00121$
+                           3638 ;shots.c:777: case STATE_LOSE:
+   1369                    3639 00118$:
+                           3640 ;shots.c:778: state = gameOver();
+   1369 CDr56r0E      [17] 3641 	call	_gameOver
+   136C FD 21r2Dr03   [14] 3642 	ld	iy,#_state
+   1370 FD 75 00      [19] 3643 	ld	0 (iy),l
+                           3644 ;shots.c:779: break;
+   1373 C3r96r12      [10] 3645 	jp	00121$
+                           3646 ;shots.c:781: default:
+   1376                    3647 00119$:
+                           3648 ;shots.c:782: state = STATE_EXIT;
+   1376 21r2Dr03      [10] 3649 	ld	hl,#_state + 0
+   1379 36 05         [10] 3650 	ld	(hl), #0x05
+                           3651 ;shots.c:784: }
+   137B C3r96r12      [10] 3652 	jp	00121$
+                           3653 ;shots.c:786: if (SONIDO_ACTIVADO) cpc_WyzSetPlayerOff();
+   137E                    3654 00124$:
+   137E CDr00r00      [17] 3655 	call	_cpc_WyzSetPlayerOff
+                           3656 ;shots.c:788: return 0;  
+   1381 21 00 00      [10] 3657 	ld	hl,#0x0000
+   1384 C9            [10] 3658 	ret
+   1385                    3659 _main_end::
+                           3660 	.area _CODE
+                           3661 	.area _INITIALIZER
+   0000                    3662 __xinit__trayectoria1:
+   0000 00                 3663 	.db #0x00	;  0
+   0001 02                 3664 	.db #0x02	;  2
+   0002 04                 3665 	.db #0x04	;  4
+   0003 05                 3666 	.db #0x05	;  5
+   0004 06                 3667 	.db #0x06	;  6
+   0005 06                 3668 	.db #0x06	;  6
+   0006 06                 3669 	.db #0x06	;  6
+   0007 05                 3670 	.db #0x05	;  5
+   0008 04                 3671 	.db #0x04	;  4
+   0009 02                 3672 	.db #0x02	;  2
+   000A 00                 3673 	.db #0x00	;  0
+   000B FE                 3674 	.db #0xFE	; -2
+   000C FC                 3675 	.db #0xFC	; -4
+   000D FB                 3676 	.db #0xFB	; -5
+   000E FA                 3677 	.db #0xFA	; -6
+   000F FA                 3678 	.db #0xFA	; -6
+   0010 FA                 3679 	.db #0xFA	; -6
+   0011 FB                 3680 	.db #0xFB	; -5
+   0012 FC                 3681 	.db #0xFC	; -4
+   0013 FE                 3682 	.db #0xFE	; -2
+   0014                    3683 __xinit__redFlag:
+   0014 02                 3684 	.db #0x02	; 2
+   0015 06                 3685 	.db #0x06	; 6
+   0016 00                 3686 	.db #0x00	; 0
+   0017 2C                 3687 	.db #0x2C	; 44
+   0018 14                 3688 	.db #0x14	; 20
+   0019 2C                 3689 	.db #0x2C	; 44
+   001A 3C                 3690 	.db #0x3C	; 60
+   001B 2C                 3691 	.db #0x2C	; 44
+   001C 3C                 3692 	.db #0x3C	; 60
+   001D 2C                 3693 	.db #0x2C	; 44
+   001E 00                 3694 	.db #0x00	; 0
+   001F 04                 3695 	.db #0x04	; 4
+   0020 00                 3696 	.db #0x00	; 0
+   0021 04                 3697 	.db #0x04	; 4
+   0022                    3698 __xinit__timer0:
+   0022 00 00              3699 	.dw #0x0000
+   0024                    3700 __xinit__timer1:
+   0024 00 00              3701 	.dw #0x0000
+   0026                    3702 __xinit__nTimeLast:
+   0026 00 00 00 00        3703 	.byte #0x00,#0x00,#0x00,#0x00	; 0
+   002A                    3704 __xinit__score:
+   002A 00 00              3705 	.dw #0x0000
+   002C                    3706 __xinit__cambio_score:
+   002C 00                 3707 	.db #0x00	; 0
+                           3708 	.area _CABS (ABS)

@@ -1,0 +1,363 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           
+     00000000  l__BSEG                         
+     00000000  l__BSS                          
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__HEADER                       
+     00000000  l__HEAP                         
+     00000000  l__HOME                         
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000000  s__HEADER                       
+     00000000  s__HEADER0                      
+     00000000  s__HEADER1                      
+     00000001  l__GSFINAL                      
+     00000003  l__HEADER0                      
+     00000009  l__HEADER1                      
+     0000000F  l__GSINIT                       
+     0000002D  l__INITIALIZED                  
+     0000002D  l__INITIALIZER                  
+     00000138  s__CODE                         
+     00000336  l__DATA                         
+     0000334A  l__CODE                         
+     00003482  s__DATA                         
+     000037B8  s__INITIALIZED                  
+     000037E5  s__GSINIT                       
+     000037E5  s__HOME                         
+     000037F4  s__GSFINAL                      
+     000037F5  s__INITIALIZER                  
+     00003822  s__BSEG                         
+     00003822  s__BSS                          
+     00003822  s__HEAP                         
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000138    0000334A =       13130. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000138  _asm_data_quezesto                 shots
+     00000138  _asm_data_quezesto_start           shots
+     0000026E  _asm_data_quezesto_end             shots
+     0000026E  _sprites                           shots
+     0000026E  _sprites_start                     shots
+     00000333  _SONG_0                            shots
+     00000333  _sprites_end                       shots
+     000007C0  _timerOn                           shots
+     000007C0  _timerOn_start                     shots
+     000007E9  _timerOff                          shots
+     000007E9  _timerOff_start                    shots
+     000007E9  _timerOn_end                       shots
+     000007F6  _getTime                           shots
+     000007F6  _getTime_start                     shots
+     000007F6  _timerOff_end                      shots
+     00000804  _getTime_end                       shots
+     00000804  _set_colours                       shots
+     00000804  _set_colours_start                 shots
+     0000081F  _pause                             shots
+     0000081F  _pause_start                       shots
+     0000081F  _set_colours_end                   shots
+     0000082D  _letrasColorAzul                   shots
+     0000082D  _letrasColorAzul_start             shots
+     0000082D  _pause_end                         shots
+     00000852  _letrasColorAzul_end               shots
+     00000852  _letrasColorRojo                   shots
+     00000852  _letrasColorRojo_start             shots
+     00000877  _letrasColorRojo_end               shots
+     00000877  _menu                              shots
+     00000877  _menu_start                        shots
+     00000937  _menu_end                          shots
+     0000098E  _levelUp                           shots
+     0000098E  _levelUp_start                     shots
+     00000A6D  _levelUp_end                       shots
+     00000ACE  _protaDead                         shots
+     00000ACE  _protaDead_start                   shots
+     00000C13  _protaDead_end                     shots
+     00000C89  _win                               shots
+     00000C89  _win_start                         shots
+     00000D14  _win_end                           shots
+     00000D5B  _inicializarProta                  shots
+     00000D5B  _inicializarProta_start            shots
+     00000DB0  _inicializarProta_end              shots
+     00000DB0  _moverProta                        shots
+     00000DB0  _moverProta_start                  shots
+     00000E21  _borrarProta                       shots
+     00000E21  _borrarProta_start                 shots
+     00000E21  _moverProta_end                    shots
+     00000E90  _borrarProta_end                   shots
+     00000E90  _pintarProta                       shots
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000138    0000334A =       13130. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000E90  _pintarProta_start                 shots
+     00000EEF  _mostrarVidasProta                 shots
+     00000EEF  _mostrarVidasProta_start           shots
+     00000EEF  _pintarProta_end                   shots
+     00000F1C  _mostrarVidasProta_end             shots
+     00000F1C  _pintarBanderasNivel               shots
+     00000F1C  _pintarBanderasNivel_start         shots
+     00000F97  _gameOver                          shots
+     00000F97  _gameOver_start                    shots
+     00000F97  _pintarBanderasNivel_end           shots
+     0000101B  _gameOver_end                      shots
+     00001062  _inicializarTeclado                shots
+     00001062  _inicializarTeclado_start          shots
+     000010E7  _inicializarTeclado_end            shots
+     000010E7  _redefinirTeclas                   shots
+     000010E7  _redefinirTeclas_start             shots
+     000011B6  _redefinirTeclas_end               shots
+     000011F4  _Inicializacion                    shots
+     000011F4  _Inicializacion_start              shots
+     0000122F  _Inicializacion_end                shots
+     0000122F  _inicializarNivel                  shots
+     0000122F  _inicializarNivel_start            shots
+     000012AE  _inicializarNivel_end              shots
+     000012CC  _game                              shots
+     000012CC  _game_start                        shots
+     000013D4  _game_end                          shots
+     000013D4  _main                              shots
+     000013D4  _main_start                        shots
+     000014C6  __clock                            crt0
+     000014C6  _main_end                          shots
+     000014C7  _exit                              crt0
+     000014C8  _cpc_AnyKeyPressed                 
+     000014F7  _cpc_AssignKey                     
+     00001514  _cpc_TestKey                       
+     00001533  _cpc_RedefineKey                   
+     000015A4  _cpc_DeleteKeys                    
+     000015B2  _cpc_TestKeyF                      
+     000015DA  _cpc_ScanKeyboard                  
+     0000160D  cpc_TestKeyboard                   
+     00001660  _cpct_drawSprite                   
+     0000170A  _fastCollision2                    
+     00001760  _fastCollision                     
+     000017A6  _detectCollision                   
+     0000187C  _getScreenAddress                  
+     000018B7  _printSpriteXOR                    
+     00001B5D  _cpc_PrintGphStr2X                 
+     00001B74  _cpc_PrintGphStrXY2X               
+     00001B8E  _cpc_PrintGphStrXY                 
+     00001BA6  _cpc_PrintGphStr                   
+     00001CF8  _cpc_SetInkGphStr                  
+     00001D0C  _cpc_PrintGphStrXYM1               
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000138    0000334A =       13130. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00001D25  _cpc_PrintGphStrXYM12X             
+     00001D3F  _cpc_PrintGphStrM12X               
+     00001D56  _cpc_PrintGphStrM1                 
+     00001E4C  _cpc_SetInkGphStrM1                
+     00002005  _cpc_WyzConfigurePlayer            
+     0000200E  _cpc_WyzInitPlayer                 
+     00002039  _cpc_WyzLoadSong                   
+     00002041  _cpc_WyzSetTempo                   
+     0000204A  _cpc_WyzStartEffect                
+     00002054  _cpc_WyzTestPlayer                 
+     0000205C  _cpc_WyzPlayer                     
+     0000205C  _cpc_WyzSetPlayerOn                
+     00002085  _cpc_WyzSetPlayerOff               
+     00002085  _cpc_WyzSetPlayerOff1              
+     000027A9  _cpc_DisableFirmware               
+     000027BC  _cpc_EnableFirmware                
+     000027C9  _cpc_SetMode                       
+     000027D7  _cpc_SetColour                     
+     000027E9  _cpc_SetInk                        
+     000027F4  _cpc_Random                        
+     00002803  _cpc_ClrScr                        
+     00002811  _cpc_PrintStr                      
+     00002831  _cpc_RLI                           
+     0000286D  _cpc_RRI                           
+     000028A9  __divsuchar_rrx_s                  
+     000028B5  __divuschar_rrx_s                  
+     000028E4  _vsprintf                          sprintf
+     000028E4  _vsprintf_start                    sprintf
+     00002919  _sprintf                           sprintf
+     00002919  _sprintf_start                     sprintf
+     00002919  _vsprintf_end                      sprintf
+     00002950  __divsint_rrx_s                    
+     00002950  _sprintf_end                       sprintf
+     00002959  __divschar_rrx_s                   
+     00002960  __div8                             
+     00002960  __divschar_rrx_hds                 
+     00002964  __div_signexte                     
+     00002968  __div16                            
+     00002968  __divsint_rrx_hds                  
+     0000298E  __get_remainder                    
+     00002AA7  __print_format                     printf_large
+     00002AA7  __print_format_start               printf_large
+     00003426  __print_format_end                 printf_large
+     00003431  __divuint_rrx_s                    
+     00003439  __divuchar_rrx_s                   
+     00003440  __divu8                            
+     00003440  __divuchar_rrx_hds                 
+     00003443  __divu16                           
+     00003443  __divuint_rrx_hds                  
+     00003472  _strlen                            
+     00003481  __sdcc_call_hl                     
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               00003482    00000336 =         822. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00003482  _disparos                          shots
+     000034CD  _disparos_activos                  shots
+     000034CE  _disparosMalos                     shots
+     0000350A  _disparos_malos_activos            shots
+     0000350B  _max_disparos_MALOS                shots
+     0000350C  _prota                             shots
+     00003528  _malos                             shots
+     00003684  _animMotorSprite                   shots
+     0000368C  _malos_activos                     shots
+     0000368D  _explosiones                       shots
+     0000374D  _explosiones_activas               shots
+     0000374E  _explosion_sprite                  shots
+     0000375E  _explosiones_lastUpdated           shots
+     00003762  _explosiones_prota                 shots
+     00003780  _explosion_prota_lastUpdated       shots
+     00003784  _fase_explosion_prota              shots
+     00003785  _explosion_prota_activada          shots
+     00003786  _fin_explosion_prota               shots
+     00003787  _previous_state                    shots
+     00003788  _velXForm                          shots
+     00003789  _velYForm                          shots
+     0000378A  _stepCount                         shots
+     0000378B  _formMoved                         shots
+     0000378C  _ataques                           shots
+     00003798  _ataques_activos                   shots
+     00003799  _max_ataques_activos               shots
+     0000379A  _addones                           shots
+     000037A6  _addones_activos                   shots
+     000037A7  _addon_sprite                      shots
+     000037AF  _state                             shots
+     000037B0  _nivel                             shots
+     000037B1  _hostilidad                        shots
+     000037B2  _aux_txt                           shots
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZED                        000037B8    0000002D =          45. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000037B8  _trayectoria1                      shots
+     000037CC  _redFlag                           shots
+     000037DA  _timer0                            shots
+     000037DC  _timer1                            shots
+     000037DE  _nTimeLast                         shots
+     000037E2  _score                             shots
+     000037E4  _cambio_score                      shots
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSINIT                             000037E5    0000000F =          15. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000037E5  gsinit                             crt0
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSFINAL                            000037F4    00000001 =           1. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZER                        000037F5    0000002D =          45. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER0                            00000000    00000003 =           3. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER1                            00000000    00000009 =           9. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+
+Files Linked                              [ module(s) ]
+
+shots.rel                                 [ shots ]
+crt0_cpc.rel                              [ crt0 ]
+
+
+Libraries Linked                          [ object file ]
+
+C:\retro\SDCC\bin\..\lib\z80/cpcrslib2.lib
+                                          [ Keyboard.rel ]
+C:\retro\SDCC\bin\..\lib\z80/alienlib.lib
+                                          [ alienlib.rel ]
+C:\retro\SDCC\bin\..\lib\z80/cpcrslib2.lib
+                                          [ GphStr.rel ]
+C:\retro\SDCC\bin\..\lib\z80/cpcwyzlib.lib
+                                          [ Wyz.rel ]
+C:\retro\SDCC\bin\..\lib\z80/cpcrslib2.lib
+                                          [ cpcrslib2.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ divmixed.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ sprintf.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ divsigned.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ printf_large.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ divunsigned.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ strlen.rel ]
+C:\retro\SDCC\bin\..\lib\z80/z80.lib      [ crtcall.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+
+User Base Address Definitions
+
+_CODE = 0x0138
+_DATA = 0x0000
+
+

@@ -1,0 +1,13 @@
+-mjwx
+-i test01.ihx
+-b _CODE = 0x0138
+-b _DATA = 0x0000
+-k C:\retro\SDCC\bin\..\lib\z80
+-l cpcrslib2.lib
+-l cpcwyzlib.lib
+-l alienlib.lib
+-l z80
+test01.rel
+crt0_cpc.rel
+
+-e
