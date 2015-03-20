@@ -47,10 +47,10 @@ ds_restoreSP:
    
 inicializar:
     ld a,(de)
-    ld (#alto),a
+    ld (#ancho),a
     inc de
     ld a,(de)
-    ld (#ancho),a
+    ld (#alto),a
     ld a,b
     ld (#coord_x),a
     ld a,c
@@ -77,16 +77,26 @@ calculardireccion:			;busco la dirección de pantalla en la tabla de direcciones
     ld l,a
     jr nc,#calcularclipping
     inc h
-    ld (#screen_addr),hl
+
 ;;
 ;; calcularclipping
 ;;
 
 calcularclipping:
+
+    ld (#screen_addr),hl	;guardo la dirección de pantalla calculada antes
+
 y_menor_que_0:
     ld a,(#coord_y)
     or a
     jr c,#caso_1
+
+y_mas_h_mayorque_bottom:
+    ld a,(#coord_y)
+    ld bc,(#alto)
+    add b
+    cp #bottom
+    jr nc,#caso_3
     
 x_mas_w_mayorque_right:
     ld a,(#coord_x)
@@ -94,13 +104,6 @@ x_mas_w_mayorque_right:
     add c
     cp #right
     jr nc,#caso_2
-    
-y_mas_h_mayorque_bottom:
-    ld a,(#coord_y)
-    ld bc,(#alto)
-    add b
-    cp #bottom
-    jr nc,#caso_3
     
 x_menorque_0:
     ld a,(#coord_x)
@@ -137,14 +140,14 @@ caso_2:
     ld a,#right                  ;w = right - x
     sub b
     ld (#coord_x),a
-    jr #y_mas_h_mayorque_bottom
+    jr #cpct_drawSprite
     
 caso_3:
     ld bc,(#coord_x)
     ld a,#bottom                 ;h = bottom-y
     sub c
     ld (#alto),a
-    jr #x_menorque_0
+    jr #x_mas_w_mayorque_right
     
 caso_4:
     ld a,(#coord_x)             ;extra_left = -x
