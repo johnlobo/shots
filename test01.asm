@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.4.0 #8981 (Apr  5 2014) (MINGW32)
-; This file was generated Fri Mar 20 19:33:18 2015
+; Version 3.4.0 #8981 (Apr  5 2014) (MINGW64)
+; This file was generated Sun Mar 22 00:08:06 2015
 ;--------------------------------------------------------
 	.module test01
 	.optsdcc -mz80
@@ -129,13 +129,13 @@ _main:
 	push	hl
 	call	_cpc_SetColour
 	pop	af
-;test01.c:54: for (i=0;i<200;i=i+5){
-	ld	d,#0x00
-;test01.c:55: for (j=0;j<79;j=j+3){
+;test01.c:54: for (i=5;i<195;i=i+5){
+	ld	d,#0x05
+;test01.c:55: for (j=3;j<77;j=j+3){
 00109$:
-	ld	e,#0x00
+	ld	e,#0x03
 00103$:
-;test01.c:57: drawSprite_clipping_m0(heart,j,i);
+;test01.c:56: drawSprite_clipping_m0(heart,j,i);
 	ld	bc,#_heart
 	push	de
 	push	de
@@ -144,25 +144,88 @@ _main:
 	pop	af
 	pop	af
 	pop	de
-;test01.c:55: for (j=0;j<79;j=j+3){
+;test01.c:55: for (j=3;j<77;j=j+3){
 	inc	e
 	inc	e
 	inc	e
 	ld	a,e
-	sub	a, #0x4F
+	sub	a, #0x4D
 	jr	C,00103$
-;test01.c:54: for (i=0;i<200;i=i+5){
+;test01.c:54: for (i=5;i<195;i=i+5){
 	ld	a,d
 	add	a, #0x05
 	ld	d,a
-	sub	a, #0xC8
+	sub	a, #0xC3
 	jr	C,00109$
-;test01.c:61: pause(1000);
-	ld	hl,#0x03E8
+;test01.c:61: drawSprite_clipping_m0(heart,-1,100);
+	ld	de,#_heart
+	ld	hl,#0x64FF
 	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:62: drawSprite_clipping_m0(heart,78,100);
+	ld	de,#_heart
+	ld	hl,#0x644E
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:63: drawSprite_clipping_m0(heart,39,-1);
+	ld	de,#_heart
+	ld	hl,#0xFF27
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:64: drawSprite_clipping_m0(heart,39,196);
+	ld	de,#_heart
+	ld	hl,#0xC427
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:65: drawSprite_clipping_m0(heart,-1,-1);
+	ld	de,#_heart
+	ld	hl,#0xFFFF
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:66: drawSprite_clipping_m0(heart,78,-1);
+	ld	de,#_heart
+	ld	hl,#0xFF4E
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:67: drawSprite_clipping_m0(heart,78,196);
+	ld	de,#_heart
+	ld	hl,#0xC44E
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+	pop	af
+;test01.c:68: drawSprite_clipping_m0(heart,-1,196);
+	ld	de,#_heart
+	ld	hl,#0xC4FF
+	push	hl
+	push	de
+	call	_drawSprite_clipping_m0
+	pop	af
+;test01.c:70: pause(5000);
+	ld	hl, #0x1388
+	ex	(sp),hl
 	call	_pause
 	pop	af
-;test01.c:62: cpc_EnableFirmware();
+;test01.c:71: cpc_EnableFirmware();
 	jp	_cpc_EnableFirmware
 _main_end::
 	.area _CODE

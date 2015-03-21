@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
-                              3 ; Version 3.4.0 #8981 (Apr  5 2014) (MINGW32)
-                              4 ; This file was generated Fri Mar 20 19:33:18 2015
+                              3 ; Version 3.4.0 #8981 (Apr  5 2014) (MINGW64)
+                              4 ; This file was generated Sun Mar 22 00:08:06 2015
                               5 ;--------------------------------------------------------
                               6 	.module test01
                               7 	.optsdcc -mz80
@@ -129,13 +129,13 @@
    003D E5            [11]  129 	push	hl
    003E CDr00r00      [17]  130 	call	_cpc_SetColour
    0041 F1            [10]  131 	pop	af
-                            132 ;test01.c:54: for (i=0;i<200;i=i+5){
-   0042 16 00         [ 7]  133 	ld	d,#0x00
-                            134 ;test01.c:55: for (j=0;j<79;j=j+3){
+                            132 ;test01.c:54: for (i=5;i<195;i=i+5){
+   0042 16 05         [ 7]  133 	ld	d,#0x05
+                            134 ;test01.c:55: for (j=3;j<77;j=j+3){
    0044                     135 00109$:
-   0044 1E 00         [ 7]  136 	ld	e,#0x00
+   0044 1E 03         [ 7]  136 	ld	e,#0x03
    0046                     137 00103$:
-                            138 ;test01.c:57: drawSprite_clipping_m0(heart,j,i);
+                            138 ;test01.c:56: drawSprite_clipping_m0(heart,j,i);
    0046 01r00r00      [10]  139 	ld	bc,#_heart
    0049 D5            [11]  140 	push	de
    004A D5            [11]  141 	push	de
@@ -144,63 +144,126 @@
    004F F1            [10]  144 	pop	af
    0050 F1            [10]  145 	pop	af
    0051 D1            [10]  146 	pop	de
-                            147 ;test01.c:55: for (j=0;j<79;j=j+3){
+                            147 ;test01.c:55: for (j=3;j<77;j=j+3){
    0052 1C            [ 4]  148 	inc	e
    0053 1C            [ 4]  149 	inc	e
    0054 1C            [ 4]  150 	inc	e
    0055 7B            [ 4]  151 	ld	a,e
-   0056 D6 4F         [ 7]  152 	sub	a, #0x4F
+   0056 D6 4D         [ 7]  152 	sub	a, #0x4D
    0058 38 EC         [12]  153 	jr	C,00103$
-                            154 ;test01.c:54: for (i=0;i<200;i=i+5){
+                            154 ;test01.c:54: for (i=5;i<195;i=i+5){
    005A 7A            [ 4]  155 	ld	a,d
    005B C6 05         [ 7]  156 	add	a, #0x05
    005D 57            [ 4]  157 	ld	d,a
-   005E D6 C8         [ 7]  158 	sub	a, #0xC8
+   005E D6 C3         [ 7]  158 	sub	a, #0xC3
    0060 38 E2         [12]  159 	jr	C,00109$
-                            160 ;test01.c:61: pause(1000);
-   0062 21 E8 03      [10]  161 	ld	hl,#0x03E8
-   0065 E5            [11]  162 	push	hl
-   0066 CDr00r00      [17]  163 	call	_pause
-   0069 F1            [10]  164 	pop	af
-                            165 ;test01.c:62: cpc_EnableFirmware();
-   006A C3r00r00      [10]  166 	jp	_cpc_EnableFirmware
-   006D                     167 _main_end::
-                            168 	.area _CODE
-                            169 	.area _INITIALIZER
-   0000                     170 __xinit__heart:
-   0000 03                  171 	.db #0x03	; 3
-   0001 05                  172 	.db #0x05	; 5
-   0002 50                  173 	.db #0x50	; 80	'P'
-   0003 14                  174 	.db #0x14	; 20
-   0004 00                  175 	.db #0x00	; 0
-   0005 B4                  176 	.db #0xB4	; 180
-   0006 3C                  177 	.db #0x3C	; 60
-   0007 28                  178 	.db #0x28	; 40
-   0008 B4                  179 	.db #0xB4	; 180
-   0009 3C                  180 	.db #0x3C	; 60
-   000A 28                  181 	.db #0x28	; 40
-   000B 14                  182 	.db #0x14	; 20
-   000C 3C                  183 	.db #0x3C	; 60
-   000D 00                  184 	.db #0x00	; 0
-   000E 00                  185 	.db #0x00	; 0
-   000F 28                  186 	.db #0x28	; 40
-   0010 00                  187 	.db #0x00	; 0
-   0011                     188 __xinit__tintas:
-   0011 14                  189 	.db #0x14	; 20
-   0012 01                  190 	.db #0x01	; 1
-   0013 0B                  191 	.db #0x0B	; 11
-   0014 09                  192 	.db #0x09	; 9
-   0015 0A                  193 	.db #0x0A	; 10
-   0016 0E                  194 	.db #0x0E	; 14
-   0017 0C                  195 	.db #0x0C	; 12
-   0018 1C                  196 	.db #0x1C	; 28
-   0019 1A                  197 	.db #0x1A	; 26
-   001A 16                  198 	.db #0x16	; 22
-   001B 1E                  199 	.db #0x1E	; 30
-   001C 13                  200 	.db #0x13	; 19
-   001D 1F                  201 	.db #0x1F	; 31
-   001E 17                  202 	.db #0x17	; 23
-   001F 15                  203 	.db #0x15	; 21
-   0020 10                  204 	.db #0x10	; 16
-   0021 14                  205 	.db #0x14	; 20
-                            206 	.area _CABS (ABS)
+                            160 ;test01.c:61: drawSprite_clipping_m0(heart,-1,100);
+   0062 11r00r00      [10]  161 	ld	de,#_heart
+   0065 21 FF 64      [10]  162 	ld	hl,#0x64FF
+   0068 E5            [11]  163 	push	hl
+   0069 D5            [11]  164 	push	de
+   006A CDr00r00      [17]  165 	call	_drawSprite_clipping_m0
+   006D F1            [10]  166 	pop	af
+   006E F1            [10]  167 	pop	af
+                            168 ;test01.c:62: drawSprite_clipping_m0(heart,78,100);
+   006F 11r00r00      [10]  169 	ld	de,#_heart
+   0072 21 4E 64      [10]  170 	ld	hl,#0x644E
+   0075 E5            [11]  171 	push	hl
+   0076 D5            [11]  172 	push	de
+   0077 CDr00r00      [17]  173 	call	_drawSprite_clipping_m0
+   007A F1            [10]  174 	pop	af
+   007B F1            [10]  175 	pop	af
+                            176 ;test01.c:63: drawSprite_clipping_m0(heart,39,-1);
+   007C 11r00r00      [10]  177 	ld	de,#_heart
+   007F 21 27 FF      [10]  178 	ld	hl,#0xFF27
+   0082 E5            [11]  179 	push	hl
+   0083 D5            [11]  180 	push	de
+   0084 CDr00r00      [17]  181 	call	_drawSprite_clipping_m0
+   0087 F1            [10]  182 	pop	af
+   0088 F1            [10]  183 	pop	af
+                            184 ;test01.c:64: drawSprite_clipping_m0(heart,39,196);
+   0089 11r00r00      [10]  185 	ld	de,#_heart
+   008C 21 27 C4      [10]  186 	ld	hl,#0xC427
+   008F E5            [11]  187 	push	hl
+   0090 D5            [11]  188 	push	de
+   0091 CDr00r00      [17]  189 	call	_drawSprite_clipping_m0
+   0094 F1            [10]  190 	pop	af
+   0095 F1            [10]  191 	pop	af
+                            192 ;test01.c:65: drawSprite_clipping_m0(heart,-1,-1);
+   0096 11r00r00      [10]  193 	ld	de,#_heart
+   0099 21 FF FF      [10]  194 	ld	hl,#0xFFFF
+   009C E5            [11]  195 	push	hl
+   009D D5            [11]  196 	push	de
+   009E CDr00r00      [17]  197 	call	_drawSprite_clipping_m0
+   00A1 F1            [10]  198 	pop	af
+   00A2 F1            [10]  199 	pop	af
+                            200 ;test01.c:66: drawSprite_clipping_m0(heart,78,-1);
+   00A3 11r00r00      [10]  201 	ld	de,#_heart
+   00A6 21 4E FF      [10]  202 	ld	hl,#0xFF4E
+   00A9 E5            [11]  203 	push	hl
+   00AA D5            [11]  204 	push	de
+   00AB CDr00r00      [17]  205 	call	_drawSprite_clipping_m0
+   00AE F1            [10]  206 	pop	af
+   00AF F1            [10]  207 	pop	af
+                            208 ;test01.c:67: drawSprite_clipping_m0(heart,78,196);
+   00B0 11r00r00      [10]  209 	ld	de,#_heart
+   00B3 21 4E C4      [10]  210 	ld	hl,#0xC44E
+   00B6 E5            [11]  211 	push	hl
+   00B7 D5            [11]  212 	push	de
+   00B8 CDr00r00      [17]  213 	call	_drawSprite_clipping_m0
+   00BB F1            [10]  214 	pop	af
+   00BC F1            [10]  215 	pop	af
+                            216 ;test01.c:68: drawSprite_clipping_m0(heart,-1,196);
+   00BD 11r00r00      [10]  217 	ld	de,#_heart
+   00C0 21 FF C4      [10]  218 	ld	hl,#0xC4FF
+   00C3 E5            [11]  219 	push	hl
+   00C4 D5            [11]  220 	push	de
+   00C5 CDr00r00      [17]  221 	call	_drawSprite_clipping_m0
+   00C8 F1            [10]  222 	pop	af
+                            223 ;test01.c:70: pause(5000);
+   00C9 21 88 13      [10]  224 	ld	hl, #0x1388
+   00CC E3            [19]  225 	ex	(sp),hl
+   00CD CDr00r00      [17]  226 	call	_pause
+   00D0 F1            [10]  227 	pop	af
+                            228 ;test01.c:71: cpc_EnableFirmware();
+   00D1 C3r00r00      [10]  229 	jp	_cpc_EnableFirmware
+   00D4                     230 _main_end::
+                            231 	.area _CODE
+                            232 	.area _INITIALIZER
+   0000                     233 __xinit__heart:
+   0000 03                  234 	.db #0x03	; 3
+   0001 05                  235 	.db #0x05	; 5
+   0002 50                  236 	.db #0x50	; 80	'P'
+   0003 14                  237 	.db #0x14	; 20
+   0004 00                  238 	.db #0x00	; 0
+   0005 B4                  239 	.db #0xB4	; 180
+   0006 3C                  240 	.db #0x3C	; 60
+   0007 28                  241 	.db #0x28	; 40
+   0008 B4                  242 	.db #0xB4	; 180
+   0009 3C                  243 	.db #0x3C	; 60
+   000A 28                  244 	.db #0x28	; 40
+   000B 14                  245 	.db #0x14	; 20
+   000C 3C                  246 	.db #0x3C	; 60
+   000D 00                  247 	.db #0x00	; 0
+   000E 00                  248 	.db #0x00	; 0
+   000F 28                  249 	.db #0x28	; 40
+   0010 00                  250 	.db #0x00	; 0
+   0011                     251 __xinit__tintas:
+   0011 14                  252 	.db #0x14	; 20
+   0012 01                  253 	.db #0x01	; 1
+   0013 0B                  254 	.db #0x0B	; 11
+   0014 09                  255 	.db #0x09	; 9
+   0015 0A                  256 	.db #0x0A	; 10
+   0016 0E                  257 	.db #0x0E	; 14
+   0017 0C                  258 	.db #0x0C	; 12
+   0018 1C                  259 	.db #0x1C	; 28
+   0019 1A                  260 	.db #0x1A	; 26
+   001A 16                  261 	.db #0x16	; 22
+   001B 1E                  262 	.db #0x1E	; 30
+   001C 13                  263 	.db #0x13	; 19
+   001D 1F                  264 	.db #0x1F	; 31
+   001E 17                  265 	.db #0x17	; 23
+   001F 15                  266 	.db #0x15	; 21
+   0020 10                  267 	.db #0x10	; 16
+   0021 14                  268 	.db #0x14	; 20
+                            269 	.area _CABS (ABS)

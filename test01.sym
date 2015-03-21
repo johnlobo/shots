@@ -16,7 +16,7 @@ Symbol Table
     _drawSprite_clipping_m0                                        **** GX
   2 _heart                                                         0000 GR
   0 _main                                                          002D GR
-  0 _main_end                                                      006D GR
+  0 _main_end                                                      00D4 GR
   0 _main_start                                                    002D GR
   0 _pause                                                         0000 GR
   0 _pause_end                                                     0012 GR
@@ -32,7 +32,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   6D   flags    0
+   0 _CODE                                      size   D4   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size   22   flags    0
    3 _DABS                                      size    0   flags    8

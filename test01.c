@@ -51,13 +51,22 @@ void main(){
 	
 	cpc_SetColour(17,3);
 	
-	for (i=0;i<200;i=i+5){
-		for (j=0;j<79;j=j+3){
-			//printSpriteXOR(heart,j,i,0);
+	for (i=5;i<195;i=i+5){
+		for (j=3;j<77;j=j+3){
 			drawSprite_clipping_m0(heart,j,i);
 		}
 	}
 	
-	pause(1000);
+	//drawSprite_clipping_m0(heart,0,0);
+	drawSprite_clipping_m0(heart,-1,100);
+	drawSprite_clipping_m0(heart,78,100);
+	drawSprite_clipping_m0(heart,39,-1);
+	drawSprite_clipping_m0(heart,39,196);
+	drawSprite_clipping_m0(heart,-1,-1);
+	drawSprite_clipping_m0(heart,78,-1);
+	drawSprite_clipping_m0(heart,78,196);
+	drawSprite_clipping_m0(heart,-1,196);
+	
+	pause(5000);
 	cpc_EnableFirmware();
 }

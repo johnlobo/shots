@@ -32,8 +32,9 @@ _drawSprite_clipping_m0::
 ;;
 ;; Constant values
 ;;
-.equ right, 160                   ;; Limite derecho en mode 0
-.equ bottom, 200                  ;; Limite inferior en mode 0       
+.equ right, 80                   ;; Limite derecho
+.equ bottom, 200                 ;; Limite inferior
+.equ limite_neg, 228       
 
    ;; GET Parameters from the stack (Pop is fastest way)
    LD (ds_restoreSP+1), SP    ;; [20] Save SP into placeholder of the instruction LD SP, 0, to quickly restore it later.
@@ -51,32 +52,17 @@ inicializar:
     inc de
     ld a,(de)
     ld (#alto),a
-    ld a,b
-    ld (#coord_x),a
+	inc de
+	ld (#sprite_addr),de
     ld a,c
+    ld (#coord_x),a
+    ld a,b
     ld (#coord_y),a
-    ld (#sprite_addr),de
-
-;;
-;;  calculardireccion
-;;  
-
-calculardireccion:			;busco la dirección de pantalla en la tabla de direcciones 
-    ld a,c         			;cargo la coordenada y del sprite en a
-    ld de,#direcciones_pantalla		;cargo la tabla de direcciones de pantalla
-    ld h,#0
-    ld l,a				;cargo HL con la coordenada y del sprite
-    add hl,hl				;Multiplico por dos la coordenda y porque los elementos de la tabla son de dos bytes 
-    add hl,de				;posiciono DE en el valor concreto de la tabla
-    ld a,(hl)
-    inc hl
-    ld h,(hl)
-    ld l,a
-    ld a,b				;cargo la coordenada x en A
-    add l				;añado la coordenada x a la dirección obtenida en la tabla
-    ld l,a
-    jr nc,#calcularclipping
-    inc h
+	xor a
+	ld (#extra_left),a
+	ld (#extra_left+1),a
+	ld (#extra_right),a
+	ld (#extra_right+1),a
 
 ;;
 ;; calcularclipping
@@ -84,23 +70,23 @@ calculardireccion:			;busco la dirección de pantalla en la tabla de direcciones
 
 calcularclipping:
 
-    ld (#screen_addr),hl	;guardo la dirección de pantalla calculada antes
-
-y_menor_que_0:
+y_menor_que_0:			;para calcularlo y poder calcular excesos de la coordenada y,
+						;compruebo si es mayor de 228. Esto permite 28 numeros negativos 
+						;y 228 positivos
     ld a,(#coord_y)
-    or a
-    jr c,#caso_1
+    cp #limite_neg
+    jp nc,#caso_1
 
 y_mas_h_mayorque_bottom:
     ld a,(#coord_y)
-    ld bc,(#alto)
+    ld bc,(#ancho)
     add b
     cp #bottom
     jr nc,#caso_3
     
 x_mas_w_mayorque_right:
     ld a,(#coord_x)
-    ld bc,(#alto)
+    ld bc,(#ancho)
     add c
     cp #right
     jr nc,#caso_2
@@ -108,23 +94,24 @@ x_mas_w_mayorque_right:
 x_menorque_0:
     ld a,(#coord_x)
     cp #0
-    jr c,#caso_4
+    jp m,#caso_4
     
-    jr #cpct_drawSprite
+    jr #calcular_direccion
     
 caso_1:                         ;sprite_address = sprite_address + w * (-y)
     neg  
     ld b,a                       ;ahora en a tengo -y
-    ld hl,#sprite_addr
+    ld hl,(#sprite_addr)
     ld d,#0
     ld a,(#ancho)
     ld e,a
 restar_ancho:
-    sbc hl,de
+    add hl,de
     djnz #restar_ancho
+	ld (#sprite_addr),hl
     ld a,(#alto)                ;h = h + y
     ld bc,(#coord_x)
-    add c
+    add b
     ld (#alto),a
     xor a
     ld (#coord_y),a             ;y = 0
@@ -132,45 +119,70 @@ restar_ancho:
     
 caso_2: 
     ld bc,(#coord_x)            ;extra_right = x + w - right
-    ld de,(#alto)
-    ld a,b
+    ld de,(#ancho)
+    ld a,c
     add e
     sub #right
-    ld (#extra_right+1),a       ;extra_right son dos bytes  
+    ld (#extra_right),a       ;extra_right son dos bytes  
     ld a,#right                  ;w = right - x
-    sub b
-    ld (#coord_x),a
-    jr #cpct_drawSprite
+    sub c
+    ld (#ancho),a
+    jr #calcular_direccion
     
 caso_3:
     ld bc,(#coord_x)
     ld a,#bottom                 ;h = bottom-y
-    sub c
+    sub b
     ld (#alto),a
     jr #x_mas_w_mayorque_right
     
 caso_4:
     ld a,(#coord_x)             ;extra_left = -x
     neg
-    ld (#extra_left+1),a        ;extra_left son dos bytes
+    ld (#extra_left),a        ;extra_left son dos bytes
     ld d,a                      ;w = w - extra_left
     ld a,(#ancho)
-    add d
+    sub d
     ld (#ancho),a
     xor a                       ;x = 0
     ld (#coord_x),a
-    
+
+	
+;;
+;;  calculardireccion
+;;  
+
+calcular_direccion:					;busco la dirección de pantalla en la tabla de direcciones 
+    ld a,(#coord_y)         			;cargo la coordenada y del sprite en a
+    ld de,#direcciones_pantalla		;cargo la tabla de direcciones de pantalla
+    ld h,#0
+    ld l,a						;cargo HL con la coordenada y del sprite
+    add hl,hl				;Multiplico por dos la coordenda y porque los elementos de la tabla son de dos bytes 
+    add hl,de				;posiciono DE en el valor concreto de la tabla
+    ld a,(hl)
+    inc hl
+    ld h,(hl)
+    ld l,a
+    ld a,(#coord_x)				;cargo la coordenada x en A
+    add l						;añado la coordenada x a la dirección obtenida en la tabla
+    ld l,a
+    jr nc,#cpct_drawSprite
+    inc h
 ;;
 ;; cpct_drawSprite
 ;;
 
 cpct_drawSprite:
 
-   ;; Añadido por el clipping
-   ld HL,(#sprite_addr)
-   ld DE,(#screen_addr)
+	;; Añadido por el clipping
+	ld (#screen_addr),hl	;guardo la dirección de pantalla calculada antes
 
-   ;; Modify code using width to jump in drawSpriteWidth
+	ld HL,(#sprite_addr)
+	ld DE,(#screen_addr)
+	ld bc,(#ancho)
+	;;
+
+	;; Modify code using width to jump in drawSpriteWidth
    LD  A, #126                   ;; [ 7] We need to jump 126 bytes (63 LDIs*2 bytes) minus the width of the sprite*2 (2B)
    SUB C                         ;; [ 4]    to do as much LDIs as bytes the Sprite is wide
    SUB C                         ;; [ 4]
@@ -288,8 +300,8 @@ ds_drawSpriteWidth:
 
 sprite_addr:     .dw #0
 screen_addr:     .dw #0
-alto:           .db #0	        ;alto del sprite a imprimir
 ancho:          .db #0	        ;ancho del sprite a imprimir
+alto:           .db #0	        ;alto del sprite a imprimir
 coord_x:         .db #0          ;coordenada x
 coord_y:         .db #0          ;coordenada y
 extra_right:    .db #0,#0	;almacena el ancho del sprite a imprimir
