@@ -1,5 +1,5 @@
 -mjwx
--i crt0_cpc.ihx
+-i test02.ihx
 -b _CODE = 0x0138
 -b _DATA = 0x0000
 -k /Developer/sdcc/bin/../share/sdcc/lib/z80
@@ -8,6 +8,7 @@
 -l cpcwyzlib.lib
 -l alienlib.lib
 -l z80
+test02.rel
 crt0_cpc.rel
 
 -e

@@ -1,0 +1,415 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.4.0 #8981 (Apr  5 2014) (Mac OS X i386)
+                              4 ; This file was generated Tue Mar 31 18:09:50 2015
+                              5 ;--------------------------------------------------------
+                              6 	.module test02
+                              7 	.optsdcc -mz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _main
+                             13 	.globl _setColours
+                             14 	.globl _pause
+                             15 	.globl _sprites
+                             16 	.globl _cpc_SetColour
+                             17 	.globl _cpc_SetMode
+                             18 	.globl _cpc_DisableFirmware
+                             19 	.globl _cpc_EnableFirmware
+                             20 	.globl _drawSprite_clipping_m0
+                             21 	.globl _way_points
+                             22 	.globl _redFlag
+                             23 	.globl _pos_ship
+                             24 ;--------------------------------------------------------
+                             25 ; special function registers
+                             26 ;--------------------------------------------------------
+                             27 ;--------------------------------------------------------
+                             28 ; ram data
+                             29 ;--------------------------------------------------------
+                             30 	.area _DATA
+   0000                      31 _pos_ship::
+   0000                      32 	.ds 2
+                             33 ;--------------------------------------------------------
+                             34 ; ram data
+                             35 ;--------------------------------------------------------
+                             36 	.area _INITIALIZED
+   0000                      37 _redFlag::
+   0000                      38 	.ds 14
+   000E                      39 _way_points::
+   000E                      40 	.ds 8
+                             41 ;--------------------------------------------------------
+                             42 ; absolute external ram data
+                             43 ;--------------------------------------------------------
+                             44 	.area _DABS (ABS)
+                             45 ;--------------------------------------------------------
+                             46 ; global & static initialisations
+                             47 ;--------------------------------------------------------
+                             48 	.area _HOME
+                             49 	.area _GSINIT
+                             50 	.area _GSFINAL
+                             51 	.area _GSINIT
+                             52 ;--------------------------------------------------------
+                             53 ; Home
+                             54 ;--------------------------------------------------------
+                             55 	.area _HOME
+                             56 	.area _HOME
+                             57 ;--------------------------------------------------------
+                             58 ; code
+                             59 ;--------------------------------------------------------
+                             60 	.area _CODE
+                             61 ;sprites.h:21: void sprites(void){
+                             62 ;	---------------------------------
+                             63 ; Function sprites
+                             64 ; ---------------------------------
+   0000                      65 _sprites_start::
+   0000                      66 _sprites:
+                             67 ;sprites.h:94: __endasm;
+   0000                      68 	_ship01:
+   0000 06 10                69 	.db 0x06, 0x10 ; Width x Height
+                             70 ; pixels
+   0002 00 00 00 00 00 00    71 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+   0008 00 00 44 88 00 00    72 	.db 0x00, 0x00, 0x44, 0x88, 0x00, 0x00
+   000E 00 00 04 08 00 00    73 	.db 0x00, 0x00, 0x04, 0x08, 0x00, 0x00
+   0014 00 00 0C 0C 00 00    74 	.db 0x00, 0x00, 0x0C, 0x0C, 0x00, 0x00
+   001A 00 00 18 24 00 00    75 	.db 0x00, 0x00, 0x18, 0x24, 0x00, 0x00
+   0020 00 00 18 24 00 00    76 	.db 0x00, 0x00, 0x18, 0x24, 0x00, 0x00
+   0026 00 00 4C 8C 00 00    77 	.db 0x00, 0x00, 0x4C, 0x8C, 0x00, 0x00
+   002C 00 88 0C 0C 44 00    78 	.db 0x00, 0x88, 0x0C, 0x0C, 0x44, 0x00
+   0032 00 88 0C 0C 44 00    79 	.db 0x00, 0x88, 0x0C, 0x0C, 0x44, 0x00
+   0038 00 8C 0C 0C 4C 00    80 	.db 0x00, 0x8C, 0x0C, 0x0C, 0x4C, 0x00
+   003E 00 8C CC 64 4C 00    81 	.db 0x00, 0x8C, 0xCC, 0x64, 0x4C, 0x00
+   0044 00 4C 98 64 8C 00    82 	.db 0x00, 0x4C, 0x98, 0x64, 0x8C, 0x00
+   004A 00 4C 0C 0C 8C 00    83 	.db 0x00, 0x4C, 0x0C, 0x0C, 0x8C, 0x00
+   0050 00 04 0C 0C 08 00    84 	.db 0x00, 0x04, 0x0C, 0x0C, 0x08, 0x00
+   0056 00 00 A9 A9 00 00    85 	.db 0x00, 0x00, 0xA9, 0xA9, 0x00, 0x00
+   005C 00 00 00 00 00 00    86 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+   0062                      87 	_bullet01:
+   0062 00 00                88 	.db 0x00,0x00
+   0064 14 28                89 	.db 0x14,0x28
+   0066 14 02                90 	.db 0x14,0x02
+   0068 01 02                91 	.db 0x01,0x02
+   006A 01 02                92 	.db 0x01,0x02
+   006C 01 02                93 	.db 0x01,0x02
+   006E 00 00                94 	.db 0x00,0x00
+   0070                      95 	_bullet02:
+   0070 00 00                96 	.db 0x00,0x00
+   0072 11 22                97 	.db 0x11,0x22
+   0074 11 8A                98 	.db 0x11,0x8A
+   0076 45 8A                99 	.db 0x45,0x8A
+   0078 00 00               100 	.db 0x00,0x00
+   007A                     101 	_heart:
+   007A 03 05               102 	.db 0x03, 0x05 ; Width x Height
+                            103 ; pixels
+   007C 01 54 00            104 	.db 0x01, 0x54, 0x00
+   007F 56 FC A8            105 	.db 0x56, 0xFC, 0xA8
+   0082 56 FC A8            106 	.db 0x56, 0xFC, 0xA8
+   0085 54 FC 00            107 	.db 0x54, 0xFC, 0x00
+   0088 00 A8 00            108 	.db 0x00, 0xA8, 0x00
+   008B                     109 	_plane:
+   008B 03 06               110 	.db 0x03, 0x06 ; Width x Height
+                            111 ; pixels
+   008D 00 8C 00            112 	.db 0x00, 0x8C, 0x00
+   0090 00 8C 00            113 	.db 0x00, 0x8C, 0x00
+   0093 23 FF 00            114 	.db 0x23, 0xFF, 0x00
+   0096 BF FF CC            115 	.db 0xBF, 0xFF, 0xCC
+   0099 00 CC 00            116 	.db 0x00, 0xCC, 0x00
+   009C 00 00 00            117 	.db 0x00, 0x00, 0x00
+   009F                     118 	_greenFlag:
+   009F 03 06               119 	.db 0x03, 0x06 ; Width x Height
+                            120 ; pixels
+   00A1 00 85 00            121 	.db 0x00, 0x85, 0x00
+   00A4 21 85 00            122 	.db 0x21, 0x85, 0x00
+   00A7 A5 85 00            123 	.db 0xA5, 0x85, 0x00
+   00AA A5 85 00            124 	.db 0xA5, 0x85, 0x00
+   00AD 00 01 00            125 	.db 0x00, 0x01, 0x00
+   00B0 00 01 00            126 	.db 0x00, 0x01, 0x00
+   00B3                     127 	_tintas:
+   00B3 14 01 0B 09 0A 0E   128 	.db 0x14,0x01,0x0b,0x09,0x0A,0x0E,0x0C,0x1C
+        0C 1C
+   00BB 1A 16 1E 13 1F 17   129 	.db 0x1A,0x16,0x1E,0x13,0x1F,0x17,0x15,0x10,0x14
+        15 10 14
+   00C4 C9            [10]  130 	ret
+   00C5                     131 _sprites_end::
+                            132 ;test02.c:22: void pause(unsigned int p){
+                            133 ;	---------------------------------
+                            134 ; Function pause
+                            135 ; ---------------------------------
+   00C5                     136 _pause_start::
+   00C5                     137 _pause:
+                            138 ;test02.c:24: for (i=0; i < p; i++) {
+   00C5 11 00 00      [10]  139 	ld	de,#0x0000
+   00C8                     140 00103$:
+   00C8 21 02 00      [10]  141 	ld	hl,#2
+   00CB 39            [11]  142 	add	hl,sp
+   00CC 7B            [ 4]  143 	ld	a,e
+   00CD 96            [ 7]  144 	sub	a, (hl)
+   00CE 7A            [ 4]  145 	ld	a,d
+   00CF 23            [ 6]  146 	inc	hl
+   00D0 9E            [ 7]  147 	sbc	a, (hl)
+   00D1 D0            [11]  148 	ret	NC
+                            149 ;test02.c:27: __endasm;
+   00D2 76            [ 4]  150 	halt
+                            151 ;test02.c:24: for (i=0; i < p; i++) {
+   00D3 13            [ 6]  152 	inc	de
+   00D4 18 F2         [12]  153 	jr	00103$
+   00D6 C9            [10]  154 	ret
+   00D7                     155 _pause_end::
+                            156 ;test02.c:35: void setColours()
+                            157 ;	---------------------------------
+                            158 ; Function setColours
+                            159 ; ---------------------------------
+   00D7                     160 _setColours_start::
+   00D7                     161 _setColours:
+                            162 ;test02.c:38: for (x=0; x<17; x++)
+   00D7 1E 00         [ 7]  163 	ld	e,#0x00
+   00D9                     164 00102$:
+                            165 ;test02.c:40: cpc_SetColour(x,tintas[x]);
+   00D9 21rB3r00      [10]  166 	ld	hl,#_tintas
+   00DC 16 00         [ 7]  167 	ld	d,#0x00
+   00DE 19            [11]  168 	add	hl, de
+   00DF 66            [ 7]  169 	ld	h,(hl)
+   00E0 D5            [11]  170 	push	de
+   00E1 E5            [11]  171 	push	hl
+   00E2 33            [ 6]  172 	inc	sp
+   00E3 7B            [ 4]  173 	ld	a,e
+   00E4 F5            [11]  174 	push	af
+   00E5 33            [ 6]  175 	inc	sp
+   00E6 CDr00r00      [17]  176 	call	_cpc_SetColour
+   00E9 F1            [10]  177 	pop	af
+   00EA D1            [10]  178 	pop	de
+                            179 ;test02.c:38: for (x=0; x<17; x++)
+   00EB 1C            [ 4]  180 	inc	e
+   00EC 7B            [ 4]  181 	ld	a,e
+   00ED D6 11         [ 7]  182 	sub	a, #0x11
+   00EF 38 E8         [12]  183 	jr	C,00102$
+                            184 ;test02.c:43: cpc_SetColour(17,3);
+   00F1 21 11 03      [10]  185 	ld	hl,#0x0311
+   00F4 E5            [11]  186 	push	hl
+   00F5 CDr00r00      [17]  187 	call	_cpc_SetColour
+   00F8 F1            [10]  188 	pop	af
+   00F9 C9            [10]  189 	ret
+   00FA                     190 _setColours_end::
+                            191 ;test02.c:46: void main(){
+                            192 ;	---------------------------------
+                            193 ; Function main
+                            194 ; ---------------------------------
+   00FA                     195 _main_start::
+   00FA                     196 _main:
+   00FA F5            [11]  197 	push	af
+   00FB F5            [11]  198 	push	af
+   00FC 3B            [ 6]  199 	dec	sp
+                            200 ;test02.c:49: cpc_DisableFirmware();
+   00FD CDr00r00      [17]  201 	call	_cpc_DisableFirmware
+                            202 ;test02.c:51: cpc_SetMode(0);
+   0100 AF            [ 4]  203 	xor	a, a
+   0101 F5            [11]  204 	push	af
+   0102 33            [ 6]  205 	inc	sp
+   0103 CDr00r00      [17]  206 	call	_cpc_SetMode
+   0106 33            [ 6]  207 	inc	sp
+                            208 ;test02.c:53: setColours();
+   0107 CDrD7r00      [17]  209 	call	_setColours
+                            210 ;test02.c:55: pos_ship.x = 0;
+   010A 21r00r00      [10]  211 	ld	hl,#_pos_ship+0
+   010D 36 00         [10]  212 	ld	(hl),#0x00
+                            213 ;test02.c:56: pos_ship.y = 0;
+   010F 21r01r00      [10]  214 	ld	hl,#(_pos_ship + 0x0001)
+   0112 36 00         [10]  215 	ld	(hl),#0x00
+                            216 ;test02.c:59: while (i<MAX_WAYPOINTS){
+   0114 FD 21 00 00   [14]  217 	ld	iy,#0
+   0118 FD 39         [15]  218 	add	iy,sp
+   011A FD 36 00 00   [19]  219 	ld	0 (iy),#0x00
+   011E                     220 00115$:
+   011E 21 00 00      [10]  221 	ld	hl, #0+0
+   0121 39            [11]  222 	add	hl, sp
+   0122 7E            [ 7]  223 	ld	a, (hl)
+   0123 D6 04         [ 7]  224 	sub	a, #0x04
+   0125 D2r49r02      [10]  225 	jp	NC,00117$
+                            226 ;test02.c:60: if ((pos_ship.x!=way_points[i].x) || (pos_ship.y!=way_points[i].y)){
+   0128 3Ar00r00      [13]  227 	ld	a,(#_pos_ship + 0)
+   012B FD 21 04 00   [14]  228 	ld	iy,#4
+   012F FD 39         [15]  229 	add	iy,sp
+   0131 FD 77 00      [19]  230 	ld	0 (iy),a
+   0134 21 00 00      [10]  231 	ld	hl, #0+0
+   0137 39            [11]  232 	add	hl, sp
+   0138 7E            [ 7]  233 	ld	a, (hl)
+   0139 FD 21 02 00   [14]  234 	ld	iy,#2
+   013D FD 39         [15]  235 	add	iy,sp
+   013F FD 77 00      [19]  236 	ld	0 (iy),a
+   0142 FD 36 01 00   [19]  237 	ld	1 (iy),#0x00
+   0146 FD CB 00 26   [23]  238 	sla	0 (iy)
+   014A FD CB 01 16   [23]  239 	rl	1 (iy)
+   014E 3Er0E         [ 7]  240 	ld	a,#<(_way_points)
+   0150 21 02 00      [10]  241 	ld	hl,#2
+   0153 39            [11]  242 	add	hl,sp
+   0154 86            [ 7]  243 	add	a, (hl)
+   0155 77            [ 7]  244 	ld	(hl),a
+   0156 3Es00         [ 7]  245 	ld	a,#>(_way_points)
+   0158 23            [ 6]  246 	inc	hl
+   0159 8E            [ 7]  247 	adc	a, (hl)
+   015A 77            [ 7]  248 	ld	(hl),a
+   015B FD 6E 00      [19]  249 	ld	l,0 (iy)
+   015E FD 66 01      [19]  250 	ld	h,1 (iy)
+   0161 7E            [ 7]  251 	ld	a,(hl)
+   0162 FD 21 01 00   [14]  252 	ld	iy,#1
+   0166 FD 39         [15]  253 	add	iy,sp
+   0168 FD 77 00      [19]  254 	ld	0 (iy),a
+   016B FD 21 02 00   [14]  255 	ld	iy,#2
+   016F FD 39         [15]  256 	add	iy,sp
+   0171 FD 34 00      [23]  257 	inc	0 (iy)
+   0174 20 03         [12]  258 	jr	NZ,00151$
+   0176 FD 34 01      [23]  259 	inc	1 (iy)
+   0179                     260 00151$:
+   0179 FD 21 04 00   [14]  261 	ld	iy,#4
+   017D FD 39         [15]  262 	add	iy,sp
+   017F FD 7E 00      [19]  263 	ld	a,0 (iy)
+   0182 FD 21 01 00   [14]  264 	ld	iy,#1
+   0186 FD 39         [15]  265 	add	iy,sp
+   0188 FD 96 00      [19]  266 	sub	a, 0 (iy)
+   018B 20 12         [12]  267 	jr	NZ,00111$
+   018D 21r01r00      [10]  268 	ld	hl, #(_pos_ship + 0x0001) + 0
+   0190 56            [ 7]  269 	ld	d,(hl)
+   0191 21 02 00      [10]  270 	ld	hl, #2
+   0194 39            [11]  271 	add	hl, sp
+   0195 7E            [ 7]  272 	ld	a, (hl)
+   0196 23            [ 6]  273 	inc	hl
+   0197 66            [ 7]  274 	ld	h, (hl)
+   0198 6F            [ 4]  275 	ld	l, a
+   0199 5E            [ 7]  276 	ld	e,(hl)
+   019A 7A            [ 4]  277 	ld	a,d
+   019B 93            [ 4]  278 	sub	a, e
+   019C CAr3Dr02      [10]  279 	jp	Z,00112$
+   019F                     280 00111$:
+                            281 ;test02.c:61: if (pos_ship.x<way_points[i].x){
+   019F 21 01 00      [10]  282 	ld	hl,#1
+   01A2 39            [11]  283 	add	hl,sp
+   01A3 FD 21 04 00   [14]  284 	ld	iy,#4
+   01A7 FD 39         [15]  285 	add	iy,sp
+   01A9 FD 7E 00      [19]  286 	ld	a,0 (iy)
+   01AC 96            [ 7]  287 	sub	a, (hl)
+   01AD 30 09         [12]  288 	jr	NC,00104$
+                            289 ;test02.c:62: pos_ship.x++;
+   01AF FD 7E 00      [19]  290 	ld	a,0 (iy)
+   01B2 3C            [ 4]  291 	inc	a
+   01B3 32r00r00      [13]  292 	ld	(#_pos_ship),a
+   01B6 18 18         [12]  293 	jr	00105$
+   01B8                     294 00104$:
+                            295 ;test02.c:63: }else if (pos_ship.x>way_points[i].x){
+   01B8 21 01 00      [10]  296 	ld	hl,#1
+   01BB 39            [11]  297 	add	hl,sp
+   01BC 7E            [ 7]  298 	ld	a,(hl)
+   01BD FD 21 04 00   [14]  299 	ld	iy,#4
+   01C1 FD 39         [15]  300 	add	iy,sp
+   01C3 FD 96 00      [19]  301 	sub	a, 0 (iy)
+   01C6 30 08         [12]  302 	jr	NC,00105$
+                            303 ;test02.c:64: pos_ship.x--;
+   01C8 FD 56 00      [19]  304 	ld	d,0 (iy)
+   01CB 15            [ 4]  305 	dec	d
+   01CC 21r00r00      [10]  306 	ld	hl,#_pos_ship
+   01CF 72            [ 7]  307 	ld	(hl),d
+   01D0                     308 00105$:
+                            309 ;test02.c:60: if ((pos_ship.x!=way_points[i].x) || (pos_ship.y!=way_points[i].y)){
+   01D0 3Ar01r00      [13]  310 	ld	a,(#(_pos_ship + 0x0001) + 0)
+   01D3 FD 21 01 00   [14]  311 	ld	iy,#1
+   01D7 FD 39         [15]  312 	add	iy,sp
+   01D9 FD 77 00      [19]  313 	ld	0 (iy),a
+                            314 ;test02.c:66: if (pos_ship.y<way_points[i].y){
+   01DC FD 21 02 00   [14]  315 	ld	iy,#2
+   01E0 FD 39         [15]  316 	add	iy,sp
+   01E2 FD 6E 00      [19]  317 	ld	l,0 (iy)
+   01E5 FD 66 01      [19]  318 	ld	h,1 (iy)
+   01E8 7E            [ 7]  319 	ld	a,(hl)
+   01E9 FD 77 00      [19]  320 	ld	0 (iy),a
+   01EC 21 02 00      [10]  321 	ld	hl,#2
+   01EF 39            [11]  322 	add	hl,sp
+   01F0 FD 21 01 00   [14]  323 	ld	iy,#1
+   01F4 FD 39         [15]  324 	add	iy,sp
+   01F6 FD 7E 00      [19]  325 	ld	a,0 (iy)
+   01F9 96            [ 7]  326 	sub	a, (hl)
+   01FA 30 0A         [12]  327 	jr	NC,00109$
+                            328 ;test02.c:67: pos_ship.y++;
+   01FC FD 7E 00      [19]  329 	ld	a,0 (iy)
+   01FF 3C            [ 4]  330 	inc	a
+   0200 21r01r00      [10]  331 	ld	hl,#(_pos_ship + 0x0001)
+   0203 77            [ 7]  332 	ld	(hl),a
+   0204 18 18         [12]  333 	jr	00110$
+   0206                     334 00109$:
+                            335 ;test02.c:68: }else if (pos_ship.y>way_points[i].y){
+   0206 21 02 00      [10]  336 	ld	hl,#2
+   0209 39            [11]  337 	add	hl,sp
+   020A 7E            [ 7]  338 	ld	a,(hl)
+   020B FD 21 01 00   [14]  339 	ld	iy,#1
+   020F FD 39         [15]  340 	add	iy,sp
+   0211 FD 96 00      [19]  341 	sub	a, 0 (iy)
+   0214 30 08         [12]  342 	jr	NC,00110$
+                            343 ;test02.c:69: pos_ship.y--;
+   0216 FD 56 00      [19]  344 	ld	d,0 (iy)
+   0219 15            [ 4]  345 	dec	d
+   021A 21r01r00      [10]  346 	ld	hl,#(_pos_ship + 0x0001)
+   021D 72            [ 7]  347 	ld	(hl),d
+   021E                     348 00110$:
+                            349 ;test02.c:71: drawSprite_clipping_m0(ship01,pos_ship.x,pos_ship.y);
+   021E 21r01r00      [10]  350 	ld	hl, #(_pos_ship + 0x0001) + 0
+   0221 56            [ 7]  351 	ld	d,(hl)
+   0222 21r00r00      [10]  352 	ld	hl, #_pos_ship + 0
+   0225 46            [ 7]  353 	ld	b,(hl)
+   0226 D5            [11]  354 	push	de
+   0227 33            [ 6]  355 	inc	sp
+   0228 C5            [11]  356 	push	bc
+   0229 33            [ 6]  357 	inc	sp
+   022A 21r00r00      [10]  358 	ld	hl,#_ship01
+   022D E5            [11]  359 	push	hl
+   022E CDr00r00      [17]  360 	call	_drawSprite_clipping_m0
+   0231 F1            [10]  361 	pop	af
+                            362 ;test02.c:72: pause(6);	
+   0232 21 06 00      [10]  363 	ld	hl, #0x0006
+   0235 E3            [19]  364 	ex	(sp),hl
+   0236 CDrC5r00      [17]  365 	call	_pause
+   0239 F1            [10]  366 	pop	af
+   023A C3r1Er01      [10]  367 	jp	00115$
+   023D                     368 00112$:
+                            369 ;test02.c:74: i++;
+   023D FD 21 00 00   [14]  370 	ld	iy,#0
+   0241 FD 39         [15]  371 	add	iy,sp
+   0243 FD 34 00      [23]  372 	inc	0 (iy)
+   0246 C3r1Er01      [10]  373 	jp	00115$
+   0249                     374 00117$:
+                            375 ;test02.c:77: pause(1000);
+   0249 21 E8 03      [10]  376 	ld	hl,#0x03E8
+   024C E5            [11]  377 	push	hl
+   024D CDrC5r00      [17]  378 	call	_pause
+   0250 F1            [10]  379 	pop	af
+                            380 ;test02.c:78: cpc_EnableFirmware();
+   0251 CDr00r00      [17]  381 	call	_cpc_EnableFirmware
+   0254 F1            [10]  382 	pop	af
+   0255 F1            [10]  383 	pop	af
+   0256 33            [ 6]  384 	inc	sp
+   0257 C9            [10]  385 	ret
+   0258                     386 _main_end::
+                            387 	.area _CODE
+                            388 	.area _INITIALIZER
+   0000                     389 __xinit__redFlag:
+   0000 02                  390 	.db #0x02	; 2
+   0001 06                  391 	.db #0x06	; 6
+   0002 00                  392 	.db #0x00	; 0
+   0003 2C                  393 	.db #0x2C	; 44
+   0004 14                  394 	.db #0x14	; 20
+   0005 2C                  395 	.db #0x2C	; 44
+   0006 3C                  396 	.db #0x3C	; 60
+   0007 2C                  397 	.db #0x2C	; 44
+   0008 3C                  398 	.db #0x3C	; 60
+   0009 2C                  399 	.db #0x2C	; 44
+   000A 00                  400 	.db #0x00	; 0
+   000B 04                  401 	.db #0x04	; 4
+   000C 00                  402 	.db #0x00	; 0
+   000D 04                  403 	.db #0x04	; 4
+   000E                     404 __xinit__way_points:
+   000E 00                  405 	.db #0x00	; 0
+   000F 00                  406 	.db #0x00	; 0
+   0010 3C                  407 	.db #0x3C	; 60
+   0011 0A                  408 	.db #0x0A	; 10
+   0012 28                  409 	.db #0x28	; 40
+   0013 0F                  410 	.db #0x0F	; 15
+   0014 0A                  411 	.db #0x0A	; 10
+   0015 B4                  412 	.db #0xB4	; 180
+                            413 	.area _CABS (ABS)

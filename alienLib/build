@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -x
+
+rm -f *.rel
+rm -f *.lib
+
+sdasz80 -o alienlib.s
+sdasz80 -o sprite_clipping.s
+
+sdar rc alienlib.lib alienlib.rel sprite_clipping.rel
+
+sudo cp alienlib.lib /Developer/sdcc/share/sdcc/lib/z80
+sudo cp alienlib.h /Developer/sdcc/share/sdcc/include
+
+set +x
+
+exit 0

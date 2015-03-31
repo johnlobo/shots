@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -x
+
+sdcc  -mz80 --code-loc 0x138 --data-loc 0 --fomit-frame-pointer --no-std-crt0  crt0_cpc.rel -l cpcrslib2.lib -l cpcwyzlib.lib -l alienlib.lib $1.c
+
+hex2bin $1.ihx
+
+iDsk $1.dsk -n -i $1.bin -t 1 -e 100 -c 100
+
+set +x
+
+exit 0
